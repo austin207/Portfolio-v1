@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useMemo } from "react"
+import { useState, useMemo, useEffect } from "react"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -59,7 +59,7 @@ export default function BlogSearch({ posts, onFilteredPosts }: BlogSearchProps) 
   }, [posts, searchTerm, selectedCategory, selectedTags])
 
   // Update parent component when filters change
-  useMemo(() => {
+  useEffect(() => {
     onFilteredPosts(filteredPosts)
   }, [filteredPosts, onFilteredPosts])
 

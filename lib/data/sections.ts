@@ -25,6 +25,9 @@ export interface PersonalInfo {
   location: string
   github: string
   linkedin: string
+  medium: string
+  instagram: string
+  twitter: string
   avatar: string
   birthDate: string
 }
@@ -38,6 +41,9 @@ export const personalInfo: PersonalInfo = {
   location: "Kochi, India",
   github: "https://github.com/austin207",
   linkedin: "https://linkedin.com/in/antony-austin",
+  medium: "https://medium.com/@antonyaustin",
+  instagram: "https://instagram.com/antony.austin",
+  twitter: "https://twitter.com/antonyaustin",
   avatar: "/placeholder.svg?height=400&width=400",
   birthDate: "March 16, 2005",
 }
