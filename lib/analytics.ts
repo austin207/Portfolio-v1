@@ -6,10 +6,10 @@ declare global {
   }
 }
 
-export const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_ID
+export const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_ID || "G-6ST0MG7F3G"
 
 export const pageview = (url: string) => {
-  if (typeof window !== "undefined" && window.gtag) {
+  if (typeof window !== "undefined" && window.gtag && GA_TRACKING_ID) {
     window.gtag("config", GA_TRACKING_ID, {
       page_path: url,
     })
@@ -27,7 +27,7 @@ export const event = ({
   label?: string
   value?: number
 }) => {
-  if (typeof window !== "undefined" && window.gtag) {
+  if (typeof window !== "undefined" && window.gtag && GA_TRACKING_ID) {
     window.gtag("event", action, {
       event_category: category,
       event_label: label,
@@ -66,5 +66,13 @@ export const trackDownload = (type: "resume" | "project_files") => {
     action: "download",
     category: "engagement",
     label: type,
+  })
+}
+
+export const trackSocialClick = (platform: string) => {
+  event({
+    action: "social_click",
+    category: "engagement",
+    label: platform,
   })
 }

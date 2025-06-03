@@ -23,8 +23,6 @@ export interface PersonalInfo {
   description: string
   email: string
   location: string
-  github: string
-  linkedin: string
   avatar: string
   birthDate: string
 }
@@ -36,8 +34,6 @@ export const personalInfo: PersonalInfo = {
     "Applied Electronics & Instrumentation Engineering undergraduate with expertise in hardware design, embedded systems, AI/ML, and robotics. Founder of VirtusCo.",
   email: "austinantony06@gmail.com",
   location: "Kochi, India",
-  github: "https://github.com/austin207",
-  linkedin: "https://linkedin.com/in/antony-austin",
   avatar: "/placeholder.svg?height=400&width=400",
   birthDate: "March 16, 2005",
 }
