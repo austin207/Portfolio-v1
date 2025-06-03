@@ -17,31 +17,35 @@ interface ProjectCardProps {
 export default function ProjectCard({ title, description, image, tags, github, demo, projectUrl }: ProjectCardProps) {
   return (
     <Card className="overflow-hidden bg-gray-800/50 border-gray-700 transition-all duration-300 hover:shadow-lg hover:shadow-cyan-900/20 hover:-translate-y-1">
-      <div className="relative h-48 overflow-hidden">
+      <div className="relative h-40 sm:h-48 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent z-10 opacity-60"></div>
-        <img src={image || "/placeholder.svg"} alt={title} className="w-full h-full object-cover" />
+        <img src={image || "/placeholder.svg"} alt={title} className="w-full h-full object-cover" loading="lazy" />
       </div>
-      <CardContent className="pt-6">
-        <h3 className="text-xl font-semibold mb-2 text-cyan-400">{title}</h3>
-        <p className="text-gray-300 text-sm mb-4 line-clamp-3">{description}</p>
+      <CardContent className="pt-4 sm:pt-6">
+        <h3 className="text-lg sm:text-xl font-semibold mb-2 text-cyan-400 line-clamp-1">{title}</h3>
+        <p className="text-gray-300 text-xs sm:text-sm mb-3 sm:mb-4 line-clamp-3">{description}</p>
 
-        <div className="flex flex-wrap gap-2 mb-4">
-          {tags.slice(0, 3).map((tag, index) => (
-            <Badge key={index} variant="outline" className="bg-gray-700/50 text-gray-300 border-gray-600">
+        <div className="flex flex-wrap gap-1 sm:gap-2 mb-3 sm:mb-4">
+          {tags.slice(0, 2).map((tag, index) => (
+            <Badge
+              key={index}
+              variant="outline"
+              className="bg-gray-700/50 text-gray-300 border-gray-600 text-xs px-1.5 py-0.5"
+            >
               {tag}
             </Badge>
           ))}
-          {tags.length > 3 && (
-            <Badge variant="outline" className="bg-gray-700/50 text-gray-300 border-gray-600">
-              +{tags.length - 3} more
+          {tags.length > 2 && (
+            <Badge variant="outline" className="bg-gray-700/50 text-gray-300 border-gray-600 text-xs px-1.5 py-0.5">
+              +{tags.length - 2} more
             </Badge>
           )}
         </div>
 
-        <div className="space-y-3">
+        <div className="space-y-2 sm:space-y-3">
           {projectUrl && (
-            <Link href={projectUrl}>
-              <Button className="w-full bg-gradient-to-r from-cyan-600 to-cyan-700 hover:from-cyan-500 hover:to-cyan-600 text-white font-medium">
+            <Link href={projectUrl} className="block">
+              <Button className="w-full bg-gradient-to-r from-cyan-600 to-cyan-700 hover:from-cyan-500 hover:to-cyan-600 text-white font-medium text-xs sm:text-sm py-1 h-auto sm:h-9">
                 View Details
               </Button>
             </Link>
@@ -55,8 +59,8 @@ export default function ProjectCard({ title, description, image, tags, github, d
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Github className="h-4 w-4" />
-                <span className="text-sm">Code</span>
+                <Github className="h-3 w-3 sm:h-4 sm:w-4" />
+                <span className="text-xs sm:text-sm">Code</span>
               </Link>
             )}
 
@@ -67,8 +71,8 @@ export default function ProjectCard({ title, description, image, tags, github, d
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <span className="text-sm">Live Demo</span>
-                <ExternalLink className="h-4 w-4" />
+                <span className="text-xs sm:text-sm">Live Demo</span>
+                <ExternalLink className="h-3 w-3 sm:h-4 sm:w-4" />
               </Link>
             )}
           </div>
