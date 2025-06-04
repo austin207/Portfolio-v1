@@ -44,7 +44,7 @@ export const personalInfo: PersonalInfo = {
   medium: "https://medium.com/@antonyaustin",
   instagram: "https://instagram.com/antony.austin",
   twitter: "https://twitter.com/antonyaustin",
-  avatar: "/placeholder.svg?height=400&width=400",
+  avatar: "/Profile.png",
   birthDate: "March 16, 2005",
 }
 

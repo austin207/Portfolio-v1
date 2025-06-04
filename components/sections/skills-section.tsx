@@ -19,8 +19,6 @@ export default function SkillsSection() {
       { name: "I2C", level: "Expert" as const },
       { name: "SPI", level: "Expert" as const },
       { name: "UART", level: "Expert" as const },
-      { name: "CAN", level: "Competent" as const },
-      { name: "Ethernet", level: "Competent" as const },
     ],
     web: [
       { name: "HTML", level: "Competent" as const },
@@ -51,7 +49,6 @@ export default function SkillsSection() {
       { name: "Fusion360", level: "Competent" as const },
       { name: "Oscilloscopes", level: "Expert" as const },
       { name: "Logic Analyzers", level: "Proficient" as const },
-      { name: "JTAG", level: "Competent" as const },
       { name: "Linux/CLI", level: "Proficient" as const },
       { name: "Raspberry Pi", level: "Expert" as const },
     ],

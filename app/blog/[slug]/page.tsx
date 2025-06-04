@@ -115,7 +115,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
         <div className="max-w-4xl mx-auto mt-12 p-6 bg-gray-800/50 border border-gray-700 rounded-lg">
           <div className="flex items-start gap-4">
             <img
-              src="/placeholder.svg?height=80&width=80"
+              src="/Profile.png?height=80&width=80"
               alt={post.author}
               className="w-20 h-20 rounded-full border-2 border-cyan-500"
             />

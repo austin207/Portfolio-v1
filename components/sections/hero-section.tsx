@@ -85,7 +85,7 @@ export default function HeroSection() {
           <div className="relative w-48 h-48 sm:w-56 sm:h-56 md:w-72 md:h-72">
             <div className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-500 to-purple-600 blur-xl opacity-20"></div>
             <img
-              src={personalInfo.avatar || "/placeholder.svg"}
+              src={personalInfo.avatar || "/Profile.png"}
               alt={personalInfo.name}
               className="rounded-full w-48 h-48 sm:w-56 sm:h-56 md:w-72 md:h-72 object-cover border-4 border-gray-800 relative z-10"
             />
