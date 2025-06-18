@@ -43,7 +43,7 @@ export default function HeroSection() {
             <Link href="/blog">
               <Button
                 variant="outline"
-                className="border-purple-700 text-purple-400 hover:bg-purple-950/30 text-sm md:text-base"
+                className="border-cyan-700 text-cyan-400 hover:bg-cyan-950/30 text-sm md:text-base"
               >
                 Technical Blog
               </Button>
@@ -57,6 +57,17 @@ export default function HeroSection() {
               </Button>
             </Link>
           </div>
+          <Button
+          variant="outline"
+          size="lg"
+          className="border-cyan-700 text-cyan-400 hover:bg-cyan-950/30 text-sm md:text-base"
+          asChild
+          >
+            <Link href="/certificates">
+            <Award className="mr-2 h-4 w-4" />
+              Certificates
+            </Link>
+        </Button>
           <div className="flex justify-center md:justify-start gap-4 pt-2">
             <Link href={socialLinks.github} className="text-gray-400 hover:text-white transition-colors">
               <Github className="h-5 w-5 md:h-6 md:w-6" />
@@ -82,17 +93,6 @@ export default function HeroSection() {
             </Link>
           </div>
         </div>
-        <Button
-          variant="outline"
-          size="lg"
-          className="bg-gray-800/50 border-gray-700 hover:bg-gray-700/50 text-white"
-          asChild
-          >
-          <Link href="/certificates">
-          <Award className="mr-2 h-4 w-4" />
-            Certificates
-          </Link>
-        </Button>
         <div className="w-full md:w-1/3 flex justify-center mt-8 md:mt-0">
           <div className="relative w-48 h-48 sm:w-56 sm:h-56 md:w-72 md:h-72">
             <div className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-500 to-purple-600 blur-xl opacity-20"></div>
