@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { google } from "googleapis";
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
+import readingTime from 'reading-time';
 
 export const runtime = "nodejs";
 
@@ -57,4 +61,42 @@ export async function POST(req: NextRequest) {
     console.error("Error sending email via Gmail API:", error);
     return NextResponse.json({ success: false, error: "Failed to send email" }, { status: 500 });
   }
+}
+
+
+
+export async function GET() {
+  const postsDirectory = path.join(process.cwd(), 'content/blog');
+  
+  if (!fs.existsSync(postsDirectory)) {
+    return NextResponse.json([]);
+  }
+
+  const fileNames = fs.readdirSync(postsDirectory);
+  const allPosts = fileNames
+    .filter(fileName => fileName.endsWith('.md'))
+    .map((fileName, index) => {
+      const slug = fileName.replace(/\.md$/, '');
+      const fullPath = path.join(postsDirectory, fileName);
+      const fileContents = fs.readFileSync(fullPath, 'utf8');
+      const { data, content } = matter(fileContents);
+      const readingStats = readingTime(content);
+
+      return {
+        id: (index + 1).toString(),
+        title: data.title || 'Untitled',
+        excerpt: data.excerpt || content.slice(0, 200) + '...',
+        content,
+        author: data.author || 'Austin',
+        publishedAt: data.date || new Date().toISOString(),
+        category: data.category || 'General',
+        tags: data.tags || [],
+        readingTime: Math.ceil(readingStats.minutes),
+        featured: data.featured || false,
+        image: data.image || '/blog-images/default.jpg',
+        slug
+      };
+    });
+
+  return NextResponse.json(allPosts);
 }

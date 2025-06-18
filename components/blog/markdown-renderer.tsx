@@ -5,12 +5,11 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
-import rehypeHighlight from 'rehype-highlight';
 import rehypeRaw from 'rehype-raw';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { oneDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import { oneDark, oneLight } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
@@ -28,9 +27,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
 
-// Import CSS for syntax highlighting and math
+// Import only KaTeX CSS
 import 'katex/dist/katex.min.css';
-import 'highlight.js/styles/github-dark.css';
 
 interface MarkdownRendererProps {
   content: string;
@@ -49,6 +47,8 @@ interface CodeBlockProps {
 
 const CodeBlock: React.FC<CodeBlockProps> = memo(({ children, className, inline, ...props }) => {
   const [copied, setCopied] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(true);
+  
   const match = /language-(\w+)/.exec(className || '');
   const language = match ? match[1] : 'text';
 
@@ -76,9 +76,9 @@ const CodeBlock: React.FC<CodeBlockProps> = memo(({ children, className, inline,
   return (
     <div className="relative group my-6">
       <div className="flex items-center justify-between bg-gray-800/80 px-4 py-2 rounded-t-lg border border-gray-700/50">
-        <Badge variant="outline" className="text-xs text-gray-300 border-gray-600">
+        <span className="text-xs text-gray-300 border border-gray-600 px-2 py-1 rounded">
           {language}
-        </Badge>
+        </span>
         <button
           onClick={handleCopy}
           className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors duration-200 text-sm"
@@ -98,7 +98,7 @@ const CodeBlock: React.FC<CodeBlockProps> = memo(({ children, className, inline,
         </button>
       </div>
       <SyntaxHighlighter
-        style={oneDark}
+        style={isDarkMode ? oneDark : oneLight}
         language={language}
         PreTag="div"
         className="!mt-0 !rounded-t-none border-x border-b border-gray-700/50 !bg-gray-900/50"
@@ -107,6 +107,7 @@ const CodeBlock: React.FC<CodeBlockProps> = memo(({ children, className, inline,
           padding: '1rem',
           fontSize: '0.875rem',
           lineHeight: '1.5',
+          background: 'rgba(17, 24, 39, 0.8)',
         }}
         showLineNumbers={true}
         lineNumberStyle={{
@@ -123,6 +124,57 @@ const CodeBlock: React.FC<CodeBlockProps> = memo(({ children, className, inline,
 });
 
 CodeBlock.displayName = 'CodeBlock';
+
+// Fixed Custom Paragraph Component - this is the key fix!
+const CustomParagraph: React.FC<any> = memo(({ children, ...props }) => {
+  // Check if children contain block elements that shouldn't be in paragraphs
+  const hasBlockElements = React.Children.toArray(children).some((child: any) => {
+    if (React.isValidElement(child)) {
+      // Check for common block elements that cause nesting issues
+      const blockTypes = ['div', 'pre', 'table', 'ul', 'ol', 'blockquote', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
+      
+      // Check direct element type
+      if (typeof child.type === 'string' && blockTypes.includes(child.type)) {
+        return true;
+      }
+      
+      // Check if it's a component that might render block elements
+      if (typeof child.type === 'function') {
+        const displayName = child.type.displayName || child.type.name || '';
+        if (displayName.includes('Code') || displayName.includes('Block') || displayName.includes('Card')) {
+          return true;
+        }
+      }
+      
+      // Check props for className that might indicate block content
+      if (child.props?.className && typeof child.props.className === 'string') {
+        const className = child.props.className;
+        if (className.includes('relative group') || className.includes('my-6') || className.includes('block')) {
+          return true;
+        }
+      }
+    }
+    return false;
+  });
+
+  // If we detect block elements, render as div instead of p
+  if (hasBlockElements) {
+    return (
+      <div className="my-4 text-gray-300 leading-relaxed" {...props}>
+        {children}
+      </div>
+    );
+  }
+
+  // Otherwise, render as a normal paragraph
+  return (
+    <p className="my-4 text-gray-300 leading-relaxed" {...props}>
+      {children}
+    </p>
+  );
+});
+
+CustomParagraph.displayName = 'CustomParagraph';
 
 const CustomImage: React.FC<any> = memo(({ src, alt, title, ...props }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -301,47 +353,6 @@ const CustomTableHeaderCell: React.FC<any> = memo(({ children, ...props }) => (
 
 CustomTableHeaderCell.displayName = 'CustomTableHeaderCell';
 
-const AlertBox: React.FC<{ type: 'info' | 'warning' | 'success'; children: React.ReactNode }> = memo(({ type, children }) => {
-  const configs = {
-    info: {
-      icon: Info,
-      bgColor: 'bg-blue-500/10',
-      borderColor: 'border-blue-500/30',
-      iconColor: 'text-blue-400'
-    },
-    warning: {
-      icon: AlertTriangle,
-      bgColor: 'bg-yellow-500/10',
-      borderColor: 'border-yellow-500/30',
-      iconColor: 'text-yellow-400'
-    },
-    success: {
-      icon: CheckCircle,
-      bgColor: 'bg-green-500/10',
-      borderColor: 'border-green-500/30',
-      iconColor: 'text-green-400'
-    }
-  };
-
-  const config = configs[type];
-  const IconComponent = config.icon;
-
-  return (
-    <Card className={`my-6 ${config.bgColor} border ${config.borderColor}`}>
-      <div className="p-4">
-        <div className="flex items-start gap-3">
-          <IconComponent className={`h-5 w-5 ${config.iconColor} mt-0.5 flex-shrink-0`} />
-          <div className="text-gray-300 [&>*:first-child]:mt-0 [&>*:last-child]:mb-0">
-            {children}
-          </div>
-        </div>
-      </div>
-    </Card>
-  );
-});
-
-AlertBox.displayName = 'AlertBox';
-
 export const MarkdownRenderer: React.FC<MarkdownRendererProps> = memo(({
   content,
   className = '',
@@ -391,12 +402,8 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = memo(({
       </li>
     ),
     
-    // Paragraph styling
-    p: ({ children, ...props }: any) => (
-      <p className="my-4 text-gray-300 leading-relaxed" {...props}>
-        {children}
-      </p>
-    ),
+    // Fixed paragraph component - this is the key fix!
+    p: CustomParagraph,
     
     // Horizontal rule
     hr: ({ ...props }) => (
