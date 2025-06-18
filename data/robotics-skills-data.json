@@ -1,0 +1,290 @@
+{
+    "name": "Robotics",
+    "id": "robotics",
+    "level": "Expert",
+    "description": "Comprehensive robotics expertise spanning multiple disciplines",
+    "color": "#00D4FF",
+    "status": "mastered",
+    "children": [
+      {
+        "name": "Mathematics",
+        "id": "mathematics",
+        "level": "Advanced",
+        "description": "Mathematical foundations for robotics systems",
+        "color": "#9333EA",
+        "status": "mastered",
+        "children": [
+          {
+            "name": "Control System Modeling",
+            "id": "control-modeling",
+            "level": "Advanced",
+            "description": "Mathematical modeling of control systems and dynamics",
+            "color": "#7C3AED",
+            "status": "mastered",
+            "children": []
+          },
+          {
+            "name": "Other Mathematical Concepts",
+            "id": "math-concepts",
+            "level": "Intermediate",
+            "description": "Linear algebra, calculus, differential equations",
+            "color": "#8B5CF6",
+            "status": "in-progress",
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "Mechanical",
+        "id": "mechanical",
+        "level": "Advanced",
+        "description": "Mechanical design and engineering principles",
+        "color": "#F59E0B",
+        "status": "mastered",
+        "children": [
+          {
+            "name": "Actuator Designs, DOF-based Designs",
+            "id": "actuator-designs",
+            "level": "Advanced",
+            "description": "Design and analysis of mechanical actuators and degrees of freedom",
+            "color": "#D97706",
+            "status": "mastered",
+            "children": []
+          },
+          {
+            "name": "Other Mechanical Concepts",
+            "id": "mechanical-concepts",
+            "level": "Intermediate",
+            "description": "Kinematics, dynamics, materials science",
+            "color": "#F59E0B",
+            "status": "in-progress",
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "Electronics",
+        "id": "electronics",
+        "level": "Expert",
+        "description": "Electronic systems design and implementation",
+        "color": "#10B981",
+        "status": "mastered",
+        "children": [
+          {
+            "name": "PCB Designing",
+            "id": "pcb-design",
+            "level": "Advanced",
+            "description": "Printed circuit board layout and design",
+            "color": "#059669",
+            "status": "mastered",
+            "children": []
+          },
+          {
+            "name": "Verilog/VHDL",
+            "id": "verilog-vhdl",
+            "level": "Intermediate",
+            "description": "Hardware description languages (to an extent)",
+            "color": "#047857",
+            "status": "in-progress",
+            "children": []
+          },
+          {
+            "name": "Analog Electronics",
+            "id": "analog-electronics",
+            "level": "Advanced",
+            "description": "Analog circuit design and analysis",
+            "color": "#065F46",
+            "status": "mastered",
+            "children": [
+              {
+                "name": "Analog Circuit Design, Amplifiers, Oscillators, Timers",
+                "id": "analog-circuits",
+                "level": "Advanced",
+                "description": "Design of analog circuits including amplifiers and timing circuits",
+                "color": "#064E3B",
+                "status": "mastered",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Digital Electronics",
+            "id": "digital-electronics",
+            "level": "Advanced",
+            "description": "Digital circuit design and protocols",
+            "color": "#10B981",
+            "status": "mastered",
+            "children": [
+              {
+                "name": "Communication Protocols",
+                "id": "communication-protocols",
+                "level": "Advanced",
+                "description": "I2C, SPI, UART, CAN bus, and other protocols",
+                "color": "#059669",
+                "status": "mastered",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Embedded Systems",
+            "id": "embedded-systems",
+            "level": "Expert",
+            "description": "Microcontroller and embedded system development",
+            "color": "#047857",
+            "status": "mastered",
+            "children": []
+          },
+          {
+            "name": "Sensors and Actuators",
+            "id": "sensors-actuators",
+            "level": "Advanced",
+            "description": "Integration and control of various sensors and actuators",
+            "color": "#065F46",
+            "status": "mastered",
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "Software",
+        "id": "software",
+        "level": "Expert",
+        "description": "Software development for robotics systems",
+        "color": "#3B82F6",
+        "status": "mastered",
+        "children": [
+          {
+            "name": "ROS & ROS2",
+            "id": "ros-ros2",
+            "level": "Expert",
+            "description": "Robot Operating System framework expertise",
+            "color": "#2563EB",
+            "status": "mastered",
+            "children": [
+              {
+                "name": "C, C++, Rust, Python",
+                "id": "ros-languages",
+                "level": "Expert",
+                "description": "Programming languages for ROS development",
+                "color": "#1D4ED8",
+                "status": "mastered",
+                "children": []
+              },
+              {
+                "name": "Gazebo, Unity",
+                "id": "simulation-tools",
+                "level": "Advanced",
+                "description": "Simulation environments for robotics",
+                "color": "#1E40AF",
+                "status": "mastered",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Embedded Programming",
+            "id": "embedded-programming",
+            "level": "Advanced",
+            "description": "Low-level programming for embedded systems",
+            "color": "#1E3A8A",
+            "status": "mastered",
+            "children": []
+          },
+          {
+            "name": "AI & ML",
+            "id": "ai-ml",
+            "level": "Advanced",
+            "description": "Artificial Intelligence and Machine Learning for robotics",
+            "color": "#312E81",
+            "status": "mastered",
+            "children": [
+              {
+                "name": "LLMs, RNNs, CNNs, etc.",
+                "id": "ml-models",
+                "level": "Advanced",
+                "description": "Various machine learning model architectures",
+                "color": "#1E1B4B",
+                "status": "mastered",
+                "children": []
+              },
+              {
+                "name": "LLM Engineering",
+                "id": "llm-engineering",
+                "level": "Advanced",
+                "description": "Large Language Model development and deployment",
+                "color": "#0F0A2E",
+                "status": "mastered",
+                "children": []
+              },
+              {
+                "name": "MCP (Model-Constrained Policy)",
+                "id": "mcp",
+                "level": "Intermediate",
+                "description": "Advanced robotics control using constrained policies",
+                "color": "#1A0A2E",
+                "status": "in-progress",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Control Algorithms",
+            "id": "control-algorithms",
+            "level": "Advanced",
+            "description": "Implementation of control theory in software",
+            "color": "#2563EB",
+            "status": "mastered",
+            "children": [
+              {
+                "name": "Program Versions of Math Concepts",
+                "id": "programmed-math",
+                "level": "Advanced",
+                "description": "Software implementation of mathematical control concepts",
+                "color": "#1D4ED8",
+                "status": "mastered",
+                "children": []
+              },
+              {
+                "name": "PID Controllers",
+                "id": "pid-controllers",
+                "level": "Expert",
+                "description": "Proportional-Integral-Derivative control implementation",
+                "color": "#1E40AF",
+                "status": "mastered",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Simulation / Real-time Systems",
+            "id": "simulation-realtime",
+            "level": "Advanced",
+            "description": "Real-time system development and simulation",
+            "color": "#1E3A8A",
+            "status": "mastered",
+            "children": []
+          },
+          {
+            "name": "Hardware-level Programming",
+            "id": "hardware-programming",
+            "level": "Advanced",
+            "description": "Low-level programming in C, C++, Rust",
+            "color": "#312E81",
+            "status": "mastered",
+            "children": []
+          },
+          {
+            "name": "High-level Prototyping",
+            "id": "high-level-prototyping",
+            "level": "Expert",
+            "description": "Rapid prototyping using Python",
+            "color": "#1E1B4B",
+            "status": "mastered",
+            "children": []
+          }
+        ]
+      }
+    ]
+  }
+  

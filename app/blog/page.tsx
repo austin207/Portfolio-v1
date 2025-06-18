@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { ArrowLeft } from "lucide-react"
+import { ArrowLeft, Home } from "lucide-react"
 import BlogCard from "@/components/blog/blog-card"
 import BlogSearch from "@/components/blog/blog-search"
 import { blogPosts, getFeaturedPosts } from "@/lib/data/blog-posts"
@@ -42,12 +42,18 @@ export default function BlogPage() {
     <main className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white">
       <div className="container mx-auto px-4 md:px-6 py-20">
         <div className="mb-8">
-          <Link href="/">
-            <Button variant="outline" className="border-cyan-700 text-cyan-400 hover:bg-cyan-950/30 mb-6">
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Home
+        <Button
+              variant="ghost"
+              size="sm"
+              className="text-gray-400 hover:text-white hover:bg-gray-800/50 backdrop-blur-sm transition-all duration-300 group"
+              asChild
+            >
+              <Link href="/">
+                <ArrowLeft className="h-4 w-4 mr-2 group-hover:-translate-x-1 transition-transform duration-300" />
+                <Home className="h-4 w-4 mr-2" />
+                Back to Home
+              </Link>
             </Button>
-          </Link>
           <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-600">
             Technical Blog
           </h1>

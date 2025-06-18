@@ -6,6 +6,7 @@ import { personalInfo } from "@/lib/data/sections"
 import { socialLinks } from "@/lib/data/social-links"
 import MobileNav from "@/components/mobile-nav"
 import { Award } from "lucide-react"
+import { GitBranch } from "lucide-react"
 
 export default function HeroSection() {
   const specializations = [
@@ -57,6 +58,17 @@ export default function HeroSection() {
               </Button>
             </Link>
           </div>
+          <Button
+            variant="outline"
+            size="lg" 
+            className="bg-gray-800/50 border-gray-700 hover:bg-gray-700/50 text-white"
+            asChild
+          >
+              <Link href="/skills-path">
+              <GitBranch className="mr-2 h-4 w-4" />
+                Skills Path
+              </Link>
+          </Button>
           <Button
           variant="outline"
           size="lg"
