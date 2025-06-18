@@ -57,16 +57,15 @@ export default function HeroSection() {
                 View Timeline
               </Button>
             </Link>
-          </div>
-          <Button
+            <Button
             variant="outline"
             size="lg" 
-            className="bg-gray-800/50 border-gray-700 hover:bg-gray-700/50 text-white"
+            className="border-cyan-700 text-cyan-400 hover:bg-cyan-950/30 text-sm md:text-base"
             asChild
-          >
+           >
               <Link href="/skills-path">
               <GitBranch className="mr-2 h-4 w-4" />
-                Skills Path
+                Skills Path 
               </Link>
           </Button>
           <Button
@@ -80,6 +79,7 @@ export default function HeroSection() {
               Certificates
             </Link>
         </Button>
+          </div>
           <div className="flex justify-center md:justify-start gap-4 pt-2">
             <Link href={socialLinks.github} className="text-gray-400 hover:text-white transition-colors">
               <Github className="h-5 w-5 md:h-6 md:w-6" />

@@ -28,9 +28,9 @@ export default function MobileNav() {
     { name: "Projects", href: "/projects" },
     { name: "Blog", href: "/blog" },
     { name: "Timeline", href: "/timeline" },
-    { name: "Skills Path", href: "/skills-path" }, // Add this line
     { name: "Certificates", href: "/certificates" },
     { name: "Contact", href: "/#contact" },
+    { name: "Skills Path", href: "/skills-path" },
   ]  
   
   return (
