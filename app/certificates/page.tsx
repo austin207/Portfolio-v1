@@ -89,7 +89,7 @@ export default function CertificatesPage() {
       image: "/certificates/",
       skills: ["Schematic Capture", "PCB Layout Design", "Net Management", "3D PCB Visualization", "Design Rule Setup & Management"],
       status: "Active",
-      category: "DevOps",
+      category: "PCB Designing",
     },
     {
       id: "cybersecurity-fundamentals",
@@ -193,10 +193,10 @@ export default function CertificatesPage() {
 
   const getCategoryColor = (category: string) => {
     const colors: Record<string, string> = {
-      "Cloud": "bg-cyan-500/20 text-cyan-300 border-cyan-400/50",
-      "AI/ML": "bg-purple-500/20 text-purple-300 border-purple-400/50",
-      "Web Development": "bg-emerald-500/20 text-emerald-300 border-emerald-400/50",
-      "DevOps": "bg-amber-500/20 text-amber-300 border-amber-400/50",
+      "Agentic AI": "bg-cyan-500/20 text-cyan-300 border-cyan-400/50",
+      "Robotics": "bg-purple-500/20 text-purple-300 border-purple-400/50",
+      "PCB Designing": "bg-emerald-500/20 text-emerald-300 border-emerald-400/50",
+      "Prompt Engineering": "bg-amber-500/20 text-amber-300 border-amber-400/50",
       "Security": "bg-red-500/20 text-red-300 border-red-400/50",
     }
     return colors[category] || "bg-gray-500/20 text-gray-300 border-gray-400/50"
