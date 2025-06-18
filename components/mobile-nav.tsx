@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { personalInfo } from "@/lib/data/sections"
 import { socialLinks } from "@/lib/data/social-links"
+import { Award } from "lucide-react"
+
 
 export default function MobileNav() {
   const [isOpen, setIsOpen] = useState(false)
@@ -26,8 +28,10 @@ export default function MobileNav() {
     { name: "Projects", href: "/projects" },
     { name: "Blog", href: "/blog" },
     { name: "Timeline", href: "/timeline" },
+    { name: "Certificates", href: "/certificates" },
     { name: "Contact", href: "/#contact" },
   ]
+  
 
   return (
     <div className="md:hidden">

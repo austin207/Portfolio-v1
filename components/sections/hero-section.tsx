@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge"
 import { personalInfo } from "@/lib/data/sections"
 import { socialLinks } from "@/lib/data/social-links"
 import MobileNav from "@/components/mobile-nav"
+import { Award } from "lucide-react"
 
 export default function HeroSection() {
   const specializations = [
@@ -81,6 +82,17 @@ export default function HeroSection() {
             </Link>
           </div>
         </div>
+        <Button
+          variant="outline"
+          size="lg"
+          className="bg-gray-800/50 border-gray-700 hover:bg-gray-700/50 text-white"
+          asChild
+          >
+          <Link href="/certificates">
+          <Award className="mr-2 h-4 w-4" />
+            Certificates
+          </Link>
+        </Button>
         <div className="w-full md:w-1/3 flex justify-center mt-8 md:mt-0">
           <div className="relative w-48 h-48 sm:w-56 sm:h-56 md:w-72 md:h-72">
             <div className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-500 to-purple-600 blur-xl opacity-20"></div>
