@@ -51,47 +51,36 @@ export const personalInfo: PersonalInfo = {
 export const testimonials: TestimonialData[] = [
   {
     id: "1",
-    name: "Dr. Rajesh Kumar",
-    role: "Professor",
-    company: "Electronics Engineering",
+    name: "Alwin George Thomas",
+    role: "CFO",
+    company: "VirtusCo",
     content:
-      "Antony's expertise in embedded systems and IoT is exceptional. His ambulance traffic management system could revolutionize emergency response in urban areas.",
+      "Austin is a highly skilled and reliable individual who delivers with quality and precision. His strong communication, problem-solving ability, and work ethic makes him a \"must need\" to any team.",
     rating: 5,
-    avatar: "/placeholder.svg?height=80&width=80",
+    avatar: "/Testimonials/Alwin.jpg",
     featured: true,
   },
   {
     id: "2",
-    name: "Sarah Mitchell",
-    role: "CEO",
-    company: "Yehi Australia",
+    name: "Xavier Alex",
+    role: "Private Banker",
+    company: "ICICI Bank",
     content:
-      "Working with Antony on our website was a fantastic experience. His technical skills and attention to detail are outstanding.",
+      "Antony created a phenomenal personal assistant for me using AI automation. It's transformed the way I manage tasks, projects, and information efficient, reliable, and surprisingly intuitive. His ability to blend cutting-edge AI with practical workflows is truly impressive.",
     rating: 5,
     avatar: "/placeholder.svg?height=80&width=80",
     featured: true,
   },
   {
     id: "3",
-    name: "Arjun Krishna",
-    role: "ML Engineer",
-    company: "Tech Startup",
+    name: "A. Azeem Kouther",
+    role: "CMO",
+    company: "VirtusCo",
     content:
       "Antony's AI/ML projects demonstrate deep understanding of modern technologies. His transformer implementation is particularly impressive.",
     rating: 5,
-    avatar: "/placeholder.svg?height=80&width=80",
+    avatar: "/Testimonials/Azeem.jpg",
     featured: true,
-  },
-  {
-    id: "4",
-    name: "Prof. Meera Nair",
-    role: "Head of Department",
-    company: "Rajagiri School of Engineering",
-    content:
-      "Antony consistently delivers exceptional work. His leadership in the robotics project was instrumental to our success.",
-    rating: 5,
-    avatar: "/placeholder.svg?height=80&width=80",
-    featured: false,
   },
 ]
 
