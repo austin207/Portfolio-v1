@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npx git-lfs install && npx git-lfs fetch && npx git-lfs checkout && next build",
+    "build": "git lfs install && git lfs fetch --all && git lfs checkout && next build",
     "start": "next start",
     "lint": "next lint",
     "create-project": "node scripts/create-project.js",
