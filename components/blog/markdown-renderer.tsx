@@ -39,15 +39,48 @@ interface MarkdownRendererProps {
 }
 
 interface CodeBlockProps {
-  children: string;
+  children: React.ReactNode;
   className?: string;
   inline?: boolean;
+  node?: any;
   [key: string]: any;
 }
 
-const CodeBlock: React.FC<CodeBlockProps> = memo(({ children, className, inline, ...props }) => {
+const CodeBlock: React.FC<CodeBlockProps> = memo(({ children, className, inline, node, ...props }) => {
   const [copied, setCopied] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(true);
+  
+  // Enhanced inline detection logic based on react-markdown behavior
+  const isInlineCode = useMemo(() => {
+    // Primary check: explicit inline prop from react-markdown
+    if (inline === true) return true;
+    if (inline === false) return false;
+    
+    // Secondary checks for edge cases
+    const content = String(children).trim();
+    const hasLanguageClass = className && className.startsWith('language-');
+    const hasNewlines = content.includes('\n');
+    const isShort = content.length <= 50;
+    const isSingleLine = !hasNewlines;
+    
+    // If no className at all, it's likely inline code
+    if (!className) {
+      return true;
+    }
+    
+    // If no language class and content is short/single line, treat as inline
+    if (!hasLanguageClass && (isShort || isSingleLine)) {
+      return true;
+    }
+    
+    // If has language class but is very short and single line, check length
+    if (hasLanguageClass && isSingleLine && content.length < 20) {
+      return true;
+    }
+    
+    // Default to block for everything else with language classes
+    return false;
+  }, [inline, children, className]);
   
   const match = /language-(\w+)/.exec(className || '');
   const language = match ? match[1] : 'text';
@@ -62,10 +95,11 @@ const CodeBlock: React.FC<CodeBlockProps> = memo(({ children, className, inline,
     }
   };
 
-  if (inline) {
+  // Render inline code for single backticks
+  if (isInlineCode) {
     return (
       <code 
-        className="bg-gray-800/50 text-cyan-300 px-2 py-1 rounded-md text-sm font-mono border border-gray-700/50" 
+        className="bg-gray-800/50 text-cyan-300 px-2 py-1 rounded-md text-sm font-mono border border-gray-700/50 whitespace-nowrap inline-block" 
         {...props}
       >
         {children}
@@ -73,6 +107,7 @@ const CodeBlock: React.FC<CodeBlockProps> = memo(({ children, className, inline,
     );
   }
 
+  // Render block code for triple backticks
   return (
     <div className="relative group my-6">
       <div className="flex items-center justify-between bg-gray-800/80 px-4 py-2 rounded-t-lg border border-gray-700/50">
@@ -109,7 +144,7 @@ const CodeBlock: React.FC<CodeBlockProps> = memo(({ children, className, inline,
           lineHeight: '1.5',
           background: 'rgba(17, 24, 39, 0.8)',
         }}
-        showLineNumbers={true}
+        showLineNumbers={language !== 'text' && String(children).split('\n').length > 1}
         lineNumberStyle={{
           color: '#6b7280',
           fontSize: '0.75rem',
@@ -125,13 +160,13 @@ const CodeBlock: React.FC<CodeBlockProps> = memo(({ children, className, inline,
 
 CodeBlock.displayName = 'CodeBlock';
 
-// Fixed Custom Paragraph Component - this is the key fix!
+// Enhanced Custom Paragraph Component
 const CustomParagraph: React.FC<any> = memo(({ children, ...props }) => {
-  // Check if children contain block elements that shouldn't be in paragraphs
+  // Enhanced detection for block elements that shouldn't be in paragraphs
   const hasBlockElements = React.Children.toArray(children).some((child: any) => {
     if (React.isValidElement(child)) {
       // Check for common block elements that cause nesting issues
-      const blockTypes = ['div', 'pre', 'table', 'ul', 'ol', 'blockquote', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
+      const blockTypes = ['div', 'pre', 'table', 'ul', 'ol', 'blockquote', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'figure'];
       
       // Check direct element type
       if (typeof child.type === 'string' && blockTypes.includes(child.type)) {
@@ -141,7 +176,12 @@ const CustomParagraph: React.FC<any> = memo(({ children, ...props }) => {
       // Check if it's a component that might render block elements
       if (typeof child.type === 'function') {
         const displayName = child.type.displayName || child.type.name || '';
-        if (displayName.includes('Code') || displayName.includes('Block') || displayName.includes('Card')) {
+        // Enhanced detection for image components that render figures
+        if (displayName.includes('Code') || 
+            displayName.includes('Block') || 
+            displayName.includes('Card') ||
+            displayName.includes('Image') ||
+            displayName.includes('Figure')) {
           return true;
         }
       }
@@ -149,16 +189,43 @@ const CustomParagraph: React.FC<any> = memo(({ children, ...props }) => {
       // Check props for className that might indicate block content
       if (child.props?.className && typeof child.props.className === 'string') {
         const className = child.props.className;
-        if (className.includes('relative group') || className.includes('my-6') || className.includes('block')) {
+        if (className.includes('relative group') || 
+            className.includes('my-6') || 
+            className.includes('my-8') ||
+            className.includes('block') ||
+            className.includes('figure')) {
           return true;
         }
       }
+
+      // Check for img tags that will be converted to figures
+      if (typeof child.type === 'string' && child.type === 'img') {
+        return true;
+      }
+
+      // Check props for src attribute (indicating an image)
+      if (child.props?.src && typeof child.props.src === 'string') {
+        return true;
+      }
+    }
+
+    return false;
+  });
+
+  // Additional check: if the paragraph contains only an image and whitespace
+  const childArray = React.Children.toArray(children);
+  const hasOnlyImageAndWhitespace = childArray.length <= 2 && childArray.some((child: any) => {
+    if (React.isValidElement(child)) {
+      return (typeof child.type === 'function' && 
+              (child.type.displayName?.includes('Image') || 
+               child.type.name?.includes('Image'))) ||
+             (typeof child.type === 'string' && child.type === 'img');
     }
     return false;
   });
 
-  // If we detect block elements, render as div instead of p
-  if (hasBlockElements) {
+  // If we detect block elements or image-only content, render as div instead of p
+  if (hasBlockElements || hasOnlyImageAndWhitespace) {
     return (
       <div className="my-4 text-gray-300 leading-relaxed" {...props}>
         {children}
@@ -369,8 +436,24 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = memo(({
     h5: CustomHeading(5),
     h6: CustomHeading(6),
     
-    // Enhanced code blocks with syntax highlighting
-    code: CodeBlock,
+    // Enhanced code blocks with proper inline/block detection
+    code: ({ node, inline, className, children, ...props }: any) => {
+      return (
+        <CodeBlock
+          inline={inline}
+          className={className}
+          node={node}
+          {...props}
+        >
+          {children}
+        </CodeBlock>
+      );
+    },
+    
+    // Ensure pre elements don't interfere with code detection
+    pre: ({ children, ...props }: any) => {
+      return <>{children}</>;
+    },
     
     // Custom styled elements
     img: CustomImage,
@@ -402,7 +485,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = memo(({
       </li>
     ),
     
-    // Fixed paragraph component - this is the key fix!
+    // Enhanced paragraph component
     p: CustomParagraph,
     
     // Horizontal rule

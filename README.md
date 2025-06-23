@@ -1,30 +1,54 @@
-# Tech Enthusiast Portfolio
+# Portfolio of a Tech Enthusiast
 
-*Automatically synced with your [v0.dev](https://v0.dev) deployments*
-
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/austinantony06-gmailcoms-projects/v0-tech-enthusiast-portfolio)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.dev-black?style=for-the-badge)](https://v0.dev/chat/projects/D9ktPYRwvc0)
+Welcome to my portfolio! This repository showcases my projects, skills, and experiences in the tech industry.
 
 ## Overview
 
-This repository will stay in sync with your deployed chats on [v0.dev](https://v0.dev).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.dev](https://v0.dev).
+This portfolio is designed to highlight my work and achievements in various tech domains. It includes sections for my projects, skills, certifications, and a blog where I share insights and experiences.
+
+## Features
+
+- **Projects**: A collection of my work, showcasing my skills and expertise.
+- **Blog**: Articles and posts about technology, programming, and personal experiences.
+- **Certifications**: A list of my professional certifications and achievements.
+- **Contact**: A form to get in touch with me for collaborations or inquiries.
+
+## Technologies Used
+
+- React
+- TypeScript
+- Tailwind CSS
+- Vercel for deployment
 
 ## Deployment
 
-Your project is live at:
+You can view my portfolio live at: [Live Portfolio](https://vercel.com/austinantony06-gmailcoms-projects/v0-tech-enthusiast-portfolio)
 
-**[https://vercel.com/austinantony06-gmailcoms-projects/v0-tech-enthusiast-portfolio](https://vercel.com/austinantony06-gmailcoms-projects/v0-tech-enthusiast-portfolio)**
+## Getting Started
 
-## Build your app
+To run this project locally, follow these steps:
 
-Continue building your app on:
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/austin207/Portfolio-v1.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd repo-name
+   ```
+3. Install the dependencies:
+   ```bash
+   pnpm install
+   ```
+4. Start the development server:
+   ```bash
+   pnpm run dev
+   ```
 
-**[https://v0.dev/chat/projects/D9ktPYRwvc0](https://v0.dev/chat/projects/D9ktPYRwvc0)**
+## License
 
-## How It Works
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-1. Create and modify your project using [v0.dev](https://v0.dev)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+---
+
+Thank you for visiting my portfolio!

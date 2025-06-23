@@ -2,7 +2,7 @@
 title: "The Ultimate n8n Automation Guide"
 date: "2025-06-20"  # ISO format recommended
 tags: ["n8n", "AI Automation", "Agentic AI"]
-image: "/blog-images/my-image.jpg"
+image: "/blog-images/n8n.webp"
 excerpt: "This guide is designed to take you from the fundamentals of automation to building complex AI-powered agents using n8n. We'll cover the core concepts, tools, practical examples, and advanced techniques."
 ---
 
