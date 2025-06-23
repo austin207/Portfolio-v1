@@ -3,7 +3,7 @@ title: "Inside MiniGPT: Building a Transformer Language Model from Scratch on Mo
 date: "2025-06-18"
 author: "Austin"
 tags: ["LLMs", "AI", "Transformers", "FastAPi"]
-image: "/blog-images/MiniGPT.jpg"
+image: "/blog-images/MiniGPT.png"
 excerpt: "My journey on building a chat model"
 featured: true
 category: "LLM Development"
