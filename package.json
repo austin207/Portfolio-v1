@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "git lfs install && git remote set-url origin https://github.com/austin207/Portfolio-v1.git && git lfs fetch --all && git lfs checkout && next build",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "create-project": "node scripts/create-project.js",
