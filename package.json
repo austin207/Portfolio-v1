@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "create-project": "node scripts/create-project.js",
+    "validate-projects": "node scripts/validate-projects.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",

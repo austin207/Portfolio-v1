@@ -49,6 +49,30 @@ To run this project locally, follow these steps:
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+## Usage Instructions
+
+### Adding a New Project
+
+**Using the script (recommended):**
+
+```bash
+npm run create-project
+```
+
+**Manual creation:**
+
+1. Create a new JSON file in `content/projects/`.
+2. Use the template structure from the example above.
+3. Add images to `public/project-images/[project-slug]/`.
+
+### Validating Projects
+
+To validate your projects, run the following command:
+
+```bash
+npm run validate-projects
+```
+
 ---
 
 Thank you for visiting my portfolio!

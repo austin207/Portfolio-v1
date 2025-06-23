@@ -1,0 +1,96 @@
+{
+    "title": "AI/ML Language Model Prototyping",
+    "description": "A comprehensive exploration of language model architectures, from RNN-based text generators to transformer models, culminating in a custom LLaMA-like implementation.",
+    "image": "/project-images/ai-ml-language-models/hero.jpg",
+    "tags": ["PyTorch", "NLP", "Transformers", "RNN", "LLaMA", "Ollama", "Deep Learning"],
+    "status": "In Progress",
+    "duration": "April 2025 - Present",
+    "category": "AI/ML",
+    "github": "https://github.com/austin207/Transformer-Virtue-v2.git",
+    "demoUrl": "https://mini-llama-demo.vercel.app",
+    "videoUrl": "https://youtube.com/watch?v=demo-video",
+    "overview": "This project represents a deep dive into the world of language models, starting from basic RNN architectures and progressing to state-of-the-art transformer models. The goal is to understand the fundamental principles behind modern language models and implement them from scratch.",
+    "objectives": [
+      "Understand the evolution of language model architectures",
+      "Implement RNN-based text generation from scratch",
+      "Build a MiniGPT model optimized for modest hardware",
+      "Develop a scalable LLaMA-like transformer model",
+      "Integrate with Ollama for local deployment"
+    ],
+    "technologies": [
+      {
+        "name": "PyTorch",
+        "description": "Primary deep learning framework for model implementation"
+      },
+      {
+        "name": "Python",
+        "description": "Core programming language for all implementations"
+      },
+      {
+        "name": "Transformers",
+        "description": "Hugging Face library for model architectures"
+      },
+      {
+        "name": "Ollama",
+        "description": "Local LLM deployment and inference"
+      },
+      {
+        "name": "CUDA",
+        "description": "GPU acceleration for training and inference"
+      }
+    ],
+    "challenges": [
+      {
+        "title": "Memory Optimization",
+        "description": "Implementing efficient attention mechanisms for modest hardware",
+        "solution": "Developed gradient checkpointing and mixed precision training techniques"
+      },
+      {
+        "title": "Training Stability",
+        "description": "Ensuring stable training for transformer models from scratch",
+        "solution": "Implemented proper weight initialization and learning rate scheduling"
+      },
+      {
+        "title": "Model Architecture",
+        "description": "Designing a scalable architecture that balances performance and efficiency",
+        "solution": "Created modular components allowing for easy scaling and experimentation"
+      }
+    ],
+    "results": [
+      "Successfully implemented RNN-based text generator with coherent output",
+      "Developed MiniGPT model running efficiently on consumer hardware",
+      "Created modular transformer architecture for easy experimentation",
+      "Achieved competitive performance with significantly reduced model size"
+    ],
+    "futureWork": [
+      "Complete LLaMA-like model implementation",
+      "Implement advanced optimization techniques",
+      "Add support for multimodal inputs",
+      "Develop custom tokenization strategies"
+    ],
+    "repositories": [
+      {
+        "name": "RNN-LLM",
+        "url": "https://github.com/austin207/RNN-LLM.git",
+        "description": "RNN-based text generator implementation"
+      },
+      {
+        "name": "Transformer-Virtue-v2",
+        "url": "https://github.com/austin207/Transformer-Virtue-v2.git",
+        "description": "Custom transformer model architecture"
+      },
+      {
+        "name": "Mini-llama",
+        "url": "https://github.com/austin207/Mini-llama.git",
+        "description": "LLaMA-like model implementation (in development)"
+      }
+    ],
+    "gallery": [
+      "/project-images/ai-ml-language-models/architecture.png",
+      "/project-images/ai-ml-language-models/training-graph.png",
+      "/project-images/ai-ml-language-models/demo-screenshot.png"
+    ],
+    "featured": true,
+    "priority": 10
+  }
+  
