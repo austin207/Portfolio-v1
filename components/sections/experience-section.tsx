@@ -1,95 +1,25 @@
-import { Card, CardContent } from "@/components/ui/card"
 import ExperienceCard from "@/components/experience-card"
+import experienceData from "@/content/data/experience.json"
 
 export default function ExperienceSection() {
-  const experiences = [
-    {
-      title: "Freelance Web Developer",
-      company: "Remote",
-      period: "2023 - present",
-      location: "Kochi, India",
-      description: [
-        "Developing responsive websites for Yehi (Australia) and VirtusCo (India) using Next.js to enhance online presence and user experience.",
-        "Created and deployed VirtusCo's coming-soon website with Next.js, React.js, and responsive design.",
-        "Implementing SEO best practices and performance optimizations for improved visibility and efficiency.",
-      ],
-    },
-    {
-      title: "Engineer Intern",
-      company: "Roots Group of Companies",
-      period: "05/2025 - 06/2025",
-      location: "Coimbatore, India",
-      description: [
-        "Gained industrial experience in premium horn manufacturing, facility design, and electrical horn manufacturing.",
-        "Worked with advanced manufacturing processes and quality control systems.",
-        "Developed understanding of industrial automation and production optimization.",
-      ],
-    },
-    {
-      title: "Intern",
-      company: "Kerala Electrical and Allied Engineering Company",
-      period: "12/2024 - 12/2024",
-      location: "Kochi, India",
-      description: [
-        "Gained industrial experience in constructing, testing, and dispatching power transformers.",
-        "Developed expertise in transformer assembly, core winding, insulation, and mineral oil cooling.",
-        "Broadened understanding of power transmission systems and electrical distribution networks.",
-      ],
-    },
-  ]
-
-  const organizations = [
-    {
-      title: "Founder/CTO",
-      company: "VirtusCo",
-      period: "2025 - present",
-      location: "Kochi, India",
-      description: [
-        "Founded VirtusCo with a team to bridge resource gaps and nurture robotics talent.",
-        "Successfully shortlisted for startup incubation under IEDC.",
-        "Leading technical development and research to drive innovative robotic solutions.",
-      ],
-    },
-    {
-      title: "Head of Electronics Club",
-      company: "Model Technical Higher Secondary School",
-      period: "2019 - 2023",
-      location: "Kochi, India",
-      description: [
-        "Led and mentored three batches of 15 students in the Electronics Department, fostering collaboration and technical growth.",
-        "Organized workshops, tech fests, and project-based learning to enhance interest in electronics.",
-        "Showcased leadership and organizational skills in managing club activities and technical projects.",
-      ],
-    },
-  ]
-
-  const awards = [
-    {
-      title: "Product Delivery | (for KULIRMA Fans)",
-      company: "Rajagiri School of Engineering & Technology",
-      period: "03/2025",
-      description:
-        "Contributed to the development of a Robo-Based Mobile Sensing System for Indoor Air Delivery Measurement.",
-    },
-    {
-      title: "Electric ATV Competition",
-      company: "Saintgits College, Kottayam",
-      period: "12/2024",
-      description: "Achieved a podium finish in the RC electric ATV competition, competing against 12 colleges.",
-    },
-  ]
+  const { experiences, organizations, awards } = experienceData
 
   return (
-    <section id="experience" className="py-20 px-4 md:px-6">
-      <div className="container mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-600">
-          Experience & Organizations
-        </h2>
+    <section id="experience" className="py-28 px-4 md:px-6 relative">
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-cyan-500/[0.03] rounded-full blur-3xl" />
+      <div className="container mx-auto max-w-6xl relative">
+        <div className="flex items-center gap-4 mb-14">
+          <span className="section-number">05</span>
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+            Experience & Organizations
+          </h2>
+          <div className="flex-1 h-px bg-gradient-to-r from-white/[0.08] to-transparent ml-4" />
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div>
-            <h3 className="text-2xl font-semibold mb-6 text-cyan-400">Professional Experience</h3>
-            <div className="space-y-6">
+            <h3 className="text-xs font-mono mb-6 text-cyan-400 uppercase tracking-wider">Professional Experience</h3>
+            <div className="space-y-4">
               {experiences.map((exp, index) => (
                 <ExperienceCard key={index} {...exp} />
               ))}
@@ -97,25 +27,23 @@ export default function ExperienceSection() {
           </div>
 
           <div>
-            <h3 className="text-2xl font-semibold mb-6 text-cyan-400 mt-8 lg:mt-0">Organizations</h3>
-            <div className="space-y-6">
+            <h3 className="text-xs font-mono mb-6 text-cyan-400 uppercase tracking-wider mt-8 lg:mt-0">Organizations</h3>
+            <div className="space-y-4">
               {organizations.map((org, index) => (
                 <ExperienceCard key={index} {...org} />
               ))}
             </div>
 
-            <h3 className="text-2xl font-semibold mb-6 text-cyan-400 mt-8">Awards</h3>
-            <div className="space-y-4">
+            <h3 className="text-xs font-mono mb-4 text-cyan-400 uppercase tracking-wider mt-8">Awards</h3>
+            <div className="space-y-3">
               {awards.map((award, index) => (
-                <Card key={index} className="bg-gray-800/50 border-gray-700">
-                  <CardContent className="pt-6">
-                    <h4 className="text-lg font-medium mb-2">{award.title}</h4>
-                    <p className="text-sm text-gray-400">
-                      {award.company}, {award.period}
-                    </p>
-                    <p className="text-gray-300 mt-2">{award.description}</p>
-                  </CardContent>
-                </Card>
+                <div key={index} className="glass-card-hover p-5 gradient-border">
+                  <h4 className="text-base font-medium mb-1 text-foreground">{award.title}</h4>
+                  <p className="text-xs text-muted-foreground mb-2 font-mono">
+                    {award.company} &middot; {award.period}
+                  </p>
+                  <p className="text-sm text-muted-foreground">{award.description}</p>
+                </div>
               ))}
             </div>
           </div>

@@ -1,0 +1,50 @@
+{
+  "programming": [
+    { "name": "Embedded C", "level": "Expert" },
+    { "name": "C", "level": "Expert" },
+    { "name": "C++", "level": "Proficient" },
+    { "name": "Python", "level": "Expert" },
+    { "name": "VHDL/Verilog", "level": "Competent" }
+  ],
+  "hardware": [
+    { "name": "PCB Design", "level": "Expert" },
+    { "name": "Circuit Analysis", "level": "Expert" },
+    { "name": "Microcontrollers", "level": "Expert" },
+    { "name": "RTOS", "level": "Proficient" },
+    { "name": "System Architecture", "level": "Proficient" },
+    { "name": "I2C", "level": "Expert" },
+    { "name": "SPI", "level": "Expert" },
+    { "name": "UART", "level": "Expert" }
+  ],
+  "web": [
+    { "name": "HTML", "level": "Competent" },
+    { "name": "CSS", "level": "Competent" },
+    { "name": "JavaScript", "level": "Competent" },
+    { "name": "Next.js", "level": "Competent" },
+    { "name": "React.js", "level": "Competent" },
+    { "name": "Express.js", "level": "Competent" },
+    { "name": "Flutter", "level": "Proficient" }
+  ],
+  "ai": [
+    { "name": "PyTorch", "level": "Competent" },
+    { "name": "TensorFlow-Lite", "level": "Competent" },
+    { "name": "OpenCV", "level": "Proficient" },
+    { "name": "Computer Vision", "level": "Proficient" },
+    { "name": "MATLAB", "level": "Competent" },
+    { "name": "Hugging Face", "level": "Competent" },
+    { "name": "Ollama", "level": "Competent" },
+    { "name": "Prompt Engineering", "level": "Proficient" }
+  ],
+  "tools": [
+    { "name": "Altium Designer", "level": "Expert" },
+    { "name": "Eagle", "level": "Proficient" },
+    { "name": "KiCad", "level": "Proficient" },
+    { "name": "Git/GitHub", "level": "Proficient" },
+    { "name": "AutoCAD", "level": "Competent" },
+    { "name": "Fusion360", "level": "Competent" },
+    { "name": "Oscilloscopes", "level": "Expert" },
+    { "name": "Logic Analyzers", "level": "Proficient" },
+    { "name": "Linux/CLI", "level": "Proficient" },
+    { "name": "Raspberry Pi", "level": "Expert" }
+  ]
+}

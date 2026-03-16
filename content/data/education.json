@@ -1,0 +1,48 @@
+{
+  "education": [
+    {
+      "degree": "Bachelor of Technology in Applied Electronics and Instrumentation Engineering",
+      "institution": "Rajagiri School of Engineering & Technology",
+      "period": "2023 - 2027",
+      "location": "Kakkanad, India",
+      "description": "Currently in 6th Semester"
+    },
+    {
+      "degree": "Higher Secondary Education",
+      "institution": "Model Technical Higher Secondary School, (IHRD)",
+      "period": "2021 - 2023",
+      "location": "Kaloor, India",
+      "description": "Specialization in Electronics, C, C++, and Python"
+    },
+    {
+      "degree": "High School Education",
+      "institution": "Model Technical Higher Secondary School, (IHRD)",
+      "period": "2018 - 2021",
+      "location": "Kaloor, India"
+    }
+  ],
+  "certifications": [
+    {
+      "title": "Introduction to Prompt Engineering",
+      "issuer": "Simplilearn",
+      "date": "2024"
+    },
+    {
+      "title": "Prompt Engineering for Everyone",
+      "issuer": "Cognitive Class",
+      "date": "2024"
+    },
+    {
+      "title": "Robotics Intermediate Certification",
+      "issuer": "Shrishti Robotics",
+      "date": "05/2019",
+      "description": "Best performer, excelling in robotics design, programming, and implementation."
+    },
+    {
+      "title": "K.I.T.E. Technical Training",
+      "issuer": "Model Technical Higher Secondary School",
+      "date": "02/2021",
+      "description": "Top performer in technical training and educational initiatives."
+    }
+  ]
+}

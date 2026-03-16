@@ -13,13 +13,13 @@ import { oneDark, oneLight } from 'react-syntax-highlighter/dist/cjs/styles/pris
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { 
-  ExternalLink, 
-  Copy, 
-  Check, 
-  Quote, 
-  AlertTriangle, 
-  Info, 
+import {
+  ExternalLink,
+  Copy,
+  Check,
+  Quote,
+  AlertTriangle,
+  Info,
   CheckCircle,
   Link as LinkIcon
 } from 'lucide-react';
@@ -49,39 +49,39 @@ interface CodeBlockProps {
 const CodeBlock: React.FC<CodeBlockProps> = memo(({ children, className, inline, node, ...props }) => {
   const [copied, setCopied] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(true);
-  
+
   // Enhanced inline detection logic based on react-markdown behavior
   const isInlineCode = useMemo(() => {
     // Primary check: explicit inline prop from react-markdown
     if (inline === true) return true;
     if (inline === false) return false;
-    
+
     // Secondary checks for edge cases
     const content = String(children).trim();
     const hasLanguageClass = className && className.startsWith('language-');
     const hasNewlines = content.includes('\n');
     const isShort = content.length <= 50;
     const isSingleLine = !hasNewlines;
-    
+
     // If no className at all, it's likely inline code
     if (!className) {
       return true;
     }
-    
+
     // If no language class and content is short/single line, treat as inline
     if (!hasLanguageClass && (isShort || isSingleLine)) {
       return true;
     }
-    
+
     // If has language class but is very short and single line, check length
     if (hasLanguageClass && isSingleLine && content.length < 20) {
       return true;
     }
-    
+
     // Default to block for everything else with language classes
     return false;
   }, [inline, children, className]);
-  
+
   const match = /language-(\w+)/.exec(className || '');
   const language = match ? match[1] : 'text';
 
@@ -98,8 +98,8 @@ const CodeBlock: React.FC<CodeBlockProps> = memo(({ children, className, inline,
   // Render inline code for single backticks
   if (isInlineCode) {
     return (
-      <code 
-        className="bg-gray-800/50 text-cyan-300 px-2 py-1 rounded-md text-sm font-mono border border-gray-700/50 whitespace-nowrap inline-block" 
+      <code
+        className="bg-neutral-800 text-neutral-200 px-2 py-1 rounded-md text-sm font-mono border border-neutral-700/50 whitespace-nowrap inline-block"
         {...props}
       >
         {children}
@@ -110,19 +110,19 @@ const CodeBlock: React.FC<CodeBlockProps> = memo(({ children, className, inline,
   // Render block code for triple backticks
   return (
     <div className="relative group my-6">
-      <div className="flex items-center justify-between bg-gray-800/80 px-4 py-2 rounded-t-lg border border-gray-700/50">
-        <span className="text-xs text-gray-300 border border-gray-600 px-2 py-1 rounded">
+      <div className="flex items-center justify-between bg-neutral-800/80 px-4 py-2 rounded-t-lg border border-neutral-700/50">
+        <span className="text-xs text-neutral-400 border border-neutral-700 px-2 py-1 rounded">
           {language}
         </span>
         <button
           onClick={handleCopy}
-          className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors duration-200 text-sm"
+          className="flex items-center gap-2 text-neutral-500 hover:text-white transition-colors duration-200 text-sm"
           title="Copy code"
         >
           {copied ? (
             <>
-              <Check className="h-4 w-4 text-green-400" />
-              <span className="text-green-400">Copied!</span>
+              <Check className="h-4 w-4 text-neutral-300" />
+              <span className="text-neutral-300">Copied!</span>
             </>
           ) : (
             <>
@@ -136,17 +136,17 @@ const CodeBlock: React.FC<CodeBlockProps> = memo(({ children, className, inline,
         style={isDarkMode ? oneDark : oneLight}
         language={language}
         PreTag="div"
-        className="!mt-0 !rounded-t-none border-x border-b border-gray-700/50 !bg-gray-900/50"
+        className="!mt-0 !rounded-t-none border-x border-b border-neutral-700/50 !bg-neutral-900/50"
         customStyle={{
           margin: 0,
           padding: '1rem',
           fontSize: '0.875rem',
           lineHeight: '1.5',
-          background: 'rgba(17, 24, 39, 0.8)',
+          background: 'rgba(10, 10, 10, 0.8)',
         }}
         showLineNumbers={language !== 'text' && String(children).split('\n').length > 1}
         lineNumberStyle={{
-          color: '#6b7280',
+          color: '#525252',
           fontSize: '0.75rem',
           paddingRight: '1rem',
         }}
@@ -167,30 +167,30 @@ const CustomParagraph: React.FC<any> = memo(({ children, ...props }) => {
     if (React.isValidElement(child)) {
       // Check for common block elements that cause nesting issues
       const blockTypes = ['div', 'pre', 'table', 'ul', 'ol', 'blockquote', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'figure'];
-      
+
       // Check direct element type
       if (typeof child.type === 'string' && blockTypes.includes(child.type)) {
         return true;
       }
-      
+
       // Check if it's a component that might render block elements
       if (typeof child.type === 'function') {
         const displayName = child.type.displayName || child.type.name || '';
         // Enhanced detection for image components that render figures
-        if (displayName.includes('Code') || 
-            displayName.includes('Block') || 
+        if (displayName.includes('Code') ||
+            displayName.includes('Block') ||
             displayName.includes('Card') ||
             displayName.includes('Image') ||
             displayName.includes('Figure')) {
           return true;
         }
       }
-      
+
       // Check props for className that might indicate block content
       if (child.props?.className && typeof child.props.className === 'string') {
         const className = child.props.className;
-        if (className.includes('relative group') || 
-            className.includes('my-6') || 
+        if (className.includes('relative group') ||
+            className.includes('my-6') ||
             className.includes('my-8') ||
             className.includes('block') ||
             className.includes('figure')) {
@@ -216,8 +216,8 @@ const CustomParagraph: React.FC<any> = memo(({ children, ...props }) => {
   const childArray = React.Children.toArray(children);
   const hasOnlyImageAndWhitespace = childArray.length <= 2 && childArray.some((child: any) => {
     if (React.isValidElement(child)) {
-      return (typeof child.type === 'function' && 
-              (child.type.displayName?.includes('Image') || 
+      return (typeof child.type === 'function' &&
+              (child.type.displayName?.includes('Image') ||
                child.type.name?.includes('Image'))) ||
              (typeof child.type === 'string' && child.type === 'img');
     }
@@ -227,7 +227,7 @@ const CustomParagraph: React.FC<any> = memo(({ children, ...props }) => {
   // If we detect block elements or image-only content, render as div instead of p
   if (hasBlockElements || hasOnlyImageAndWhitespace) {
     return (
-      <div className="my-4 text-gray-300 leading-relaxed" {...props}>
+      <div className="my-4 text-neutral-400 leading-relaxed" {...props}>
         {children}
       </div>
     );
@@ -235,7 +235,7 @@ const CustomParagraph: React.FC<any> = memo(({ children, ...props }) => {
 
   // Otherwise, render as a normal paragraph
   return (
-    <p className="my-4 text-gray-300 leading-relaxed" {...props}>
+    <p className="my-4 text-neutral-400 leading-relaxed" {...props}>
       {children}
     </p>
   );
@@ -249,17 +249,17 @@ const CustomImage: React.FC<any> = memo(({ src, alt, title, ...props }) => {
 
   return (
     <figure className="my-8">
-      <div className="relative overflow-hidden rounded-lg border border-gray-700/50">
+      <div className="relative overflow-hidden rounded-lg border border-neutral-800">
         {isLoading && (
-          <div className="absolute inset-0 bg-gray-800/50 animate-pulse flex items-center justify-center">
-            <div className="text-gray-400">Loading image...</div>
+          <div className="absolute inset-0 bg-neutral-800/50 animate-pulse flex items-center justify-center">
+            <div className="text-neutral-500">Loading image...</div>
           </div>
         )}
         {error ? (
-          <div className="bg-gray-800/50 border-2 border-dashed border-gray-600 rounded-lg p-8 text-center">
-            <AlertTriangle className="h-8 w-8 text-yellow-500 mx-auto mb-2" />
-            <p className="text-gray-400">Failed to load image</p>
-            <p className="text-sm text-gray-500">{alt}</p>
+          <div className="bg-neutral-900 border-2 border-dashed border-neutral-700 rounded-lg p-8 text-center">
+            <AlertTriangle className="h-8 w-8 text-neutral-500 mx-auto mb-2" />
+            <p className="text-neutral-400">Failed to load image</p>
+            <p className="text-sm text-neutral-500">{alt}</p>
           </div>
         ) : (
           <Image
@@ -278,7 +278,7 @@ const CustomImage: React.FC<any> = memo(({ src, alt, title, ...props }) => {
         )}
       </div>
       {(alt || title) && (
-        <figcaption className="text-center text-sm text-gray-400 mt-3 italic">
+        <figcaption className="text-center text-sm text-neutral-500 mt-3 italic">
           {title || alt}
         </figcaption>
       )}
@@ -291,12 +291,12 @@ CustomImage.displayName = 'CustomImage';
 const CustomLink: React.FC<any> = memo(({ href, children, ...props }) => {
   const isInternal = href?.startsWith('/') || href?.startsWith('#');
   const isEmail = href?.startsWith('mailto:');
-  
+
   if (isInternal) {
     return (
-      <Link 
+      <Link
         href={href}
-        className="text-cyan-400 hover:text-cyan-300 transition-colors duration-200 underline decoration-cyan-400/50 hover:decoration-cyan-300 underline-offset-2"
+        className="text-white hover:text-neutral-300 transition-colors duration-200 underline decoration-neutral-600 hover:decoration-neutral-400 underline-offset-2"
         {...props}
       >
         {children}
@@ -309,7 +309,7 @@ const CustomLink: React.FC<any> = memo(({ href, children, ...props }) => {
       href={href}
       target={isEmail ? undefined : "_blank"}
       rel={isEmail ? undefined : "noopener noreferrer"}
-      className="inline-flex items-center gap-1 text-cyan-400 hover:text-cyan-300 transition-colors duration-200 underline decoration-cyan-400/50 hover:decoration-cyan-300 underline-offset-2"
+      className="inline-flex items-center gap-1 text-white hover:text-neutral-300 transition-colors duration-200 underline decoration-neutral-600 hover:decoration-neutral-400 underline-offset-2"
       {...props}
     >
       {children}
@@ -321,21 +321,21 @@ const CustomLink: React.FC<any> = memo(({ href, children, ...props }) => {
 CustomLink.displayName = 'CustomLink';
 
 const CustomBlockquote: React.FC<any> = memo(({ children, ...props }) => (
-  <Card className="my-6 bg-gray-800/30 border-l-4 border-l-cyan-500 border-gray-700/50">
+  <div className="my-6 rounded-lg bg-neutral-900/50 border-l-2 border-l-neutral-600 border border-neutral-800">
     <div className="p-6">
       <div className="flex items-start gap-3">
-        <Quote className="h-5 w-5 text-cyan-400 mt-1 flex-shrink-0" />
-        <blockquote className="text-gray-300 italic [&>*:first-child]:mt-0 [&>*:last-child]:mb-0" {...props}>
+        <Quote className="h-5 w-5 text-neutral-500 mt-1 flex-shrink-0" />
+        <blockquote className="text-neutral-300 italic [&>*:first-child]:mt-0 [&>*:last-child]:mb-0" {...props}>
           {children}
         </blockquote>
       </div>
     </div>
-  </Card>
+  </div>
 ));
 
 CustomBlockquote.displayName = 'CustomBlockquote';
 
-const CustomHeading = (level: 1 | 2 | 3 | 4 | 5 | 6) => 
+const CustomHeading = (level: 1 | 2 | 3 | 4 | 5 | 6) =>
   memo<any>(({ children, id, ...props }) => {
     const HeadingTag = `h${level}` as keyof JSX.IntrinsicElements;
     const sizes = {
@@ -346,7 +346,7 @@ const CustomHeading = (level: 1 | 2 | 3 | 4 | 5 | 6) =>
       5: 'text-lg font-medium',
       6: 'text-base font-medium'
     };
-    
+
     const margins = {
       1: 'mt-12 mb-6',
       2: 'mt-10 mb-5',
@@ -359,7 +359,7 @@ const CustomHeading = (level: 1 | 2 | 3 | 4 | 5 | 6) =>
     return (
       <HeadingTag
         id={id}
-        className={`${sizes[level]} ${margins[level]} text-white group relative scroll-mt-20`}
+        className={`${sizes[level]} ${margins[level]} text-white group relative scroll-mt-20 tracking-tight`}
         {...props}
       >
         {id && (
@@ -368,19 +368,17 @@ const CustomHeading = (level: 1 | 2 | 3 | 4 | 5 | 6) =>
             className="absolute -left-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
             aria-label={`Link to ${children}`}
           >
-            <LinkIcon className="h-4 w-4 text-gray-400 hover:text-cyan-400" />
+            <LinkIcon className="h-4 w-4 text-neutral-500 hover:text-white" />
           </a>
         )}
-        <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
-          {children}
-        </span>
+        {children}
       </HeadingTag>
     );
   });
 
 const CustomTable: React.FC<any> = memo(({ children, ...props }) => (
   <div className="my-6 overflow-x-auto">
-    <table className="w-full border-collapse bg-gray-800/30 rounded-lg overflow-hidden border border-gray-700/50" {...props}>
+    <table className="w-full border-collapse bg-neutral-900/30 rounded-lg overflow-hidden border border-neutral-800" {...props}>
       {children}
     </table>
   </div>
@@ -389,7 +387,7 @@ const CustomTable: React.FC<any> = memo(({ children, ...props }) => (
 CustomTable.displayName = 'CustomTable';
 
 const CustomTableHead: React.FC<any> = memo(({ children, ...props }) => (
-  <thead className="bg-gray-700/50" {...props}>
+  <thead className="bg-neutral-800/50" {...props}>
     {children}
   </thead>
 ));
@@ -397,7 +395,7 @@ const CustomTableHead: React.FC<any> = memo(({ children, ...props }) => (
 CustomTableHead.displayName = 'CustomTableHead';
 
 const CustomTableRow: React.FC<any> = memo(({ children, ...props }) => (
-  <tr className="border-b border-gray-700/30 hover:bg-gray-700/20 transition-colors duration-200" {...props}>
+  <tr className="border-b border-neutral-800/50 hover:bg-neutral-800/20 transition-colors duration-200" {...props}>
     {children}
   </tr>
 ));
@@ -405,7 +403,7 @@ const CustomTableRow: React.FC<any> = memo(({ children, ...props }) => (
 CustomTableRow.displayName = 'CustomTableRow';
 
 const CustomTableCell: React.FC<any> = memo(({ children, ...props }) => (
-  <td className="px-4 py-3 text-gray-300" {...props}>
+  <td className="px-4 py-3 text-neutral-400" {...props}>
     {children}
   </td>
 ));
@@ -413,7 +411,7 @@ const CustomTableCell: React.FC<any> = memo(({ children, ...props }) => (
 CustomTableCell.displayName = 'CustomTableCell';
 
 const CustomTableHeaderCell: React.FC<any> = memo(({ children, ...props }) => (
-  <th className="px-4 py-3 text-left font-semibold text-white" {...props}>
+  <th className="px-4 py-3 text-left font-semibold text-neutral-200" {...props}>
     {children}
   </th>
 ));
@@ -428,14 +426,14 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = memo(({
   customComponents = {}
 }) => {
   const components = useMemo(() => ({
-    // Headings with gradient styling and anchor links
+    // Headings with clean styling and anchor links
     h1: CustomHeading(1),
     h2: CustomHeading(2),
     h3: CustomHeading(3),
     h4: CustomHeading(4),
     h5: CustomHeading(5),
     h6: CustomHeading(6),
-    
+
     // Enhanced code blocks with proper inline/block detection
     code: ({ node, inline, className, children, ...props }: any) => {
       return (
@@ -449,17 +447,17 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = memo(({
         </CodeBlock>
       );
     },
-    
+
     // Ensure pre elements don't interfere with code detection
     pre: ({ children, ...props }: any) => {
       return <>{children}</>;
     },
-    
+
     // Custom styled elements
     img: CustomImage,
     a: CustomLink,
     blockquote: CustomBlockquote,
-    
+
     // Table components
     table: CustomTable,
     thead: CustomTableHead,
@@ -467,32 +465,32 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = memo(({
     tr: CustomTableRow,
     td: CustomTableCell,
     th: CustomTableHeaderCell,
-    
+
     // Lists with custom styling
     ul: ({ children, ...props }: any) => (
-      <ul className="my-4 space-y-2 list-disc list-inside text-gray-300 [&>li]:ml-4" {...props}>
+      <ul className="my-4 space-y-2 list-disc list-inside text-neutral-400 [&>li]:ml-4" {...props}>
         {children}
       </ul>
     ),
     ol: ({ children, ...props }: any) => (
-      <ol className="my-4 space-y-2 list-decimal list-inside text-gray-300 [&>li]:ml-4" {...props}>
+      <ol className="my-4 space-y-2 list-decimal list-inside text-neutral-400 [&>li]:ml-4" {...props}>
         {children}
       </ol>
     ),
     li: ({ children, ...props }: any) => (
-      <li className="text-gray-300 leading-relaxed" {...props}>
+      <li className="text-neutral-400 leading-relaxed" {...props}>
         {children}
       </li>
     ),
-    
+
     // Enhanced paragraph component
     p: CustomParagraph,
-    
+
     // Horizontal rule
     hr: ({ ...props }) => (
-      <Separator className="my-8 bg-gradient-to-r from-transparent via-gray-600 to-transparent" {...props} />
+      <Separator className="my-8 bg-neutral-800" {...props} />
     ),
-    
+
     // Strong and emphasis
     strong: ({ children, ...props }: any) => (
       <strong className="font-semibold text-white" {...props}>
@@ -500,11 +498,11 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = memo(({
       </strong>
     ),
     em: ({ children, ...props }: any) => (
-      <em className="italic text-cyan-300" {...props}>
+      <em className="italic text-neutral-300" {...props}>
         {children}
       </em>
     ),
-    
+
     // Merge custom components
     ...customComponents
   }), [customComponents]);

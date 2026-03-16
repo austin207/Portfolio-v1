@@ -4,5 +4,6 @@ export const socialLinks = {
   medium: "https://medium.com/@austinantony06",
   github: "https://github.com/austin207",
   instagram: "https://www.instagram.com/antonyavstin?igsh=Z3NpM3NuNjl4dmU0&utm_source=qr",
+  fiverr: "https://pro.fiverr.com/s/7Y9Kbq4",
   email: "austinantony06@gmail.com",
 }

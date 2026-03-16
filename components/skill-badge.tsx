@@ -1,6 +1,3 @@
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-
 interface SkillBadgeProps {
   name: string
   level: "Expert" | "Proficient" | "Competent" | "Beginner"
@@ -10,15 +7,30 @@ export default function SkillBadge({ name, level }: SkillBadgeProps) {
   const getLevelColor = () => {
     switch (level) {
       case "Expert":
-        return "bg-emerald-950/30 text-emerald-400 border-emerald-800"
+        return "text-cyan-400 bg-cyan-500/10 border-cyan-500/20"
       case "Proficient":
-        return "bg-cyan-950/30 text-cyan-400 border-cyan-800"
+        return "text-blue-400 bg-blue-500/10 border-blue-500/20"
       case "Competent":
-        return "bg-purple-950/30 text-purple-400 border-purple-800"
+        return "text-violet-400 bg-violet-500/10 border-violet-500/20"
       case "Beginner":
-        return "bg-amber-950/30 text-amber-400 border-amber-800"
+        return "text-muted-foreground bg-white/[0.03] border-white/[0.06]"
       default:
-        return "bg-gray-800 text-gray-300 border-gray-700"
+        return "text-muted-foreground bg-white/[0.03] border-white/[0.06]"
+    }
+  }
+
+  const getProgressColor = () => {
+    switch (level) {
+      case "Expert":
+        return "bg-gradient-to-r from-cyan-500 to-cyan-400"
+      case "Proficient":
+        return "bg-gradient-to-r from-blue-500 to-blue-400"
+      case "Competent":
+        return "bg-gradient-to-r from-violet-500 to-violet-400"
+      case "Beginner":
+        return "bg-white/20"
+      default:
+        return "bg-white/20"
     }
   }
 
@@ -38,20 +50,18 @@ export default function SkillBadge({ name, level }: SkillBadgeProps) {
   }
 
   return (
-    <Card className="bg-gray-800/50 border-gray-700">
-      <CardContent className="p-4">
-        <div className="flex justify-between items-center mb-2">
-          <span className="font-medium">{name}</span>
-          <Badge variant="outline" className={getLevelColor()}>
-            {level}
-          </Badge>
-        </div>
-        <div className="w-full bg-gray-700 rounded-full h-1.5">
-          <div
-            className={`bg-gradient-to-r from-cyan-500 to-purple-600 h-1.5 rounded-full ${getProgressWidth()}`}
-          ></div>
-        </div>
-      </CardContent>
-    </Card>
+    <div className="glass-card-hover p-4 gradient-border">
+      <div className="flex justify-between items-center mb-3">
+        <span className="font-medium text-sm text-foreground">{name}</span>
+        <span className={`text-[10px] px-2 py-0.5 rounded-full font-mono border ${getLevelColor()}`}>
+          {level}
+        </span>
+      </div>
+      <div className="w-full bg-white/[0.04] rounded-full h-1">
+        <div
+          className={`h-1 rounded-full ${getProgressColor()} ${getProgressWidth()} transition-all duration-500`}
+        ></div>
+      </div>
+    </div>
   )
 }

@@ -17,7 +17,6 @@ export default function BlogSearch({ posts, onFilteredPosts }: BlogSearchProps) 
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [selectedTags, setSelectedTags] = useState<string[]>([])
 
-  // Get unique categories and tags
   const categories = useMemo(() => {
     return Array.from(new Set(posts.map((p) => p.category)))
   }, [posts])
@@ -30,11 +29,9 @@ export default function BlogSearch({ posts, onFilteredPosts }: BlogSearchProps) 
     return Array.from(tags)
   }, [posts])
 
-  // Filter posts based on search criteria
   const filteredPosts = useMemo(() => {
     let filtered = posts
 
-    // Filter by search term
     if (searchTerm) {
       filtered = filtered.filter(
         (post) =>
@@ -45,12 +42,10 @@ export default function BlogSearch({ posts, onFilteredPosts }: BlogSearchProps) 
       )
     }
 
-    // Filter by category
     if (selectedCategory) {
       filtered = filtered.filter((post) => post.category === selectedCategory)
     }
 
-    // Filter by tags
     if (selectedTags.length > 0) {
       filtered = filtered.filter((post) => selectedTags.some((tag) => post.tags.includes(tag)))
     }
@@ -58,7 +53,6 @@ export default function BlogSearch({ posts, onFilteredPosts }: BlogSearchProps) 
     return filtered
   }, [posts, searchTerm, selectedCategory, selectedTags])
 
-  // Update parent component when filters change
   useEffect(() => {
     onFilteredPosts(filteredPosts)
   }, [filteredPosts, onFilteredPosts])
@@ -79,22 +73,22 @@ export default function BlogSearch({ posts, onFilteredPosts }: BlogSearchProps) 
     <div className="space-y-6">
       {/* Search Input */}
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-cyan-400/60" />
         <Input
           placeholder="Search articles by title, content, or technology..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="pl-10 bg-gray-800/50 border-gray-700 focus:border-cyan-500 focus:ring-cyan-500"
+          className="pl-10 glass-card border-white/[0.06] focus:border-cyan-500/30 focus:ring-cyan-500/20 text-foreground placeholder-muted-foreground"
         />
       </div>
 
       {/* Filters */}
       <div className="space-y-4">
         <div className="flex items-center gap-2">
-          <Filter className="h-4 w-4 text-gray-400" />
-          <span className="text-sm font-medium text-gray-300">Filters</span>
+          <Filter className="h-4 w-4 text-cyan-400/60" />
+          <span className="text-xs font-mono text-cyan-400/70 uppercase tracking-wider">Filters</span>
           {hasActiveFilters && (
-            <Button variant="ghost" size="sm" onClick={clearFilters} className="text-gray-400 hover:text-white">
+            <Button variant="ghost" size="sm" onClick={clearFilters} className="text-muted-foreground hover:text-cyan-400">
               <X className="h-3 w-3 mr-1" />
               Clear All
             </Button>
@@ -103,16 +97,16 @@ export default function BlogSearch({ posts, onFilteredPosts }: BlogSearchProps) 
 
         {/* Category Filter */}
         <div>
-          <h4 className="text-sm font-medium text-gray-400 mb-2">Category</h4>
+          <h4 className="text-xs font-mono text-cyan-400/70 uppercase tracking-wider mb-2">Category</h4>
           <div className="flex flex-wrap gap-2">
             {categories.map((category) => (
               <Badge
                 key={category}
                 variant={selectedCategory === category ? "default" : "outline"}
-                className={`cursor-pointer transition-colors ${
+                className={`cursor-pointer transition-colors rounded-full ${
                   selectedCategory === category
-                    ? "bg-cyan-600 text-white border-cyan-600"
-                    : "bg-gray-700/50 text-gray-300 border-gray-600 hover:bg-gray-600/50"
+                    ? "bg-cyan-500/10 text-cyan-400 border-cyan-500/20"
+                    : "bg-white/[0.03] text-muted-foreground border-white/[0.06] hover:bg-white/[0.06] hover:text-foreground"
                 }`}
                 onClick={() => setSelectedCategory(selectedCategory === category ? null : category)}
               >
@@ -124,16 +118,16 @@ export default function BlogSearch({ posts, onFilteredPosts }: BlogSearchProps) 
 
         {/* Technology Tags Filter */}
         <div>
-          <h4 className="text-sm font-medium text-gray-400 mb-2">Technologies</h4>
+          <h4 className="text-xs font-mono text-cyan-400/70 uppercase tracking-wider mb-2">Technologies</h4>
           <div className="flex flex-wrap gap-2 max-h-32 overflow-y-auto">
             {allTags.map((tag) => (
               <Badge
                 key={tag}
                 variant={selectedTags.includes(tag) ? "default" : "outline"}
-                className={`cursor-pointer transition-colors ${
+                className={`cursor-pointer transition-colors rounded-full ${
                   selectedTags.includes(tag)
-                    ? "bg-purple-600 text-white border-purple-600"
-                    : "bg-gray-700/50 text-gray-300 border-gray-600 hover:bg-gray-600/50"
+                    ? "bg-cyan-500/10 text-cyan-400 border-cyan-500/20"
+                    : "bg-white/[0.03] text-muted-foreground border-white/[0.06] hover:bg-white/[0.06] hover:text-foreground"
                 }`}
                 onClick={() => toggleTag(tag)}
               >
@@ -145,8 +139,8 @@ export default function BlogSearch({ posts, onFilteredPosts }: BlogSearchProps) 
       </div>
 
       {/* Results Count */}
-      <div className="text-sm text-gray-400">
-        Showing {filteredPosts.length} of {posts.length} articles
+      <div className="text-sm text-muted-foreground">
+        Showing <span className="text-foreground font-semibold">{filteredPosts.length}</span> of <span className="text-foreground font-semibold">{posts.length}</span> articles
       </div>
     </div>
   )

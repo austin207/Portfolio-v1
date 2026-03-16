@@ -1,0 +1,86 @@
+[
+  {
+    "year": "2025",
+    "title": "VirtusCo Founder & CTO",
+    "type": "organization",
+    "description": "Founded VirtusCo, a robotics-focused tech startup. Successfully shortlisted for startup incubation under IEDC.",
+    "icon": "Rocket"
+  },
+  {
+    "year": "2025",
+    "title": "Product Delivery Award",
+    "type": "award",
+    "description": "Contributed to the development of a Robo-Based Mobile Sensing System for Indoor Air Delivery Measurement at Rajagiri School of Engineering & Technology.",
+    "icon": "Award"
+  },
+  {
+    "year": "2025",
+    "title": "AI/ML Language Model Project",
+    "type": "project",
+    "description": "Started building transformer models from scratch, including RNN-based text generators and MiniGPT implementations.",
+    "icon": "Briefcase"
+  },
+  {
+    "year": "2025",
+    "title": "Engineer Intern",
+    "type": "experience",
+    "description": "Gained industrial experience in premium horn manufacturing, facility design, and electrical horn manufacturing at Roots Group of Companies.",
+    "icon": "Briefcase"
+  },
+  {
+    "year": "2024",
+    "title": "Electric ATV Competition",
+    "type": "award",
+    "description": "Achieved podium finish in RC electric ATV competition at Saintgits College, competing against 12 colleges.",
+    "icon": "Award"
+  },
+  {
+    "year": "2024",
+    "title": "Industrial Internship",
+    "type": "experience",
+    "description": "Gained experience in power transformer construction and testing at Kerala Electrical and Allied Engineering Company.",
+    "icon": "Briefcase"
+  },
+  {
+    "year": "2023",
+    "title": "Started B.Tech",
+    "type": "education",
+    "description": "Began Bachelor of Technology in Applied Electronics and Instrumentation Engineering at Rajagiri School of Engineering & Technology.",
+    "icon": "GraduationCap"
+  },
+  {
+    "year": "2023",
+    "title": "Freelance Web Developer",
+    "type": "experience",
+    "description": "Started developing responsive websites using Next.js for clients including VirtusCo and Yehi (Australia).",
+    "icon": "Briefcase"
+  },
+  {
+    "year": "2023",
+    "title": "Higher Secondary Completion",
+    "type": "education",
+    "description": "Completed Higher Secondary Education with specialization in Electronics, C, C++, and Python at Model Technical Higher Secondary School.",
+    "icon": "GraduationCap"
+  },
+  {
+    "year": "2019-2023",
+    "title": "Head of Electronics Club",
+    "type": "organization",
+    "description": "Led and mentored three batches of 15 students, organized workshops and tech fests at Model Technical Higher Secondary School.",
+    "icon": "Rocket"
+  },
+  {
+    "year": "2021",
+    "title": "K.I.T.E. Technical Training",
+    "type": "award",
+    "description": "Top performer in technical training and educational initiatives by Kerala Infrastructure and Technology for Education.",
+    "icon": "Award"
+  },
+  {
+    "year": "2019",
+    "title": "Robotics Certification",
+    "type": "award",
+    "description": "Best performer in Robotics Intermediate Certification at Shrishti Robotics, excelling in robotics design and programming.",
+    "icon": "Award"
+  }
+]

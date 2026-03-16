@@ -23,49 +23,36 @@ interface CertificateCardProps {
 }
 
 export default function CertificateCard({ certificate }: CertificateCardProps) {
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "Active":
-        return "bg-green-500/20 text-green-300 border-green-500/30"
-      case "Expired":
-        return "bg-red-500/20 text-red-300 border-red-500/30"
-      case "In Progress":
-        return "bg-yellow-500/20 text-yellow-300 border-yellow-500/30"
-      default:
-        return "bg-gray-500/20 text-gray-300 border-gray-500/30"
-    }
-  }
-
   return (
-    <Card className="bg-gray-800/50 border-gray-700 hover:bg-gray-800/70 transition-all duration-300 hover:scale-105 hover:shadow-xl backdrop-blur-sm">
+    <Card className="rounded-2xl border border-neutral-800 bg-neutral-900/50 hover:border-neutral-700 transition-all duration-300">
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
           <div className="flex items-center space-x-2">
-            <Award className="h-5 w-5 text-cyan-400" />
-            <Badge className={getStatusColor(certificate.status)}>
+            <Award className="h-5 w-5 text-neutral-400" />
+            <Badge className="px-3 py-1.5 text-xs rounded-full bg-neutral-800 text-neutral-300 border border-neutral-700/50">
               {certificate.status}
             </Badge>
           </div>
-          <Badge variant="outline" className="text-xs">
+          <Badge variant="outline" className="px-3 py-1.5 text-xs rounded-full bg-neutral-800 text-neutral-300 border border-neutral-700/50">
             {certificate.category}
           </Badge>
         </div>
-        <CardTitle className="text-white text-lg leading-tight">
+        <CardTitle className="text-foreground text-lg leading-tight tracking-tight">
           {certificate.title}
         </CardTitle>
-        <CardDescription className="text-gray-300 flex items-center">
-          <Building2 className="h-4 w-4 mr-1" />
+        <CardDescription className="text-neutral-400 flex items-center">
+          <Building2 className="h-4 w-4 mr-1 text-neutral-500" />
           {certificate.issuer}
         </CardDescription>
       </CardHeader>
 
       <CardContent className="pb-4">
-        <p className="text-gray-400 text-sm mb-4 line-clamp-3">
+        <p className="text-neutral-500 text-sm mb-4 line-clamp-3">
           {certificate.description}
         </p>
 
         <div className="space-y-3">
-          <div className="flex items-center text-sm text-gray-400">
+          <div className="flex items-center text-sm text-neutral-500">
             <Calendar className="h-4 w-4 mr-2" />
             <span>Issued: {certificate.date}</span>
             {certificate.expiryDate && (
@@ -75,12 +62,12 @@ export default function CertificateCard({ certificate }: CertificateCardProps) {
 
           <div className="flex flex-wrap gap-2">
             {certificate.skills.slice(0, 3).map((skill, index) => (
-              <Badge key={index} variant="secondary" className="text-xs">
+              <Badge key={index} variant="secondary" className="px-3 py-1.5 text-xs rounded-full bg-neutral-800 text-neutral-300 border border-neutral-700/50">
                 {skill}
               </Badge>
             ))}
             {certificate.skills.length > 3 && (
-              <Badge variant="outline" className="text-xs">
+              <Badge variant="outline" className="px-3 py-1.5 text-xs rounded-full bg-neutral-800 text-neutral-300 border border-neutral-700/50">
                 +{certificate.skills.length - 3} more
               </Badge>
             )}
@@ -91,7 +78,7 @@ export default function CertificateCard({ certificate }: CertificateCardProps) {
       <CardFooter className="pt-0">
         <div className="w-full space-y-2">
           {certificate.credentialId && (
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-neutral-500 font-mono">
               ID: {certificate.credentialId}
             </p>
           )}
@@ -99,7 +86,7 @@ export default function CertificateCard({ certificate }: CertificateCardProps) {
             <Button
               variant="outline"
               size="sm"
-              className="w-full"
+              className="w-full border-neutral-700 text-neutral-300 hover:bg-neutral-800 rounded-full"
               onClick={() => window.open(certificate.verificationUrl, '_blank')}
             >
               <ExternalLink className="h-4 w-4 mr-2" />

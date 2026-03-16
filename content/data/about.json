@@ -1,0 +1,26 @@
+{
+  "specializations": [
+    "Robotics",
+    "AI/ML",
+    "Automation",
+    "Embedded Systems",
+    "VLSI"
+  ],
+  "interests": [
+    "Robotics and automation",
+    "AI and ML research",
+    "VLSI chip designing",
+    "Algorithm Design",
+    "Electronic circuits",
+    "Developer platforms"
+  ],
+  "stats": [
+    { "label": "Projects", "value": "15+", "icon": "Code" },
+    { "label": "Years Exp.", "value": "3+", "icon": "Briefcase" },
+    { "label": "Tech Stacks", "value": "10+", "icon": "Cpu" }
+  ],
+  "profileParagraphs": [
+    "Applied Electronics & Instrumentation Engineering undergraduate at Rajagiri School of Engineering and Technology with 3 years of experience in hardware design, embedded systems, software development, and VLSI, delivering 15+ projects in embedded C, Python, AI/ML, and IoT.",
+    "Founder of VirtusCo, a robotics-focused tech startup, with expertise in circuit design, microcontroller programming, and innovative electronics engineering solutions."
+  ]
+}

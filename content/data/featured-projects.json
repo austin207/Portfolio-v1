@@ -1,0 +1,45 @@
+[
+  {
+    "title": "AI/ML Language Model Prototyping",
+    "description": "Built an RNN-based text generator, then developed MiniGPT from scratch for modest hardware. Currently building a scalable LLaMA-like transformer model.",
+    "image": "/placeholder.svg?height=300&width=500",
+    "tags": ["PyTorch", "NLP", "Transformers", "RNN", "LLaMA"],
+    "github": "https://github.com/austin207/Transformer-Virtue-v2.git",
+    "projectUrl": "/projects/ai-ml-language-models"
+  },
+  {
+    "title": "Ambulance Traffic Reduction System",
+    "description": "Developed an Arduino Mega-based prototype with RF modules for real-time traffic monitoring, integrating RF signal validation and Dijkstra's algorithm.",
+    "image": "/placeholder.svg?height=300&width=500",
+    "tags": ["Arduino", "RF Modules", "Algorithms", "Embedded Systems"],
+    "projectUrl": "/projects/ambulance-traffic-system"
+  },
+  {
+    "title": "Computer Vision Implementation",
+    "description": "Built a face recognition system using OpenCV in Python and an object classification system with GoogLeNet TL in MATLAB.",
+    "image": "/placeholder.svg?height=300&width=500",
+    "tags": ["OpenCV", "Python", "MATLAB", "GoogLeNet", "Computer Vision"],
+    "projectUrl": "/projects/computer-vision"
+  },
+  {
+    "title": "IoT Home Automation System",
+    "description": "Designed a home automation system with NodeMCU ESP8266, relay modules, Blynk, and IFTTT, enabling mobile control and Google Assistant voice commands.",
+    "image": "/placeholder.svg?height=300&width=500",
+    "tags": ["IoT", "ESP8266", "Blynk", "IFTTT", "Home Automation"],
+    "projectUrl": "/projects/iot-home-automation"
+  },
+  {
+    "title": "Dual Axis Solar Tracker",
+    "description": "Developed a solar energy optimization prototype using microcontrollers, servo motors, and an LDR array for real-time sun tracking with closed-loop control.",
+    "image": "/placeholder.svg?height=300&width=500",
+    "tags": ["Solar Energy", "Microcontrollers", "Servo Motors", "Control Systems"],
+    "projectUrl": "/projects/solar-tracker"
+  },
+  {
+    "title": "Wi-Fi Range Extension System",
+    "description": "Developed a custom Wi-Fi repeater using Raspberry Pi 4B with adaptive channel management, enhancing range and mimicking mesh network functionality.",
+    "image": "/placeholder.svg?height=300&width=500",
+    "tags": ["Raspberry Pi", "Networking", "Wi-Fi", "Linux"],
+    "projectUrl": "/projects/wifi-range-extension"
+  }
+]

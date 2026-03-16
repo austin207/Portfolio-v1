@@ -93,31 +93,17 @@ export default function BlogClient({ allPosts, featuredPosts }: BlogClientProps)
 
   const hasActiveFilters = searchTerm || selectedCategory || selectedTags.length > 0
 
-  const getCategoryColor = (category: string) => {
-    const colors: Record<string, string> = {
-      "Web Development": "bg-cyan-500/20 text-cyan-300 border-cyan-400/50",
-      "AI Automation": "bg-purple-500/20 text-purple-300 border-purple-400/50",
-      "Robotics": "bg-emerald-500/20 text-emerald-300 border-emerald-400/50",
-      "DevOps": "bg-amber-500/20 text-amber-300 border-amber-400/50",
-      "Tutorial": "bg-blue-500/20 text-blue-300 border-blue-400/50",
-    }
-    return colors[category] || "bg-gray-500/20 text-gray-300 border-gray-400/50"
-  }
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-slate-900 to-gray-900 relative">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-cyan-900/20 via-slate-900 to-purple-900/20" />
-      <div className="absolute inset-0 bg-grid-white/[0.02] bg-grid-16" />
-      
+    <div className="min-h-screen bg-background relative">
+      <div className="dot-grid fixed inset-0 pointer-events-none z-0" />
       <div className="relative z-10 py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           {/* Back Navigation */}
           <div className="mb-8">
             <Button
               variant="ghost"
               size="sm"
-              className="text-gray-400 hover:text-white hover:bg-gray-800/50 backdrop-blur-sm transition-all duration-300 group"
+              className="text-muted-foreground hover:text-foreground hover:bg-white/[0.04] transition-all duration-300 group"
               asChild
             >
               <Link href="/">
@@ -129,17 +115,21 @@ export default function BlogClient({ allPosts, featuredPosts }: BlogClientProps)
           </div>
 
           {/* Header */}
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center justify-center p-2 bg-gradient-to-r from-cyan-500/10 to-purple-500/10 rounded-full mb-6">
-              <Tag className="h-8 w-8 text-cyan-400" />
+          <div className="text-left mb-12">
+            <div className="flex items-center gap-4 mb-6">
+              <div className="inline-flex items-center justify-center p-2 glass-card rounded-full border border-white/[0.06]">
+                <Tag className="h-8 w-8 text-cyan-400" />
+              </div>
+              <div className="flex items-center gap-4 flex-1">
+                <span className="font-mono text-cyan-400 text-sm">04</span>
+                <div className="h-px flex-1 bg-white/[0.06]" />
+              </div>
             </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
-              <span className="bg-gradient-to-r from-cyan-400 via-cyan-300 to-purple-400 bg-clip-text text-transparent">
-                Technical Blog
-              </span>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 text-foreground tracking-tight">
+              Technical Blog
             </h1>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              In-depth articles covering web development, AI/ML, robotics, and modern technology trends. 
+            <p className="text-lg text-muted-foreground max-w-3xl leading-relaxed">
+              In-depth articles covering web development, AI/ML, robotics, and modern technology trends.
               Explore tutorials, insights, and technical deep-dives from my development journey.
             </p>
           </div>
@@ -147,16 +137,14 @@ export default function BlogClient({ allPosts, featuredPosts }: BlogClientProps)
           {/* Featured Posts */}
           {featuredPosts.length > 0 && (
             <div className="mb-16">
-              <h2 className="text-2xl font-bold text-white mb-8 flex items-center">
-                <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
-                  Featured Articles
-                </span>
+              <h2 className="text-2xl font-bold text-foreground mb-8 tracking-tight">
+                Featured Articles
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {featuredPosts.slice(0, 3).map((post, index) => (
                   <Card
                     key={post.id}
-                    className="group bg-gradient-to-br from-cyan-500/10 to-purple-500/10 border-cyan-500/30 hover:border-cyan-400/50 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-cyan-500/20 rounded-2xl overflow-hidden"
+                    className="group rounded-2xl glass-card-hover gradient-border transition-all duration-500 hover:scale-[1.02] overflow-hidden"
                     style={{
                       animationDelay: `${index * 100}ms`,
                       animation: "fadeInUp 0.6s ease-out forwards"
@@ -170,29 +158,29 @@ export default function BlogClient({ allPosts, featuredPosts }: BlogClientProps)
                           fill
                           className="object-cover group-hover:scale-110 transition-transform duration-500"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
                       </div>
                     )}
                     <CardHeader className="pb-3">
                       <div className="flex items-center justify-between mb-2">
-                        <Badge className={getCategoryColor(post.category)}>
+                        <Badge className="px-3 py-1.5 text-xs rounded-full bg-cyan-500/[0.06] text-cyan-400/80 border border-cyan-500/10 font-mono">
                           {post.category}
                         </Badge>
-                        <Badge className="bg-gradient-to-r from-cyan-500/20 to-purple-500/20 text-cyan-300 border-cyan-500/50">
+                        <Badge className="px-3 py-1.5 text-xs rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
                           Featured
                         </Badge>
                       </div>
-                      <CardTitle className="text-white text-lg leading-tight group-hover:text-cyan-300 transition-colors duration-300">
+                      <CardTitle className="text-foreground text-lg leading-tight group-hover:text-cyan-400 transition-colors duration-300">
                         <Link href={`/blog/${post.slug}`}>
                           {post.title}
                         </Link>
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="pb-4">
-                      <p className="text-gray-400 text-sm mb-4 leading-relaxed line-clamp-3">
+                      <p className="text-muted-foreground text-sm mb-4 leading-relaxed line-clamp-3">
                         {post.excerpt}
                       </p>
-                      <div className="flex items-center justify-between text-xs text-gray-500 mb-3">
+                      <div className="flex items-center justify-between text-xs text-muted-foreground mb-3">
                         <div className="flex items-center gap-4">
                           <div className="flex items-center gap-1">
                             <User className="h-3 w-3" />
@@ -210,16 +198,16 @@ export default function BlogClient({ allPosts, featuredPosts }: BlogClientProps)
                       </div>
                       <div className="flex flex-wrap gap-1">
                         {post.tags.slice(0, 3).map((tag, tagIndex) => (
-                          <Badge 
-                            key={tagIndex} 
-                            variant="secondary" 
-                            className="text-xs bg-gray-700/50 text-gray-300 border-gray-600/50"
+                          <Badge
+                            key={tagIndex}
+                            variant="secondary"
+                            className="px-3 py-1.5 text-xs rounded-full bg-cyan-500/[0.06] text-cyan-400/80 border border-cyan-500/10 font-mono"
                           >
                             {tag}
                           </Badge>
                         ))}
                         {post.tags.length > 3 && (
-                          <Badge variant="outline" className="text-xs text-purple-400 border-purple-500/50">
+                          <Badge variant="outline" className="px-3 py-1.5 text-xs rounded-full bg-cyan-500/[0.06] text-cyan-400/80 border border-cyan-500/10 font-mono">
                             +{post.tags.length - 3}
                           </Badge>
                         )}
@@ -235,29 +223,29 @@ export default function BlogClient({ allPosts, featuredPosts }: BlogClientProps)
           <div className="mb-12 space-y-8">
             {/* Search Input */}
             <div className="relative max-w-2xl mx-auto">
-              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground h-5 w-5" />
               <Input
                 type="text"
                 placeholder="Search articles by title, content, author, or tags..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-12 pr-4 py-4 bg-gray-800/40 border-gray-700/50 focus:border-cyan-500/50 focus:ring-2 focus:ring-cyan-500/20 backdrop-blur-sm text-white placeholder-gray-400 text-lg rounded-xl transition-all duration-300"
+                className="pl-12 pr-4 py-4 glass-card border-white/[0.06] focus:border-cyan-500/30 focus:ring-2 focus:ring-cyan-500/20 text-foreground placeholder-muted-foreground text-lg rounded-xl transition-all duration-300"
               />
             </div>
 
             {/* Filters */}
-            <div className="bg-gray-800/30 backdrop-blur-md rounded-2xl p-8 border border-gray-700/50 shadow-2xl">
+            <div className="rounded-2xl glass-card border border-white/[0.06] p-8">
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-xl font-semibold text-white flex items-center">
+                <h3 className="text-xl font-semibold text-foreground flex items-center tracking-tight">
                   <Filter className="h-6 w-6 mr-3 text-cyan-400" />
                   Content Filters
                 </h3>
                 {hasActiveFilters && (
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
+                  <Button
+                    variant="outline"
+                    size="sm"
                     onClick={clearFilters}
-                    className="bg-gray-700/50 border-gray-600 hover:bg-gray-600/50 text-gray-300 hover:text-white transition-all duration-300"
+                    className="border-white/[0.06] text-muted-foreground hover:bg-cyan-500/10 hover:text-cyan-400 hover:border-cyan-500/20 rounded-full transition-all duration-300"
                   >
                     <X className="h-4 w-4 mr-2" />
                     Clear All Filters
@@ -268,16 +256,16 @@ export default function BlogClient({ allPosts, featuredPosts }: BlogClientProps)
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Category Filter */}
                 <div className="space-y-4">
-                  <h4 className="text-sm font-medium text-gray-300 uppercase tracking-wider">Category</h4>
+                  <h4 className="text-xs font-mono text-cyan-400 uppercase tracking-wider">Category</h4>
                   <div className="flex flex-wrap gap-2">
                     {categories.map((category) => (
                       <Badge
                         key={category}
                         variant={selectedCategory === category ? "default" : "outline"}
-                        className={`cursor-pointer transition-all duration-300 hover:scale-105 ${
-                          selectedCategory === category 
-                            ? getCategoryColor(category) + " shadow-lg" 
-                            : "border-gray-600 text-gray-400 hover:border-cyan-400/50 hover:text-cyan-300"
+                        className={`cursor-pointer transition-all duration-300 rounded-full ${
+                          selectedCategory === category
+                            ? "bg-cyan-500/10 text-cyan-400 border-cyan-500/20"
+                            : "bg-white/[0.03] text-muted-foreground border border-white/[0.06] hover:bg-white/[0.06] hover:text-foreground"
                         }`}
                         onClick={() => setSelectedCategory(selectedCategory === category ? null : category)}
                       >
@@ -289,16 +277,16 @@ export default function BlogClient({ allPosts, featuredPosts }: BlogClientProps)
 
                 {/* Tags Filter */}
                 <div className="space-y-4">
-                  <h4 className="text-sm font-medium text-gray-300 uppercase tracking-wider">Tags</h4>
+                  <h4 className="text-xs font-mono text-cyan-400 uppercase tracking-wider">Tags</h4>
                   <div className="flex flex-wrap gap-2 max-h-32 overflow-y-auto custom-scrollbar">
                     {allTags.map((tag) => (
                       <Badge
                         key={tag}
                         variant={selectedTags.includes(tag) ? "default" : "outline"}
-                        className={`cursor-pointer transition-all duration-300 hover:scale-105 text-xs ${
-                          selectedTags.includes(tag) 
-                            ? "bg-gradient-to-r from-cyan-500/20 to-purple-500/20 text-cyan-300 border-cyan-400/50 shadow-lg" 
-                            : "border-gray-600 text-gray-400 hover:border-cyan-400/50 hover:text-cyan-300"
+                        className={`cursor-pointer transition-all duration-300 text-xs rounded-full ${
+                          selectedTags.includes(tag)
+                            ? "bg-cyan-500/10 text-cyan-400 border-cyan-500/20"
+                            : "bg-white/[0.03] text-muted-foreground border border-white/[0.06] hover:bg-white/[0.06] hover:text-foreground"
                         }`}
                         onClick={() => toggleTag(tag)}
                       >
@@ -312,9 +300,9 @@ export default function BlogClient({ allPosts, featuredPosts }: BlogClientProps)
 
             {/* Results Count */}
             <div className="text-center">
-              <p className="text-gray-400 text-lg">
-                Showing <span className="text-cyan-400 font-semibold">{filteredPosts.length}</span> of{" "}
-                <span className="text-purple-400 font-semibold">{allPosts.length}</span> articles
+              <p className="text-muted-foreground text-lg">
+                Showing <span className="text-foreground font-semibold">{filteredPosts.length}</span> of{" "}
+                <span className="text-foreground font-semibold">{allPosts.length}</span> articles
               </p>
             </div>
           </div>
@@ -324,7 +312,7 @@ export default function BlogClient({ allPosts, featuredPosts }: BlogClientProps)
             {filteredPosts.map((post, index) => (
               <Card
                 key={post.id}
-                className="group bg-gray-800/40 backdrop-blur-md border-gray-700/50 hover:border-cyan-500/50 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-cyan-500/10 rounded-2xl overflow-hidden"
+                className="group rounded-2xl glass-card-hover gradient-border transition-all duration-500 hover:scale-[1.02] overflow-hidden"
                 style={{
                   animationDelay: `${index * 100}ms`,
                   animation: "fadeInUp 0.6s ease-out forwards"
@@ -338,26 +326,26 @@ export default function BlogClient({ allPosts, featuredPosts }: BlogClientProps)
                       fill
                       className="object-cover group-hover:scale-110 transition-transform duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
                   </div>
                 )}
                 <CardHeader className="pb-3">
                   <div className="flex items-center justify-between mb-2">
-                    <Badge className={getCategoryColor(post.category)}>
+                    <Badge className="px-3 py-1.5 text-xs rounded-full bg-cyan-500/[0.06] text-cyan-400/80 border border-cyan-500/10 font-mono">
                       {post.category}
                     </Badge>
                   </div>
-                  <CardTitle className="text-white text-lg leading-tight group-hover:text-cyan-300 transition-colors duration-300">
+                  <CardTitle className="text-foreground text-lg leading-tight group-hover:text-cyan-400 transition-colors duration-300">
                     <Link href={`/blog/${post.slug}`}>
                       {post.title}
                     </Link>
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="pb-4">
-                  <p className="text-gray-400 text-sm mb-4 leading-relaxed line-clamp-3">
+                  <p className="text-muted-foreground text-sm mb-4 leading-relaxed line-clamp-3">
                     {post.excerpt}
                   </p>
-                  <div className="flex items-center justify-between text-xs text-gray-500 mb-3">
+                  <div className="flex items-center justify-between text-xs text-muted-foreground mb-3">
                     <div className="flex items-center gap-4">
                       <div className="flex items-center gap-1">
                         <User className="h-3 w-3" />
@@ -375,16 +363,16 @@ export default function BlogClient({ allPosts, featuredPosts }: BlogClientProps)
                   </div>
                   <div className="flex flex-wrap gap-1">
                     {post.tags.slice(0, 3).map((tag, tagIndex) => (
-                      <Badge 
-                        key={tagIndex} 
-                        variant="secondary" 
-                        className="text-xs bg-gray-700/50 text-gray-300 border-gray-600/50"
+                      <Badge
+                        key={tagIndex}
+                        variant="secondary"
+                        className="px-3 py-1.5 text-xs rounded-full bg-cyan-500/[0.06] text-cyan-400/80 border border-cyan-500/10 font-mono"
                       >
                         {tag}
                       </Badge>
                     ))}
                     {post.tags.length > 3 && (
-                      <Badge variant="outline" className="text-xs text-purple-400 border-purple-500/50">
+                      <Badge variant="outline" className="px-3 py-1.5 text-xs rounded-full bg-cyan-500/[0.06] text-cyan-400/80 border border-cyan-500/10 font-mono">
                         +{post.tags.length - 3}
                       </Badge>
                     )}
@@ -394,7 +382,7 @@ export default function BlogClient({ allPosts, featuredPosts }: BlogClientProps)
                   <Button
                     variant="outline"
                     size="sm"
-                    className="w-full bg-gradient-to-r from-cyan-500/10 to-purple-500/10 border-cyan-500/30 hover:border-cyan-400 hover:bg-gradient-to-r hover:from-cyan-500/20 hover:to-purple-500/20 text-cyan-300 hover:text-white transition-all duration-300"
+                    className="w-full border-white/[0.06] text-muted-foreground hover:bg-cyan-500/10 hover:text-cyan-400 hover:border-cyan-500/20 rounded-full transition-all duration-300"
                     asChild
                   >
                     <Link href={`/blog/${post.slug}`}>
@@ -409,19 +397,19 @@ export default function BlogClient({ allPosts, featuredPosts }: BlogClientProps)
           {/* No Results */}
           {filteredPosts.length === 0 && (
             <div className="text-center py-16">
-              <div className="inline-flex items-center justify-center p-4 bg-gray-800/50 rounded-full mb-6">
-                <Tag className="h-12 w-12 text-gray-600" />
+              <div className="inline-flex items-center justify-center p-4 glass-card rounded-full mb-6 border border-white/[0.06]">
+                <Tag className="h-12 w-12 text-cyan-400" />
               </div>
-              <h3 className="text-2xl font-semibold text-white mb-3">
+              <h3 className="text-2xl font-semibold text-foreground mb-3 tracking-tight">
                 No articles found matching your criteria
               </h3>
-              <p className="text-gray-400 mb-6 max-w-md mx-auto">
+              <p className="text-muted-foreground mb-6 max-w-md mx-auto">
                 Try adjusting your search terms or filters to discover more content.
               </p>
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 onClick={clearFilters}
-                className="bg-gradient-to-r from-cyan-500/10 to-purple-500/10 border-cyan-500/30 hover:border-cyan-400 text-cyan-300 hover:text-white"
+                className="border-white/[0.06] text-muted-foreground hover:bg-cyan-500/10 hover:text-cyan-400 hover:border-cyan-500/20 rounded-full"
               >
                 <X className="h-4 w-4 mr-2" />
                 Clear All Filters
@@ -443,37 +431,22 @@ export default function BlogClient({ allPosts, featuredPosts }: BlogClientProps)
           }
         }
 
-        .line-clamp-3 {
-          display: -webkit-box;
-          -webkit-line-clamp: 3;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-        }
-
         .custom-scrollbar::-webkit-scrollbar {
           width: 4px;
         }
 
         .custom-scrollbar::-webkit-scrollbar-track {
-          background: rgba(55, 65, 81, 0.3);
+          background: rgba(38, 38, 38, 0.3);
           border-radius: 2px;
         }
 
         .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: rgba(34, 211, 238, 0.5);
+          background: rgba(115, 115, 115, 0.5);
           border-radius: 2px;
         }
 
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: rgba(34, 211, 238, 0.7);
-        }
-
-        .bg-grid-white\/\[0\.02\] {
-          background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='rgb(255 255 255 / 0.02)'%3e%3cpath d='m0 .5h32m-32 32v-32'/%3e%3c/svg%3e");
-        }
-
-        .bg-grid-16 {
-          background-size: 16px 16px;
+          background: rgba(115, 115, 115, 0.7);
         }
       `}</style>
     </div>

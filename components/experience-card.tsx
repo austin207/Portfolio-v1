@@ -1,4 +1,3 @@
-import { Card, CardContent } from "@/components/ui/card"
 import { MapPin, Calendar } from "lucide-react"
 
 interface ExperienceCardProps {
@@ -11,30 +10,28 @@ interface ExperienceCardProps {
 
 export default function ExperienceCard({ title, company, period, location, description }: ExperienceCardProps) {
   return (
-    <Card className="bg-gray-800/50 border-gray-700">
-      <CardContent className="pt-6">
-        <h4 className="text-xl font-medium text-cyan-400">{title}</h4>
-        <h5 className="text-lg font-medium mt-1">{company}</h5>
+    <div className="glass-card-hover p-5 gradient-border">
+      <h4 className="text-base font-medium text-foreground">{title}</h4>
+      <h5 className="text-sm font-medium mt-1 text-cyan-400/70">{company}</h5>
 
-        <div className="flex flex-wrap gap-4 mt-2 text-sm text-gray-400">
-          <div className="flex items-center gap-1">
-            <Calendar className="h-4 w-4" />
-            <span>{period}</span>
-          </div>
-          <div className="flex items-center gap-1">
-            <MapPin className="h-4 w-4" />
-            <span>{location}</span>
-          </div>
+      <div className="flex flex-wrap gap-4 mt-2 text-xs text-muted-foreground font-mono">
+        <div className="flex items-center gap-1">
+          <Calendar className="h-3 w-3 text-cyan-400/40" />
+          <span>{period}</span>
         </div>
+        <div className="flex items-center gap-1">
+          <MapPin className="h-3 w-3 text-cyan-400/40" />
+          <span>{location}</span>
+        </div>
+      </div>
 
-        <ul className="mt-4 space-y-2">
-          {description.map((item, index) => (
-            <li key={index} className="text-gray-300 text-sm">
-              • {item}
-            </li>
-          ))}
-        </ul>
-      </CardContent>
-    </Card>
+      <ul className="mt-4 space-y-2">
+        {description.map((item, index) => (
+          <li key={index} className="text-muted-foreground text-sm leading-relaxed pl-3 relative before:content-[''] before:absolute before:left-0 before:top-[0.6em] before:w-1 before:h-1 before:rounded-full before:bg-cyan-500/40">
+            {item}
+          </li>
+        ))}
+      </ul>
+    </div>
   )
 }
