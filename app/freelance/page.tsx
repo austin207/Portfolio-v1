@@ -31,6 +31,7 @@ import {
 import { personalInfo } from "@/lib/data/sections"
 import { socialLinks } from "@/lib/data/social-links"
 import { services as allServices, type Service, type ServiceTier } from "@/lib/data/services"
+import { freelanceStructuredData } from "@/lib/seo"
 
 const iconMap: Record<string, any> = {
   MessageSquare,
@@ -294,6 +295,10 @@ function ServiceCard({ service }: { service: Service }) {
 export default function FreelancePage() {
   return (
     <div className="min-h-screen bg-background relative">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(freelanceStructuredData) }}
+      />
       <div className="dot-grid fixed inset-0 pointer-events-none z-0" />
       <div className="relative z-10 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">

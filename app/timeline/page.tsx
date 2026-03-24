@@ -2,6 +2,13 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Award, ArrowLeft, Home } from "lucide-react"
 import Timeline from "@/components/timeline"
+import { generateSEO } from "@/lib/seo"
+
+export const metadata = generateSEO({
+  title: "Timeline",
+  description: "Chronological journey of Antony Austin — academic achievements, professional experiences, projects, and milestones in technology.",
+  url: "https://antonyaustin.site/timeline",
+})
 
 export default function TimelinePage() {
   return (

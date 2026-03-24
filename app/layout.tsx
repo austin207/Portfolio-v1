@@ -2,7 +2,7 @@ import type React from "react"
 import "./globals.css"
 import { Inter, JetBrains_Mono } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
-import { generateSEO, structuredData } from "@/lib/seo"
+import { generateSEO, structuredData, websiteStructuredData } from "@/lib/seo"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -31,7 +31,7 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(structuredData),
+            __html: JSON.stringify([structuredData, websiteStructuredData]),
           }}
         />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
