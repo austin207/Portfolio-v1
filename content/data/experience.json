@@ -36,6 +36,18 @@
   ],
   "organizations": [
     {
+      "title": "Founder",
+      "company": "Noviq",
+      "period": "2026 - present",
+      "location": "Kochi, India",
+      "description": [
+        "Founded Noviq, a web development studio serving local businesses in Kochi and Ernakulam.",
+        "Building websites (WordPress, Next.js), Flutter mobile apps, and AI-powered WhatsApp/Telegram bots (OpenClaw).",
+        "Delivering Instagram content with AI-assisted production, SEO, and branding for small businesses.",
+        "Managing end-to-end project delivery from scope and pricing to hosting and handoff."
+      ]
+    },
+    {
       "title": "Founder/CTO",
       "company": "VirtusCo",
       "period": "2025 - present",

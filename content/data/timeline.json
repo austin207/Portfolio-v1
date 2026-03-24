@@ -1,5 +1,12 @@
 [
   {
+    "year": "2026",
+    "title": "Noviq — Web Dev Studio",
+    "type": "organization",
+    "description": "Founded Noviq, a web development studio in Kochi building websites, Flutter apps, and AI-powered chatbots for local businesses.",
+    "icon": "Rocket"
+  },
+  {
     "year": "2025",
     "title": "VirtusCo Founder & CTO",
     "type": "organization",

@@ -4,7 +4,7 @@ const SITE_URL = "https://antonyaustin.site"
 const SITE_NAME = "Antony Austin"
 const DEFAULT_TITLE = "Antony Austin — Electronics Engineer, Robotics & AI"
 const DEFAULT_DESCRIPTION =
-  "Portfolio of Antony Austin — Electronics & Instrumentation Engineering student specializing in robotics, AI/ML, embedded systems, ROS 2, and automation. Founder of VirtusCo. Available for freelance."
+  "Portfolio of Antony Austin — Electronics & Instrumentation Engineering student specializing in robotics, AI/ML, embedded systems, ROS 2, and automation. Founder of VirtusCo and founder of Noviq. Available for freelance."
 const DEFAULT_KEYWORDS = [
   "Antony Austin",
   "Electronics Engineer",
@@ -26,6 +26,7 @@ const DEFAULT_KEYWORDS = [
   "Freelance Engineer",
   "n8n Automation",
   "AI Agents",
+  "Noviq",
   "Kochi India",
   "Rajagiri",
 ]
@@ -159,12 +160,21 @@ export const structuredData = {
     "https://medium.com/@austinantony06",
     "https://www.instagram.com/antonyavstin",
     "https://pro.fiverr.com/s/7Y9Kbq4",
+    "https://www.noviq.website",
   ],
-  founder: {
-    "@type": "Organization",
-    name: "VirtusCo",
-    description: "Robotics-focused tech startup",
-  },
+  founder: [
+    {
+      "@type": "Organization",
+      name: "VirtusCo",
+      description: "Robotics-focused tech startup",
+    },
+    {
+      "@type": "Organization",
+      name: "Noviq",
+      url: "https://www.noviq.website",
+      description: "Web development studio for local businesses in Kochi — websites, apps, and AI chatbots",
+    },
+  ],
   hasOccupation: {
     "@type": "Occupation",
     name: "Freelance Electronics Engineer & Developer",
