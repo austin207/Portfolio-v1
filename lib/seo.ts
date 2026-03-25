@@ -2,9 +2,9 @@ import type { Metadata } from "next"
 
 const SITE_URL = "https://antonyaustin.site"
 const SITE_NAME = "Antony Austin"
-const DEFAULT_TITLE = "Antony Austin — Electronics Engineer, Robotics & AI"
+const DEFAULT_TITLE = "Antony Austin — Applied Electronics Engineer | VLSI | Robotics | AI/ML"
 const DEFAULT_DESCRIPTION =
-  "Portfolio of Antony Austin — Electronics & Instrumentation Engineering student specializing in robotics, AI/ML, embedded systems, ROS 2, and automation. Founder of VirtusCo and founder of Noviq. Available for freelance."
+  "Portfolio of Antony Austin — AEI undergraduate at RSET specializing in VLSI, embedded systems, robotics, and AI/ML. Co-founder & CTO of VirtusCo (autonomous porter robot). Founder of Noviq. Builder of a 253M-parameter LLM. Freelance ROS 2 developer."
 const DEFAULT_KEYWORDS = [
   "Antony Austin",
   "Electronics Engineer",
@@ -27,6 +27,12 @@ const DEFAULT_KEYWORDS = [
   "n8n Automation",
   "AI Agents",
   "Noviq",
+  "SystemVerilog",
+  "COMSOL",
+  "nRF5340",
+  "Zephyr RTOS",
+  "MAP-NEO",
+  "HuggingFace",
   "Kochi India",
   "Rajagiri",
 ]
@@ -119,7 +125,7 @@ export const structuredData = {
   name: "Antony Austin",
   givenName: "Antony",
   familyName: "Austin",
-  jobTitle: "Electronics Engineer & Tech Innovator",
+  jobTitle: "Applied Electronics Engineer | VLSI | Embedded Systems | Robotics | AI/ML",
   description: DEFAULT_DESCRIPTION,
   url: SITE_URL,
   email: "austinantony06@gmail.com",
@@ -161,6 +167,7 @@ export const structuredData = {
     "https://www.instagram.com/antonyavstin",
     "https://pro.fiverr.com/s/7Y9Kbq4",
     "https://www.noviq.website",
+    "https://huggingface.co/Austin207",
   ],
   founder: [
     {

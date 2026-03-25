@@ -20,8 +20,9 @@ export default function SkillsSection() {
             {[
               { value: "programming", label: "Programming" },
               { value: "hardware", label: "Hardware" },
-              { value: "web", label: "Web & App" },
+              { value: "robotics", label: "Robotics" },
               { value: "ai", label: "AI & ML" },
+              { value: "web", label: "Web & App" },
               { value: "tools", label: "Tools" },
             ].map((tab) => (
               <TabsTrigger

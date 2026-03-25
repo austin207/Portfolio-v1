@@ -2,47 +2,46 @@
   "education": [
     {
       "degree": "Bachelor of Technology in Applied Electronics and Instrumentation Engineering",
-      "institution": "Rajagiri School of Engineering & Technology",
-      "period": "2023 - 2027",
-      "location": "Kakkanad, India",
-      "description": "Currently in 6th Semester"
+      "institution": "Rajagiri School of Engineering & Technology (RSET)",
+      "period": "Sep 2023 - Jul 2027",
+      "location": "Kakkanad, Kerala",
+      "description": "CGPA: 7.7/10 | Currently in 6th Semester (3rd Year) | Activities: TinkerHub RSET, Apptronics Event Coordinator"
     },
     {
-      "degree": "Higher Secondary Education",
-      "institution": "Model Technical Higher Secondary School, (IHRD)",
-      "period": "2021 - 2023",
-      "location": "Kaloor, India",
-      "description": "Specialization in Electronics, C, C++, and Python"
+      "degree": "Higher Secondary Education (12th)",
+      "institution": "Model Technical Higher Secondary School, IHRD",
+      "period": "Jun 2021 - Mar 2023",
+      "location": "Kaloor, Kerala",
+      "description": "Specialization in Electronics, C, C++, and Python | Electronics Lab Representative | Head of Electronics Club"
     },
     {
-      "degree": "High School Education",
-      "institution": "Model Technical Higher Secondary School, (IHRD)",
-      "period": "2018 - 2021",
-      "location": "Kaloor, India"
+      "degree": "High School Education (10th)",
+      "institution": "Model Technical Higher Secondary School, IHRD",
+      "period": "Jun 2018 - Mar 2021",
+      "location": "Kaloor, Kerala"
     }
   ],
   "certifications": [
     {
-      "title": "Introduction to Prompt Engineering",
-      "issuer": "Simplilearn",
-      "date": "2024"
+      "title": "nRF Connect SDK Fundamentals",
+      "issuer": "Nordic Semiconductor",
+      "date": "Feb 2026"
     },
     {
-      "title": "Prompt Engineering for Everyone",
-      "issuer": "Cognitive Class",
-      "date": "2024"
+      "title": "Flutter and Dart: Developing iOS, Android, and Mobile Apps",
+      "issuer": "IBM / Coursera",
+      "date": "Aug 2025"
+    },
+    {
+      "title": "Product Design, Development and Delivery",
+      "issuer": "RSET",
+      "date": "Aug 2025"
     },
     {
       "title": "Robotics Intermediate Certification",
-      "issuer": "Shrishti Robotics",
-      "date": "05/2019",
+      "issuer": "Srishti Robotics",
+      "date": "May 2019",
       "description": "Best performer, excelling in robotics design, programming, and implementation."
-    },
-    {
-      "title": "K.I.T.E. Technical Training",
-      "issuer": "Model Technical Higher Secondary School",
-      "date": "02/2021",
-      "description": "Top performer in technical training and educational initiatives."
     }
   ]
 }

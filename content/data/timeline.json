@@ -1,56 +1,84 @@
 [
   {
     "year": "2026",
-    "title": "Noviq — Web Dev Studio",
+    "title": "PCM Research Thesis",
+    "type": "project",
+    "description": "Began M.Tech-level research thesis on electrothermal simulation of Phase Change Memory (PCM) devices in COMSOL Multiphysics at RSET.",
+    "icon": "GraduationCap"
+  },
+  {
+    "year": "2026",
+    "title": "Noviq — Web & AI Studio",
     "type": "organization",
     "description": "Founded Noviq, a web development studio in Kochi building websites, Flutter apps, and AI-powered chatbots for local businesses.",
     "icon": "Rocket"
   },
   {
     "year": "2025",
-    "title": "VirtusCo Founder & CTO",
+    "title": "Firmware Developer — ASAT (US Startup)",
+    "type": "experience",
+    "description": "Remote firmware internship developing BLE Peripheral firmware on nRF5340 DK using Zephyr RTOS and nRF Connect SDK.",
+    "icon": "Briefcase"
+  },
+  {
+    "year": "2025",
+    "title": "VirtusCo — Co-founder & CTO",
     "type": "organization",
-    "description": "Founded VirtusCo, a robotics-focused tech startup. Successfully shortlisted for startup incubation under IEDC.",
+    "description": "Co-founded VirtusCo to build Virtus, an autonomous B2B airport luggage porter robot. Built full ROS 2 Jazzy stack from scratch on RPi 5. IEDC incubated.",
     "icon": "Rocket"
   },
   {
     "year": "2025",
-    "title": "Product Delivery Award",
+    "title": "Freelance ROS 2 Developer — Fiverr",
+    "type": "experience",
+    "description": "Started providing ROS 2 package development and code review services to international clients on Fiverr.",
+    "icon": "Briefcase"
+  },
+  {
+    "year": "2025",
+    "title": "Award of Appreciation — RSET",
     "type": "award",
-    "description": "Contributed to the development of a Robo-Based Mobile Sensing System for Indoor Air Delivery Measurement at Rajagiri School of Engineering & Technology.",
+    "description": "Recognised for contributions to the Robo-Based Mobile Sensing System for Indoor Air Flow Measurement (KULIRMA Fan project).",
     "icon": "Award"
   },
   {
     "year": "2025",
-    "title": "AI/ML Language Model Project",
+    "title": "MAP-NEO: 253M Parameter LLM",
     "type": "project",
-    "description": "Started building transformer models from scratch, including RNN-based text generators and MiniGPT implementations.",
+    "description": "Built and trained a 253M-parameter transformer from scratch using RMSNorm, RoPE, SwiGLU, and Flash Attention on RTX 5070. Published on HuggingFace.",
     "icon": "Briefcase"
   },
   {
     "year": "2025",
-    "title": "Engineer Intern",
+    "title": "Apptronics Event Coordinator",
+    "type": "organization",
+    "description": "Coordinating science and technology events at RSET's Apptronics technical fest.",
+    "icon": "Rocket"
+  },
+  {
+    "year": "2025",
+    "title": "Engineer Intern — Roots Industries",
     "type": "experience",
-    "description": "Gained industrial experience in premium horn manufacturing, facility design, and electrical horn manufacturing at Roots Group of Companies.",
+    "description": "Industrial exposure to end-to-end manufacturing workflows at Roots Industries India Limited, Coimbatore.",
     "icon": "Briefcase"
   },
   {
     "year": "2024",
-    "title": "Electric ATV Competition",
+    "title": "Podium Finish — Electric ATV Competition",
     "type": "award",
-    "description": "Achieved podium finish in RC electric ATV competition at Saintgits College, competing against 12 colleges.",
+    "description": "Competed against 12 colleges at Saintgits College; showcased expertise in embedded systems and motor control.",
     "icon": "Award"
   },
   {
     "year": "2024",
-    "title": "Industrial Internship",
+    "title": "Industrial Trainee — KEALCO",
     "type": "experience",
-    "description": "Gained experience in power transformer construction and testing at Kerala Electrical and Allied Engineering Company.",
+    "description": "Assembled, wound, and tested high-voltage step-down power transformers at Kerala Electrical and Allied Engineering Co.",
     "icon": "Briefcase"
   },
   {
     "year": "2023",
-    "title": "Started B.Tech",
+    "title": "Started B.Tech at RSET",
     "type": "education",
     "description": "Began Bachelor of Technology in Applied Electronics and Instrumentation Engineering at Rajagiri School of Engineering & Technology.",
     "icon": "GraduationCap"
@@ -59,35 +87,35 @@
     "year": "2023",
     "title": "Freelance Web Developer",
     "type": "experience",
-    "description": "Started developing responsive websites using Next.js for clients including VirtusCo and Yehi (Australia).",
+    "description": "Started developing responsive production websites using Next.js for international clients including Yehi (Australia) and VirtusCo.",
     "icon": "Briefcase"
   },
   {
     "year": "2023",
     "title": "Higher Secondary Completion",
     "type": "education",
-    "description": "Completed Higher Secondary Education with specialization in Electronics, C, C++, and Python at Model Technical Higher Secondary School.",
+    "description": "Completed Higher Secondary Education with specialization in Electronics, C, C++, and Python at Model Technical HSS.",
     "icon": "GraduationCap"
   },
   {
     "year": "2019-2023",
     "title": "Head of Electronics Club",
     "type": "organization",
-    "description": "Led and mentored three batches of 15 students, organized workshops and tech fests at Model Technical Higher Secondary School.",
+    "description": "Led three batches of 15 students in electronics and embedded systems projects over 4 years at Model Technical HSS.",
     "icon": "Rocket"
   },
   {
     "year": "2021",
-    "title": "K.I.T.E. Technical Training",
+    "title": "Top Performer — K.I.T.E. Training",
     "type": "award",
-    "description": "Top performer in technical training and educational initiatives by Kerala Infrastructure and Technology for Education.",
+    "description": "Top performer in technical training and educational initiatives under Kerala Infrastructure and Technology for Education.",
     "icon": "Award"
   },
   {
     "year": "2019",
-    "title": "Robotics Certification",
-    "type": "award",
-    "description": "Best performer in Robotics Intermediate Certification at Shrishti Robotics, excelling in robotics design and programming.",
-    "icon": "Award"
+    "title": "Robotics Intern — Srishti Robotics",
+    "type": "experience",
+    "description": "Foundational embedded systems internship: Arduino, ESP8266/ESP32, sensors, IoT frameworks. Recognised as Best Performer.",
+    "icon": "Briefcase"
   }
 ]

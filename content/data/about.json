@@ -1,19 +1,19 @@
 {
   "specializations": [
+    "VLSI",
     "Robotics",
     "AI/ML",
-    "Automation",
     "Embedded Systems",
-    "VLSI",
+    "Automation",
     "Web Dev"
   ],
   "interests": [
-    "Robotics and automation",
+    "VLSI and semiconductor devices",
+    "Robotics and autonomous systems",
     "AI and ML research",
-    "VLSI chip designing",
-    "Algorithm Design",
-    "Electronic circuits",
-    "Developer platforms"
+    "Embedded systems and RTOS",
+    "Edge AI and on-device inference",
+    "Algorithm design"
   ],
   "stats": [
     { "label": "Projects", "value": "15+", "icon": "Code" },
@@ -21,7 +21,7 @@
     { "label": "Tech Stacks", "value": "10+", "icon": "Cpu" }
   ],
   "profileParagraphs": [
-    "Applied Electronics & Instrumentation Engineering undergraduate at Rajagiri School of Engineering and Technology with 3 years of experience in hardware design, embedded systems, software development, and VLSI, delivering 15+ projects in embedded C, Python, AI/ML, and IoT.",
-    "Founder of VirtusCo, a robotics-focused tech startup, and founder of Noviq, a web development studio building websites, Flutter apps, and AI chatbots for local businesses in Kochi."
+    "Applied Electronics and Instrumentation Engineering undergraduate at RSET, Kerala, with 3+ years of hands-on experience spanning VLSI design, embedded systems, robotics, and AI/ML. Builder of a 253M-parameter language model trained from scratch. Simultaneously completing an M.Tech-level research thesis on electrothermal simulation of Phase Change Memory (PCM) devices.",
+    "Co-founder and CTO of VirtusCo, a pre-seed robotics startup building an autonomous airport porter robot. Founder of Noviq, a web and AI studio. Freelance ROS 2 developer on Fiverr and active firmware contributor for a US-based startup."
   ]
 }

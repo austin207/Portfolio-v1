@@ -4,47 +4,54 @@
     { "name": "C", "level": "Expert" },
     { "name": "C++", "level": "Proficient" },
     { "name": "Python", "level": "Expert" },
+    { "name": "SystemVerilog", "level": "Proficient" },
     { "name": "VHDL/Verilog", "level": "Competent" }
   ],
   "hardware": [
     { "name": "PCB Design", "level": "Expert" },
     { "name": "Circuit Analysis", "level": "Expert" },
-    { "name": "Microcontrollers", "level": "Expert" },
-    { "name": "RTOS", "level": "Proficient" },
-    { "name": "System Architecture", "level": "Proficient" },
-    { "name": "I2C", "level": "Expert" },
-    { "name": "SPI", "level": "Expert" },
-    { "name": "UART", "level": "Expert" }
+    { "name": "STM32", "level": "Proficient" },
+    { "name": "nRF5340 / Zephyr", "level": "Proficient" },
+    { "name": "ESP32", "level": "Expert" },
+    { "name": "Raspberry Pi", "level": "Expert" },
+    { "name": "RTOS / BLE", "level": "Proficient" },
+    { "name": "I2C / SPI / UART", "level": "Expert" },
+    { "name": "CAN / Ethernet", "level": "Competent" }
   ],
-  "web": [
-    { "name": "HTML", "level": "Competent" },
-    { "name": "CSS", "level": "Competent" },
-    { "name": "JavaScript", "level": "Competent" },
-    { "name": "Next.js", "level": "Competent" },
-    { "name": "React.js", "level": "Competent" },
-    { "name": "Express.js", "level": "Competent" },
-    { "name": "Flutter", "level": "Proficient" }
+  "robotics": [
+    { "name": "ROS 2 Jazzy", "level": "Proficient" },
+    { "name": "URDF / Gazebo", "level": "Proficient" },
+    { "name": "RViz / TF2", "level": "Proficient" },
+    { "name": "SLAM / Nav2", "level": "Competent" },
+    { "name": "Kalman Filter", "level": "Proficient" },
+    { "name": "Differential Drive", "level": "Proficient" }
   ],
   "ai": [
-    { "name": "PyTorch", "level": "Competent" },
-    { "name": "TensorFlow-Lite", "level": "Competent" },
+    { "name": "PyTorch", "level": "Proficient" },
+    { "name": "Transformer Arch", "level": "Proficient" },
     { "name": "OpenCV", "level": "Proficient" },
-    { "name": "Computer Vision", "level": "Proficient" },
-    { "name": "MATLAB", "level": "Competent" },
-    { "name": "Hugging Face", "level": "Competent" },
+    { "name": "TensorFlow-Lite", "level": "Competent" },
+    { "name": "HuggingFace", "level": "Competent" },
     { "name": "Ollama", "level": "Competent" },
     { "name": "Prompt Engineering", "level": "Proficient" }
   ],
+  "web": [
+    { "name": "Next.js", "level": "Proficient" },
+    { "name": "React.js", "level": "Proficient" },
+    { "name": "Node.js / Express", "level": "Competent" },
+    { "name": "Flutter / Dart", "level": "Proficient" },
+    { "name": "TypeScript", "level": "Competent" },
+    { "name": "n8n / FastAPI", "level": "Competent" }
+  ],
   "tools": [
     { "name": "Altium Designer", "level": "Expert" },
-    { "name": "Eagle", "level": "Proficient" },
-    { "name": "KiCad", "level": "Proficient" },
-    { "name": "Git/GitHub", "level": "Proficient" },
-    { "name": "AutoCAD", "level": "Competent" },
-    { "name": "Fusion360", "level": "Competent" },
-    { "name": "Oscilloscopes", "level": "Expert" },
-    { "name": "Logic Analyzers", "level": "Proficient" },
-    { "name": "Linux/CLI", "level": "Proficient" },
-    { "name": "Raspberry Pi", "level": "Expert" }
+    { "name": "KiCad / Eagle", "level": "Proficient" },
+    { "name": "ModelSim / Vivado", "level": "Competent" },
+    { "name": "COMSOL Multiphysics", "level": "Competent" },
+    { "name": "Git / GitHub", "level": "Proficient" },
+    { "name": "Linux CLI", "level": "Proficient" },
+    { "name": "LaTeX (Overleaf)", "level": "Competent" },
+    { "name": "Oscilloscopes / JTAG", "level": "Expert" },
+    { "name": "AutoCAD / Fusion360", "level": "Competent" }
   ]
 }

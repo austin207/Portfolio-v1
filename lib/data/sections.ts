@@ -34,9 +34,9 @@ export interface PersonalInfo {
 
 export const personalInfo: PersonalInfo = {
   name: "Antony Austin",
-  title: "Electronics Engineer & Tech Innovator",
+  title: "Applied Electronics Engineer | VLSI | Embedded Systems | Robotics | AI/ML",
   description:
-    "Applied Electronics & Instrumentation Engineering undergraduate with expertise in hardware design, embedded systems, AI/ML, and robotics. Founder of VirtusCo.",
+    "Applied Electronics & Instrumentation Engineering undergraduate at RSET with 3+ years spanning VLSI design, embedded systems, robotics, and AI/ML. Co-founder & CTO of VirtusCo. Founder of Noviq.",
   email: "austinantony06@gmail.com",
   location: "Kochi, India",
   github: "https://github.com/austin207",
