@@ -1,11 +1,10 @@
 "use client"
 
 import React, { useState } from "react"
-import { ArrowLeft, Home, GitBranch, ChevronRight, CheckCircle, Clock, Layers } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
+import { ArrowLeft, ChevronDown } from "lucide-react"
 import Link from "next/link"
 import skillsTree from "@/data/robotics-skills-data.json"
+import { useReveal } from "@/hooks/use-reveal"
 
 interface SkillNode {
   name: string
@@ -17,97 +16,136 @@ interface SkillNode {
   children: SkillNode[]
 }
 
-const levelStyles: Record<string, string> = {
-  Expert: "bg-cyan-500/10 text-cyan-400 border-cyan-500/20",
-  Advanced: "bg-blue-500/10 text-blue-400 border-blue-500/20",
-  Intermediate: "bg-amber-500/10 text-amber-400 border-amber-500/20",
-  Beginner: "bg-white/[0.03] text-muted-foreground border-white/[0.06]",
-}
-
-const statusIcon = (status: string) =>
-  status === "mastered" ? (
-    <CheckCircle className="h-3.5 w-3.5 text-emerald-400/70" />
-  ) : (
-    <Clock className="h-3.5 w-3.5 text-amber-400/70" />
-  )
-
 function countNodes(node: SkillNode): number {
   return 1 + node.children.reduce((sum, c) => sum + countNodes(c), 0)
 }
 
-function LeafNode({ node }: { node: SkillNode }) {
+function countMastered(node: SkillNode): number {
+  const self = node.status === "mastered" ? 1 : 0
+  return node.children.reduce((sum, c) => sum + countMastered(c), self)
+}
+
+const levelBar = (level: string) => {
+  switch (level) {
+    case "Expert": return "w-full"
+    case "Advanced": return "w-3/4"
+    case "Intermediate": return "w-1/2"
+    default: return "w-1/4"
+  }
+}
+
+function LeafRow({ node, index }: { node: SkillNode; index: number }) {
   return (
-    <div className="flex items-center gap-3 p-3 glass-card rounded-lg group/leaf hover:bg-white/[0.04] transition-all duration-200">
-      <div className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: node.color }} />
-      <span className="text-sm text-foreground/80 flex-1">{node.name}</span>
-      {statusIcon(node.status)}
-      {node.level && (
-        <Badge className={`text-[10px] font-mono px-2 py-0 border ${levelStyles[node.level] || levelStyles.Beginner}`}>
-          {node.level}
-        </Badge>
-      )}
+    <div className="flex items-center gap-4 py-3 border-b border-border last:border-0 group hover:bg-foreground/[0.02] transition-colors px-1">
+      <span className="text-sm text-foreground flex-1">{node.name}</span>
+      <div className="w-20 h-1 bg-border rounded-full overflow-hidden shrink-0">
+        <div className={`h-full bg-foreground/40 rounded-full ${levelBar(node.level)}`} />
+      </div>
+      <span className="font-mono text-[10px] text-muted-foreground w-20 text-right shrink-0">{node.level}</span>
     </div>
   )
 }
 
-function BranchNode({ node, depth = 0 }: { node: SkillNode; depth?: number }) {
-  const [open, setOpen] = useState(depth < 2)
-  const hasChildren = node.children.length > 0
+function DomainCard({ node, index }: { node: SkillNode; index: number }) {
+  const [open, setOpen] = useState(false)
+  const { ref, visible } = useReveal()
   const childCount = countNodes(node) - 1
+  const masteredCount = countMastered(node) - (node.status === "mastered" ? 1 : 0)
+
+  // Flatten all leaf skills for display
+  function flattenSkills(n: SkillNode): SkillNode[] {
+    if (n.children.length === 0) return [n]
+    return n.children.flatMap(c => flattenSkills(c))
+  }
+  const allSkills = flattenSkills(node)
+
+  return (
+    <div ref={ref} className={`border overflow-hidden transition-colors duration-300 reveal ${visible ? "visible" : ""} ${open ? "border-foreground/20" : "border-border"}`} style={{ transitionDelay: `${index * 0.08}s` }}>
+      <button
+        onClick={() => setOpen(!open)}
+        className="w-full text-left p-6 flex items-start gap-5 hover:bg-foreground/[0.02] transition-colors cursor-pointer group"
+      >
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-3 mb-1">
+            <h3 className="text-lg font-semibold text-foreground">{node.name}</h3>
+            <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest">{node.level}</span>
+          </div>
+          <p className="text-[13px] text-muted-foreground line-clamp-1">{node.description}</p>
+        </div>
+
+        <div className="flex items-center gap-6 shrink-0">
+          <div className="text-right hidden sm:block">
+            <p className="text-lg font-bold text-foreground">{childCount}</p>
+            <p className="font-mono text-[10px] text-muted-foreground">skills</p>
+          </div>
+          <div className="text-right hidden sm:block">
+            <p className="text-lg font-bold text-foreground">{masteredCount}</p>
+            <p className="font-mono text-[10px] text-muted-foreground">mastered</p>
+          </div>
+          <ChevronDown className={`h-5 w-5 text-muted-foreground transition-transform duration-300 ${open ? "rotate-180" : ""}`} />
+        </div>
+      </button>
+
+      <div className={`expand-container ${open ? "open" : ""}`}>
+        <div className="expand-inner">
+          <div className="border-t border-border">
+            {node.children.map((child, ci) => (
+              <SubBranch key={child.id} node={child} index={ci} />
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function SubBranch({ node, index }: { node: SkillNode; index: number }) {
+  const [open, setOpen] = useState(false)
+  const hasChildren = node.children.length > 0
+
+  function flattenSkills(n: SkillNode): SkillNode[] {
+    if (n.children.length === 0) return [n]
+    return n.children.flatMap(c => flattenSkills(c))
+  }
+
+  if (!hasChildren) {
+    return (
+      <div className="flex items-center gap-4 py-3 px-6 border-b border-border last:border-0 hover:bg-foreground/[0.02] transition-colors">
+        <span className="text-sm text-foreground flex-1">{node.name}</span>
+        <div className="w-16 h-1 bg-border rounded-full overflow-hidden shrink-0">
+          <div className={`h-full bg-foreground/40 rounded-full ${levelBar(node.level)}`} />
+        </div>
+        <span className="font-mono text-[10px] text-muted-foreground w-20 text-right shrink-0">{node.level}</span>
+      </div>
+    )
+  }
+
+  const leaves = flattenSkills(node)
 
   return (
     <div>
       <button
-        onClick={() => hasChildren && setOpen(!open)}
-        className={`w-full text-left flex items-center gap-3 p-3.5 rounded-xl transition-all duration-300 group/branch ${
-          hasChildren ? "cursor-pointer hover:bg-white/[0.04]" : "cursor-default"
-        } ${depth === 0 ? "glass-card-hover gradient-border p-5" : "glass-card"}`}
+        onClick={() => setOpen(!open)}
+        className="w-full text-left flex items-center gap-4 py-3 px-6 border-b border-border hover:bg-foreground/[0.02] transition-colors cursor-pointer"
       >
-        {/* Color dot + connector */}
-        <div
-          className="w-3 h-3 rounded-full shrink-0 ring-2 ring-offset-1 ring-offset-background"
-          style={{ backgroundColor: node.color, ringColor: node.color + "40" }}
-        />
-
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2">
-            <h3 className={`font-semibold text-foreground truncate ${depth === 0 ? "text-lg" : "text-sm"}`}>
-              {node.name}
-            </h3>
-            {statusIcon(node.status)}
-          </div>
-          {depth === 0 && (
-            <p className="text-xs text-muted-foreground mt-0.5 line-clamp-1">{node.description}</p>
-          )}
+        <span className="text-sm font-medium text-foreground flex-1">{node.name}</span>
+        <span className="font-mono text-[10px] text-muted-foreground">{leaves.length} skills</span>
+        <div className="w-16 h-1 bg-border rounded-full overflow-hidden shrink-0">
+          <div className={`h-full bg-foreground/40 rounded-full ${levelBar(node.level)}`} />
         </div>
-
-        <div className="flex items-center gap-2 shrink-0">
-          <Badge className={`text-[10px] font-mono px-2 py-0 border ${levelStyles[node.level] || levelStyles.Beginner}`}>
-            {node.level}
-          </Badge>
-          {hasChildren && (
-            <div className="flex items-center gap-1 text-muted-foreground">
-              <span className="text-[10px] font-mono">{childCount}</span>
-              <ChevronRight
-                className={`h-4 w-4 transition-transform duration-300 ${open ? "rotate-90" : ""}`}
-              />
-            </div>
-          )}
-        </div>
+        <span className="font-mono text-[10px] text-muted-foreground w-20 text-right shrink-0">{node.level}</span>
+        <ChevronDown className={`h-3.5 w-3.5 text-muted-foreground transition-transform duration-300 ${open ? "rotate-180" : ""}`} />
       </button>
 
-      {/* Children */}
-      {hasChildren && open && (
-        <div className={`ml-5 mt-1 pl-4 border-l-2 space-y-1 ${depth === 0 ? "mt-3" : ""}`} style={{ borderColor: node.color + "20" }}>
-          {node.children.map((child) =>
-            child.children.length > 0 ? (
-              <BranchNode key={child.id} node={child} depth={depth + 1} />
-            ) : (
-              <LeafNode key={child.id} node={child} />
-            )
-          )}
+      <div className={`expand-container ${open ? "open" : ""}`}>
+        <div className="expand-inner">
+          <div className="pl-6 bg-foreground/[0.01]">
+            {leaves.map((leaf, li) => (
+              <LeafRow key={leaf.id} node={leaf} index={li} />
+            ))}
+          </div>
         </div>
-      )}
+      </div>
     </div>
   )
 }
@@ -116,113 +154,80 @@ export default function SkillsPathPage() {
   const tree = skillsTree as SkillNode
   const totalSkills = countNodes(tree) - 1
   const mastered = countMastered(tree)
-
-  function countMastered(node: SkillNode): number {
-    const self = node.status === "mastered" ? 1 : 0
-    return node.children.reduce((sum, c) => sum + countMastered(c), self)
-  }
-
-  // Group top-level domains
   const domains = tree.children
+  const { ref: headerRef, visible: headerVisible } = useReveal()
 
   return (
-    <div className="min-h-screen bg-background relative">
-      <div className="dot-grid fixed inset-0 pointer-events-none z-0" />
-      <div className="relative z-10 py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
-          {/* Back Navigation */}
-          <div className="mb-8">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="text-muted-foreground hover:text-foreground hover:bg-white/[0.04] transition-all duration-300 group"
-              asChild
-            >
-              <Link href="/">
-                <ArrowLeft className="h-4 w-4 mr-2 group-hover:-translate-x-1 transition-transform duration-300" />
-                <Home className="h-4 w-4 mr-2" />
-                Back to Home
-              </Link>
-            </Button>
-          </div>
+    <div className="min-h-screen bg-background">
+      <div className="py-24 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1100px] mx-auto">
+          <Link href="/" className="inline-flex items-center gap-2 text-[13px] text-muted-foreground hover:text-foreground transition-colors mb-16">
+            <ArrowLeft className="h-3.5 w-3.5" />
+            Back
+          </Link>
 
-          {/* Header */}
-          <div className="text-center mb-14">
-            <div className="inline-flex items-center justify-center p-3 glass-card rounded-full mb-6">
-              <GitBranch className="h-10 w-10 text-cyan-400" />
+          <div ref={headerRef} className="mb-16">
+            <div className={`fade-in`}>
+              <p className="font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-3">Expertise</p>
+              <h1 className="text-4xl sm:text-5xl font-bold mb-4 text-foreground tracking-tight">
+                Skills Map
+              </h1>
+              <p className="text-muted-foreground max-w-2xl leading-relaxed mb-10">
+                An interactive map of my engineering expertise. Click any domain to explore the skill tree.
+              </p>
             </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 text-foreground tracking-tight">
-              Skills <span className="gradient-text">Map</span>
-            </h1>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              An interactive map of my engineering expertise across robotics, AI/ML, electronics,
-              and software development. Click any branch to explore deeper.
-            </p>
-          </div>
 
-          {/* Stats bar */}
-          <div className="flex flex-wrap justify-center gap-4 mb-12">
-            <div className="flex items-center gap-2 px-4 py-2 glass-card rounded-full text-sm">
-              <Layers className="h-4 w-4 text-cyan-400/60" />
-              <span className="text-muted-foreground"><span className="text-foreground font-semibold">{totalSkills}</span> skills</span>
-            </div>
-            <div className="flex items-center gap-2 px-4 py-2 glass-card rounded-full text-sm">
-              <CheckCircle className="h-4 w-4 text-emerald-400/60" />
-              <span className="text-muted-foreground"><span className="text-foreground font-semibold">{mastered - 1}</span> mastered</span>
-            </div>
-            <div className="flex items-center gap-2 px-4 py-2 glass-card rounded-full text-sm">
-              <Clock className="h-4 w-4 text-amber-400/60" />
-              <span className="text-muted-foreground"><span className="text-foreground font-semibold">{totalSkills - mastered + 1}</span> in progress</span>
-            </div>
-            {domains.map((d) => (
-              <div key={d.id} className="flex items-center gap-2 px-4 py-2 glass-card rounded-full text-sm">
-                <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: d.color }} />
-                <span className="text-muted-foreground">{d.name}</span>
+            {/* Stats row */}
+            <div className={`grid grid-cols-3 sm:grid-cols-5 gap-4 fade-in`} style={{ animationDelay: "0.15s" }}>
+              <div className="border border-border p-4 text-center">
+                <p className="text-2xl font-bold text-foreground">{totalSkills}</p>
+                <p className="font-mono text-[10px] text-muted-foreground mt-1">Total Skills</p>
               </div>
-            ))}
-          </div>
-
-          {/* Root node */}
-          <div className="mb-6 glass-card gradient-border p-6 rounded-2xl text-center">
-            <div className="flex items-center justify-center gap-3 mb-2">
-              <div className="w-4 h-4 rounded-full bg-cyan-400 ring-4 ring-cyan-400/20" />
-              <h2 className="text-2xl font-bold text-foreground">{tree.name}</h2>
-              <Badge className="text-xs font-mono px-2.5 py-0.5 border bg-cyan-500/10 text-cyan-400 border-cyan-500/20">
-                {tree.level}
-              </Badge>
+              <div className="border border-border p-4 text-center">
+                <p className="text-2xl font-bold text-foreground">{mastered - 1}</p>
+                <p className="font-mono text-[10px] text-muted-foreground mt-1">Mastered</p>
+              </div>
+              <div className="border border-border p-4 text-center">
+                <p className="text-2xl font-bold text-foreground">{totalSkills - mastered + 1}</p>
+                <p className="font-mono text-[10px] text-muted-foreground mt-1">In Progress</p>
+              </div>
+              <div className="border border-border p-4 text-center hidden sm:block">
+                <p className="text-2xl font-bold text-foreground">{domains.length}</p>
+                <p className="font-mono text-[10px] text-muted-foreground mt-1">Domains</p>
+              </div>
+              <div className="border border-border p-4 text-center hidden sm:block">
+                <p className="text-2xl font-bold text-foreground">{tree.level}</p>
+                <p className="font-mono text-[10px] text-muted-foreground mt-1">Overall</p>
+              </div>
             </div>
-            <p className="text-sm text-muted-foreground">{tree.description}</p>
           </div>
 
-          {/* Domain branches */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            {domains.map((domain) => (
-              <BranchNode key={domain.id} node={domain} depth={0} />
+          {/* Domain cards */}
+          <div className="space-y-4">
+            {domains.map((domain, i) => (
+              <DomainCard key={domain.id} node={domain} index={i} />
             ))}
           </div>
 
           {/* Legend */}
-          <div className="mt-12 glass-card gradient-border rounded-2xl p-6">
-            <h3 className="text-sm font-mono text-cyan-400 uppercase tracking-wider mb-4">Legend</h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs">
-              <div className="flex items-center gap-2">
-                <Badge className="text-[10px] font-mono px-2 py-0 border bg-cyan-500/10 text-cyan-400 border-cyan-500/20">Expert</Badge>
-                <span className="text-muted-foreground">Deep mastery</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Badge className="text-[10px] font-mono px-2 py-0 border bg-blue-500/10 text-blue-400 border-blue-500/20">Advanced</Badge>
-                <span className="text-muted-foreground">Strong proficiency</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Badge className="text-[10px] font-mono px-2 py-0 border bg-amber-500/10 text-amber-400 border-amber-500/20">Intermediate</Badge>
-                <span className="text-muted-foreground">Growing skill</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle className="h-3.5 w-3.5 text-emerald-400/70" />
-                <span className="text-muted-foreground">Mastered</span>
-                <Clock className="h-3.5 w-3.5 text-amber-400/70 ml-3" />
-                <span className="text-muted-foreground">In Progress</span>
-              </div>
+          <div className="mt-16 border-t border-border pt-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              {[
+                { label: "Expert", desc: "Deep mastery", width: "w-full" },
+                { label: "Advanced", desc: "Strong proficiency", width: "w-3/4" },
+                { label: "Intermediate", desc: "Growing skill", width: "w-1/2" },
+                { label: "Beginner", desc: "Learning", width: "w-1/4" },
+              ].map((item, i) => (
+                <div key={i}>
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-12 h-1 bg-border rounded-full overflow-hidden">
+                      <div className={`h-full bg-foreground/40 rounded-full ${item.width}`} />
+                    </div>
+                    <span className="font-mono text-[11px] text-foreground">{item.label}</span>
+                  </div>
+                  <p className="text-[12px] text-muted-foreground">{item.desc}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>

@@ -1,70 +1,78 @@
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Award, Briefcase, GraduationCap, Rocket } from "lucide-react"
+"use client"
+
 import timelineData from "@/content/data/timeline.json"
+import { useReveal } from "@/hooks/use-reveal"
 
-const iconMap: Record<string, any> = { Rocket, Award, Briefcase, GraduationCap }
+// Group events by year, sorted descending (newest first)
+function groupByYear(events: typeof timelineData) {
+  const groups: Record<string, typeof timelineData> = {}
+  for (const event of events) {
+    if (!groups[event.year]) groups[event.year] = []
+    groups[event.year].push(event)
+  }
+  return Object.entries(groups).sort((a, b) => {
+    const yearA = parseInt(a[0]) || 0
+    const yearB = parseInt(b[0]) || 0
+    return yearB - yearA
+  })
+}
 
-const typeColors: Record<string, string> = {
-  organization: "bg-violet-500/10 text-violet-400 border-violet-500/20",
-  award: "bg-amber-500/10 text-amber-400 border-amber-500/20",
-  project: "bg-cyan-500/10 text-cyan-400 border-cyan-500/20",
-  experience: "bg-blue-500/10 text-blue-400 border-blue-500/20",
-  education: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+function YearGroup({ year, events, index }: { year: string; events: typeof timelineData; index: number }) {
+  const { ref, visible } = useReveal(0.05)
+
+  return (
+    <div ref={ref} className="grid grid-cols-[80px_1px_1fr] md:grid-cols-[120px_1px_1fr] gap-0">
+      {/* Year label — sticky on the left */}
+      <div className={`pt-1 reveal ${visible ? "visible" : ""}`} style={{ transitionDelay: `${index * 0.05}s` }}>
+        <span className="text-2xl md:text-3xl font-bold text-foreground tracking-tight sticky top-20">
+          {year}
+        </span>
+      </div>
+
+      {/* Vertical line */}
+      <div className="relative">
+        <div className={`absolute inset-0 bg-border transition-all duration-1000 origin-top ${visible ? "scale-y-100" : "scale-y-0"}`} style={{ transitionDelay: `${index * 0.05 + 0.1}s` }} />
+      </div>
+
+      {/* Events */}
+      <div className="pb-12 last:pb-0">
+        {events.map((event, i) => (
+          <div
+            key={i}
+            className={`group relative pl-8 py-5 first:pt-1 border-b border-border last:border-0 reveal ${visible ? "visible" : ""}`}
+            style={{ transitionDelay: `${index * 0.05 + i * 0.08 + 0.15}s` }}
+          >
+            {/* Dot on the line */}
+            <div className="absolute left-[-4px] top-[26px] first:top-[10px] w-[7px] h-[7px] bg-border group-hover:bg-foreground transition-colors rounded-full" />
+
+            <div className="flex items-start justify-between gap-4">
+              <div className="flex-1 min-w-0">
+                <h3 className="text-foreground font-medium text-[15px] group-hover:opacity-70 transition-opacity">
+                  {event.title}
+                </h3>
+                <p className="text-[13px] text-muted-foreground mt-1.5 leading-relaxed">
+                  {event.description}
+                </p>
+              </div>
+              <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest shrink-0 pt-1">
+                {event.type}
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
 }
 
 export default function Timeline() {
+  const yearGroups = groupByYear(timelineData)
+
   return (
-    <div className="relative pb-20">
-      {/* Vertical timeline line */}
-      <div className="absolute left-8 top-0 bottom-0 w-px bg-gradient-to-b from-cyan-500/20 via-white/[0.06] to-transparent rounded-full" />
-
-      <div className="space-y-12">
-        {timelineData.map((event, index) => {
-          const IconComponent = iconMap[event.icon] || Briefcase;
-          return (
-            <div
-              key={index}
-              className="relative flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 group"
-            >
-              {/* Timeline dot */}
-              <div className="relative z-10 flex items-center justify-center w-16 h-16 rounded-full glass-card group-hover:border-cyan-500/20 transition-all duration-300">
-                <IconComponent className="h-8 w-8 relative z-10 text-cyan-400/60 group-hover:text-cyan-400 transition-colors duration-300" />
-              </div>
-
-              {/* Content card */}
-              <div className="flex-1 min-w-0 w-full sm:w-auto">
-                <Card className="relative glass-card-hover gradient-border overflow-hidden">
-                  <CardContent className="pt-6 pb-6 px-6">
-                    <div className="flex flex-wrap items-center gap-3 mb-3">
-                      <Badge
-                        variant="outline"
-                        className="px-3 py-1.5 text-xs rounded-full bg-white/[0.03] text-foreground border border-white/[0.06] font-mono font-semibold"
-                      >
-                        {event.year}
-                      </Badge>
-                      <Badge
-                        variant="outline"
-                        className={`px-3 py-1.5 text-xs rounded-full capitalize font-mono font-medium border ${typeColors[event.type] || "bg-white/[0.03] text-muted-foreground border-white/[0.06]"}`}
-                      >
-                        {event.type}
-                      </Badge>
-                    </div>
-
-                    <h3 className="text-xl md:text-2xl font-bold mb-3 leading-tight text-foreground tracking-tight group-hover:text-cyan-400 transition-colors duration-300">
-                      {event.title}
-                    </h3>
-
-                    <p className="text-muted-foreground leading-relaxed text-base md:text-lg">
-                      {event.description}
-                    </p>
-                  </CardContent>
-                </Card>
-              </div>
-            </div>
-          );
-        })}
-      </div>
+    <div className="space-y-0">
+      {yearGroups.map(([year, events], index) => (
+        <YearGroup key={year} year={year} events={events} index={index} />
+      ))}
     </div>
-  );
+  )
 }

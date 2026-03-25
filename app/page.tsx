@@ -9,6 +9,7 @@ import EducationSection from "@/components/sections/education-section"
 import ContactSection from "@/components/sections/contact-section"
 import Footer from "@/components/footer"
 import Navbar from "@/components/navbar"
+import OnboardingTour from "@/components/onboarding-tour"
 
 const sectionComponents = {
   HeroSection,
@@ -25,16 +26,14 @@ export default function Home() {
   const enabledSections = getEnabledSections()
 
   return (
-    <main className="min-h-screen bg-background text-foreground relative">
-      <div className="dot-grid fixed inset-0 pointer-events-none z-0" />
+    <main className="min-h-screen bg-background text-foreground">
       <Navbar />
-      <div className="relative z-10">
-        {enabledSections.map((section) => {
-          const SectionComponent = sectionComponents[section.component as keyof typeof sectionComponents]
-          return SectionComponent ? <SectionComponent key={section.id} /> : null
-        })}
-        <Footer />
-      </div>
+      <OnboardingTour />
+      {enabledSections.map((section) => {
+        const SectionComponent = sectionComponents[section.component as keyof typeof sectionComponents]
+        return SectionComponent ? <SectionComponent key={section.id} /> : null
+      })}
+      <Footer />
     </main>
   )
 }

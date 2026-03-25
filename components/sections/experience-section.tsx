@@ -1,48 +1,72 @@
-import ExperienceCard from "@/components/experience-card"
+"use client"
+
 import experienceData from "@/content/data/experience.json"
+import { useReveal } from "@/hooks/use-reveal"
 
 export default function ExperienceSection() {
   const { experiences, organizations, awards } = experienceData
+  const { ref, visible } = useReveal()
 
   return (
-    <section id="experience" className="py-28 px-4 md:px-6 relative">
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-cyan-500/[0.03] rounded-full blur-3xl" />
-      <div className="container mx-auto max-w-6xl relative">
-        <div className="flex items-center gap-4 mb-14">
-          <span className="section-number">05</span>
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-            Experience & Organizations
-          </h2>
-          <div className="flex-1 h-px bg-gradient-to-r from-white/[0.08] to-transparent ml-4" />
-        </div>
+    <section id="experience" className="py-24 px-6" ref={ref}>
+      <div className="max-w-[1100px] mx-auto">
+        <div className={`divider mb-16 line-reveal ${visible ? "visible" : ""}`} />
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           <div>
-            <h3 className="text-xs font-mono mb-6 text-cyan-400 uppercase tracking-wider">Professional Experience</h3>
-            <div className="space-y-4">
-              {experiences.map((exp, index) => (
-                <ExperienceCard key={index} {...exp} />
+            <h2 className={`text-sm font-mono text-muted-foreground uppercase tracking-widest mb-8 reveal ${visible ? "visible" : ""}`}>Experience</h2>
+            <div className="space-y-0 divide-y divide-border">
+              {experiences.map((exp, i) => (
+                <div key={i} className={`py-5 first:pt-0 reveal ${visible ? "visible" : ""}`} style={{ transitionDelay: `${i * 0.08 + 0.1}s` }}>
+                  <div className="flex items-start justify-between gap-4 mb-1">
+                    <h3 className="text-foreground font-medium text-[15px]">{exp.title}</h3>
+                    <span className="font-mono text-[11px] text-muted-foreground shrink-0">{exp.period}</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground mb-3">{exp.company} · {exp.location}</p>
+                  <ul className="space-y-1.5">
+                    {exp.description.map((d, j) => (
+                      <li key={j} className="text-[13px] text-muted-foreground leading-relaxed pl-3 border-l border-border">
+                        {d}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               ))}
             </div>
           </div>
 
           <div>
-            <h3 className="text-xs font-mono mb-6 text-cyan-400 uppercase tracking-wider mt-8 lg:mt-0">Organizations</h3>
-            <div className="space-y-4">
-              {organizations.map((org, index) => (
-                <ExperienceCard key={index} {...org} />
+            <h2 className={`text-sm font-mono text-muted-foreground uppercase tracking-widest mb-8 reveal ${visible ? "visible" : ""}`} style={{ transitionDelay: "0.05s" }}>Organizations</h2>
+            <div className="space-y-0 divide-y divide-border mb-12">
+              {organizations.map((org, i) => (
+                <div key={i} className={`py-5 first:pt-0 reveal ${visible ? "visible" : ""}`} style={{ transitionDelay: `${i * 0.08 + 0.15}s` }}>
+                  <div className="flex items-start justify-between gap-4 mb-1">
+                    <h3 className="text-foreground font-medium text-[15px]">{org.title}</h3>
+                    <span className="font-mono text-[11px] text-muted-foreground shrink-0">{org.period}</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground mb-3">{org.company} · {org.location}</p>
+                  <ul className="space-y-1.5">
+                    {org.description.map((d, j) => (
+                      <li key={j} className="text-[13px] text-muted-foreground leading-relaxed pl-3 border-l border-border">
+                        {d}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               ))}
             </div>
 
-            <h3 className="text-xs font-mono mb-4 text-cyan-400 uppercase tracking-wider mt-8">Awards</h3>
-            <div className="space-y-3">
-              {awards.map((award, index) => (
-                <div key={index} className="glass-card-hover p-5 gradient-border">
-                  <h4 className="text-base font-medium mb-1 text-foreground">{award.title}</h4>
-                  <p className="text-xs text-muted-foreground mb-2 font-mono">
-                    {award.company} &middot; {award.period}
-                  </p>
-                  <p className="text-sm text-muted-foreground">{award.description}</p>
+            <h2 className={`text-sm font-mono text-muted-foreground uppercase tracking-widest mb-6 reveal ${visible ? "visible" : ""}`}>Awards</h2>
+            <div className="space-y-0 divide-y divide-border">
+              {awards.map((a, i) => (
+                <div key={i} className={`py-4 first:pt-0 reveal ${visible ? "visible" : ""}`} style={{ transitionDelay: `${i * 0.06 + 0.2}s` }}>
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <h4 className="text-foreground text-[15px]">{a.title}</h4>
+                      <p className="text-[13px] text-muted-foreground mt-1">{a.description}</p>
+                    </div>
+                    <span className="font-mono text-[11px] text-muted-foreground shrink-0">{a.period}</span>
+                  </div>
                 </div>
               ))}
             </div>

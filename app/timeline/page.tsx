@@ -1,6 +1,5 @@
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Award, ArrowLeft, Home } from "lucide-react"
+import { ArrowLeft } from "lucide-react"
 import Timeline from "@/components/timeline"
 import { generateSEO } from "@/lib/seo"
 
@@ -12,44 +11,22 @@ export const metadata = generateSEO({
 
 export default function TimelinePage() {
   return (
-    <main className="min-h-screen bg-background relative">
-      <div className="dot-grid fixed inset-0 pointer-events-none z-0" />
-      <div className="relative z-10 py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
-          {/* Back Navigation */}
-          <div className="mb-8">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="text-muted-foreground hover:text-foreground hover:bg-white/[0.04] transition-all duration-300 group"
-              asChild
-            >
-              <Link href="/">
-                <ArrowLeft className="h-4 w-4 mr-2 group-hover:-translate-x-1 transition-transform duration-300" />
-                <Home className="h-4 w-4 mr-2" />
-                Back to Home
-              </Link>
-            </Button>
-          </div>
+    <main className="min-h-screen bg-background">
+      <div className="max-w-[900px] mx-auto px-6 py-24">
+        <Link href="/" className="inline-flex items-center gap-2 text-[13px] text-muted-foreground hover:text-foreground transition-colors mb-16">
+          <ArrowLeft className="h-3.5 w-3.5" />
+          Back
+        </Link>
 
-          {/* Header */}
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center justify-center p-2 glass-card rounded-full mb-6">
-              <Award className="h-8 w-8 text-cyan-400" />
-            </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 text-foreground tracking-tight">
-              My Journey
-            </h1>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              A chronological timeline of my academic achievements, professional experiences, projects, and milestones in
-              technology and innovation.
-            </p>
-          </div>
-
-          <div className="max-w-4xl mx-auto">
-            <Timeline />
-          </div>
+        <div className="mb-16">
+          <p className="font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-3">Journey</p>
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground mb-4">Timeline</h1>
+          <p className="text-muted-foreground max-w-lg leading-relaxed">
+            A chronological view of my path through engineering, startups, and research.
+          </p>
         </div>
+
+        <Timeline />
       </div>
     </main>
   )

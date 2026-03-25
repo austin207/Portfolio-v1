@@ -3,11 +3,11 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { ArrowLeft, Calendar, Home, Code, ExternalLink } from "lucide-react"
+import { ArrowLeft, Calendar, Code, ExternalLink } from "lucide-react"
 import ProjectSearch from "@/components/project-search"
 import { useState } from "react"
 import Image from "next/image"
+import { useReveal } from "@/hooks/use-reveal"
 
 const ProjectsPage = () => {
   const projects = [
@@ -80,43 +80,30 @@ const ProjectsPage = () => {
   ]
 
   const [filteredProjects, setFilteredProjects] = useState(projects)
-
-  const getStatusColor = (status: string) => {
-    return status === "Completed"
-      ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
-      : "bg-amber-500/10 text-amber-400 border border-amber-500/20"
-  }
+  const gridReveal = useReveal()
 
   return (
-    <div className="min-h-screen bg-background relative">
-      <div className="dot-grid fixed inset-0 pointer-events-none z-0" />
-      <div className="relative z-10 py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
+    <div className="min-h-screen bg-background">
+      <div className="py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1100px] mx-auto">
           {/* Back Navigation */}
           <div className="mb-8">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="text-muted-foreground hover:text-foreground hover:bg-white/[0.04] transition-all duration-300 group"
-              asChild
+            <Link
+              href="/"
+              className="inline-flex items-center text-[13px] text-muted-foreground hover:text-foreground transition-colors"
             >
-              <Link href="/">
-                <ArrowLeft className="h-4 w-4 mr-2 group-hover:-translate-x-1 transition-transform duration-300" />
-                <Home className="h-4 w-4 mr-2" />
-                Back to Home
-              </Link>
-            </Button>
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Back to Home
+            </Link>
           </div>
 
           {/* Header */}
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center justify-center p-2 glass-card rounded-full mb-6">
-              <Code className="h-8 w-8 text-cyan-400" />
-            </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 text-foreground tracking-tight">
-              My Projects
+          <div className="mb-12">
+            <span className="font-mono text-[11px] text-muted-foreground uppercase tracking-widest fade-in" style={{ animationDelay: "0.1s" }}>Portfolio</span>
+            <h1 className="text-4xl sm:text-5xl font-bold mt-2 mb-4 text-foreground tracking-tight fade-in" style={{ animationDelay: "0.2s" }}>
+              Projects
             </h1>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            <p className="text-muted-foreground max-w-2xl leading-relaxed fade-in" style={{ animationDelay: "0.3s" }}>
               Explore my complete portfolio of projects spanning AI/ML, embedded systems, IoT, automation, and more.
               Each project showcases innovation, technical expertise, and problem-solving capabilities.
             </p>
@@ -126,44 +113,36 @@ const ProjectsPage = () => {
           <ProjectSearch projects={projects} onFilteredProjects={setFilteredProjects} />
 
           {/* Projects Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-            {filteredProjects.map((project, index) => (
+          <div ref={gridReveal.ref} className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            {filteredProjects.map((project, i) => (
               <Card
                 key={project.id}
-                className="group rounded-2xl glass-card-hover gradient-border transition-all duration-500 hover:scale-[1.02] overflow-hidden"
-                style={{
-                  animationDelay: `${index * 100}ms`,
-                  animation: "fadeInUp 0.6s ease-out forwards"
-                }}
+                className={`border border-border rounded-none bg-background overflow-hidden reveal ${gridReveal.visible ? "visible" : ""}`}
+                style={{ transitionDelay: `${i * 0.06}s` }}
               >
                 {/* Project Image */}
-                <div className="relative h-48 overflow-hidden">
+                <div className="relative h-48 overflow-hidden border-b border-border">
                   <Image
                     src={project.image || "/placeholder.svg"}
                     alt={project.title}
                     fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-500"
+                    className="object-cover"
                   />
-                  <div className="absolute inset-0 bg-background/60" />
-
-                  {/* Status Badge */}
-                  <div className="absolute top-4 right-4 z-10">
-                    <Badge className={getStatusColor(project.status)}>
-                      {project.status}
-                    </Badge>
-                  </div>
                 </div>
 
                 <CardContent className="p-6">
-                  {/* Category Badge */}
+                  {/* Category & Status */}
                   <div className="flex items-center justify-between mb-3">
-                    <Badge className="px-3 py-1.5 text-xs rounded-full bg-cyan-500/[0.06] text-cyan-400/80 border border-cyan-500/10 font-mono">
+                    <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest">
                       {project.category}
-                    </Badge>
+                    </span>
+                    <span className="font-mono text-[10px] text-muted-foreground">
+                      {project.status}
+                    </span>
                   </div>
 
                   {/* Project Title */}
-                  <h3 className="text-xl font-bold mb-3 text-foreground group-hover:text-cyan-400 transition-colors duration-300 leading-tight tracking-tight">
+                  <h3 className="text-lg font-bold mb-3 text-foreground leading-tight tracking-tight">
                     {project.title}
                   </h3>
 
@@ -174,38 +153,37 @@ const ProjectsPage = () => {
 
                   {/* Duration */}
                   <div className="flex items-center gap-2 text-xs text-muted-foreground mb-4">
-                    <Calendar className="h-3 w-3 text-cyan-400/40" />
+                    <Calendar className="h-3 w-3" />
                     <span>{project.duration}</span>
                   </div>
 
                   {/* Tags */}
-                  <div className="flex flex-wrap gap-1 mb-4">
+                  <div className="flex flex-wrap gap-1.5 mb-4">
                     {project.tags.slice(0, 3).map((tag, tagIndex) => (
-                      <Badge
+                      <span
                         key={tagIndex}
-                        variant="secondary"
-                        className="text-xs px-3 py-1.5 rounded-full bg-cyan-500/[0.06] text-cyan-400/80 border border-cyan-500/10 font-mono"
+                        className="font-mono text-[10px] text-muted-foreground"
                       >
-                        {tag}
-                      </Badge>
+                        {tag}{tagIndex < Math.min(project.tags.length, 3) - 1 && " /"}
+                      </span>
                     ))}
                     {project.tags.length > 3 && (
-                      <Badge variant="outline" className="text-xs px-3 py-1.5 rounded-full bg-cyan-500/[0.06] text-cyan-400/80 border border-cyan-500/10 font-mono">
+                      <span className="font-mono text-[10px] text-muted-foreground">
                         +{project.tags.length - 3}
-                      </Badge>
+                      </span>
                     )}
                   </div>
 
                   {/* View Details Button */}
                   <Button
-                    className="w-full border border-white/[0.06] text-muted-foreground hover:bg-cyan-500/10 hover:text-cyan-400 hover:border-cyan-500/20 rounded-full transition-all duration-300 group bg-transparent"
+                    className="w-full border border-border text-foreground hover:bg-foreground hover:text-background rounded-none transition-colors bg-background"
                     variant="outline"
                     asChild
                   >
                     <Link href={`/projects/${project.id}`}>
                       <span className="flex items-center justify-center gap-2">
                         View Details
-                        <ExternalLink className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-300" />
+                        <ExternalLink className="h-4 w-4" />
                       </span>
                     </Link>
                   </Button>
@@ -216,10 +194,8 @@ const ProjectsPage = () => {
 
           {/* No Results State */}
           {filteredProjects.length === 0 && (
-            <div className="text-center py-16">
-              <div className="inline-flex items-center justify-center p-4 glass-card rounded-full mb-6">
-                <Code className="h-12 w-12 text-cyan-400" />
-              </div>
+            <div className="text-center py-16 fade-in">
+              <Code className="h-12 w-12 text-muted-foreground mx-auto mb-6" />
               <h3 className="text-2xl font-semibold text-foreground mb-3 tracking-tight">
                 No projects found matching your criteria
               </h3>
@@ -229,7 +205,7 @@ const ProjectsPage = () => {
               <Button
                 variant="outline"
                 onClick={() => setFilteredProjects(projects)}
-                className="border-white/[0.06] text-muted-foreground hover:bg-cyan-500/10 hover:text-cyan-400 hover:border-cyan-500/20 rounded-full"
+                className="border border-border text-foreground hover:bg-foreground hover:text-background rounded-none"
               >
                 Show All Projects
               </Button>
@@ -240,17 +216,6 @@ const ProjectsPage = () => {
 
       {/* Global Styles */}
       <style jsx global>{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
         .line-clamp-3 {
           display: -webkit-box;
           -webkit-line-clamp: 3;

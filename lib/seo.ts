@@ -168,6 +168,7 @@ export const structuredData = {
     "https://pro.fiverr.com/s/7Y9Kbq4",
     "https://www.noviq.website",
     "https://huggingface.co/Austin207",
+    "https://www.virtusco.in",
   ],
   founder: [
     {
