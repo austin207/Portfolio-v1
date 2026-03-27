@@ -54,8 +54,7 @@ export const testimonials: TestimonialData[] = [
     name: "Alwin George Thomas",
     role: "CFO",
     company: "VirtusCo",
-    content:
-      "Austin is a highly skilled and reliable individual who delivers with quality and precision. His strong communication, problem-solving ability, and work ethic makes him a \"must need\" to any team.",
+    content: "Delivers with quality and precision. His problem-solving ability and work ethic make him a must-have on any team.",
     rating: 5,
     avatar: "/Testimonials/Alwin.jpg",
     featured: true,
@@ -65,10 +64,9 @@ export const testimonials: TestimonialData[] = [
     name: "Xavier Alex",
     role: "Private Banker",
     company: "ICICI Bank",
-    content:
-      "Antony created a phenomenal personal assistant for me using AI automation. It's transformed the way I manage tasks, projects, and information efficient, reliable, and surprisingly intuitive. His ability to blend cutting-edge AI with practical workflows is truly impressive.",
+    content: "Antony built me an AI personal assistant that genuinely transformed how I manage my day. Reliable, intuitive, and impressively well-engineered.",
     rating: 5,
-    avatar: "/placeholder.svg?height=80&width=80",
+    avatar: "/Testimonials/Xavier.png",
     featured: true,
   },
   {
@@ -76,8 +74,7 @@ export const testimonials: TestimonialData[] = [
     name: "A. Azeem Kouther",
     role: "CMO",
     company: "VirtusCo",
-    content:
-      "Antony's AI/ML projects demonstrate deep understanding of modern technologies. His transformer implementation is particularly impressive.",
+    content: "His AI/ML depth is rare for someone still in undergrad. The transformer work he shipped was production-grade.",
     rating: 5,
     avatar: "/Testimonials/Azeem.jpg",
     featured: true,

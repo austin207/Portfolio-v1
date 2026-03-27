@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:dribbble.com)",
+      "Bash(cd:*)",
+      "WebSearch",
+      "Bash(rm -rf .next)",
+      "Bash(pnpm build:*)"
+    ]
+  }
+}
