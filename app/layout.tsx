@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { generateSEO, structuredData, websiteStructuredData } from "@/lib/seo"
 import CustomCursor from "@/components/custom-cursor"
 import LoadingScreen from "@/components/loading-screen"
+import AvatarWrapper from "@/components/avatar-wrapper"
 
 const sans = Space_Grotesk({
   subsets: ["latin"],
@@ -46,6 +47,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <LoadingScreen />
           <CustomCursor />
+          <AvatarWrapper />
           {children}
         </ThemeProvider>
       </body>
