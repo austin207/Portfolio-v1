@@ -10,18 +10,26 @@ type Mode = "idle" | "tour-prompt" | "touring" | "qa"
 // ── Tour steps ────────────────────────────────────────────────────────────────
 const TOUR = [
   { id: "about",      title: "Who I am",        rx: 0.80, ry: 0.42,
-    prompt: "Introduce Austin's background and who he is to a portfolio visitor in 2 sentences. Mention his degree at RSET, years of experience, and key ventures (VirtusCo, Noviq)." },
+    prompt: "In 2 short sentences (max 40 words), introduce Austin: 20yr-old engineer at RSET Kerala, 3+ years across VLSI/embedded/robotics/AI-ML, co-founder & CTO of VirtusCo, founder of Noviq. Be warm and direct. Stop after the second sentence." },
   { id: "skills",     title: "What I know",      rx: 0.15, ry: 0.40,
-    prompt: "Describe Austin's technical skills to a visitor in 2 sentences. Highlight the breadth across embedded systems, robotics, AI/ML, and web — with a specific impressive example." },
+    prompt: "In 2 short sentences (max 40 words), describe Austin's technical skills: 6 domains from Embedded C and SystemVerilog to ROS 2, PyTorch, and Next.js — expert in both hardware and software. Stop after the second sentence." },
   { id: "projects",   title: "What I've built",  rx: 0.80, ry: 0.38,
-    prompt: "Tell a visitor about Austin's most impressive projects in 2 sentences. Mention the 253M-parameter transformer model and the autonomous airport robot." },
+    prompt: "In 2 short sentences (max 40 words), describe Austin's notable projects: 253M-parameter LLaMA-like transformer from scratch, autonomous airport robot with full ROS 2 stack, computer vision systems — all real working code. Stop after the second sentence." },
   { id: "experience", title: "Where I've worked", rx: 0.15, ry: 0.45,
-    prompt: "Summarise Austin's work experience to a visitor in 2 sentences. Include remote BLE firmware at a US startup while being a full-time student, and freelance work." },
+    prompt: "In 2 short sentences (max 40 words), summarise Austin's experience: remote BLE firmware on Zephyr RTOS for a US startup, freelance ROS 2 on Fiverr, web dev — all while a full-time student. Stop after the second sentence." },
   { id: "contact",    title: "Let's connect",    rx: 0.60, ry: 0.55,
-    prompt: "Wrap up the portfolio tour and invite the visitor to reach out to Austin in 2 sentences. Mention the contact form and LinkedIn. Sound warm and inviting." },
+    prompt: "In 2 short sentences (max 35 words), warmly invite visitors to contact Austin via the form or LinkedIn/GitHub. Stop after the second sentence." },
 ]
 
-// ── Robot SVG ─────────────────────────────────────────────────────────────────
+// ── Fallback texts (used if API fails) ───────────────────────────────────────
+const FALLBACK_TEXTS = [
+  "Austin is a 20-year-old Applied Electronics engineer at RSET Kerala, with 3+ years spanning VLSI, embedded systems, robotics, and AI/ML. He's co-founder & CTO of VirtusCo and founder of the web/AI studio Noviq.",
+  "Austin's skills span 6 domains — Embedded C, SystemVerilog, ROS 2, Altium PCB design, PyTorch, and Next.js. Expert-level in both software and hardware, rare for someone still in undergrad.",
+  "He built a 253M-parameter LLaMA-like transformer from scratch and an autonomous airport robot with a full ROS 2 navigation stack. Every project on this page is real, deployed, working code.",
+  "Austin works remotely as a BLE firmware developer for a US startup using Zephyr RTOS, freelances ROS 2 on Fiverr for international clients, and builds web apps — all while being a full-time engineering student.",
+  "Got a project in mind? Drop Austin a message using the form or reach him on LinkedIn, GitHub, or Fiverr. Click me anytime if you have more questions!",
+]
+const CHAR_SPEED = 14   // ms per character — fast but readable
 function RobotSVG({ isThinking }: { isThinking: boolean }) {
   return (
     <svg width="36" height="42" viewBox="0 0 48 56" shapeRendering="crispEdges" aria-hidden="true">
@@ -75,15 +83,18 @@ export default function AvatarAgent() {
   const [qaText,      setQaText]      = useState("")
   const [qaQuestion,  setQaQuestion]  = useState("")
   const [isStreaming,     setIsStreaming]     = useState(false)
-  const [isTourStreaming, setIsTourStreaming] = useState(false)
   const [qaHistory,   setQaHistory]  = useState<Message[]>([])
   const [vp,          setVp]         = useState({ w: 1200, h: 800 })
 
-  const robotRef     = useRef<HTMLDivElement>(null)
-  const bubbleRef    = useRef<HTMLDivElement>(null)
-  const inputRef     = useRef<HTMLInputElement>(null)
-  const isTouringRef = useRef(false)
-  const abortRef     = useRef<AbortController | null>(null)
+  const robotRef      = useRef<HTMLDivElement>(null)
+  const bubbleRef     = useRef<HTMLDivElement>(null)
+  const inputRef      = useRef<HTMLInputElement>(null)
+  const isTouringRef  = useRef(false)
+  const abortRef      = useRef<AbortController | null>(null)
+  const tourTextsRef  = useRef<string[]>(Array(TOUR.length).fill(""))  // pre-generated
+  const typeTimerRef  = useRef<ReturnType<typeof setInterval> | null>(null)
+  const qaQueueRef    = useRef("")   // characters waiting to render
+  const qaDrainRef    = useRef<ReturnType<typeof setInterval> | null>(null)
 
   // ── Home position ──────────────────────────────────────────────────────────
   const homePos = useCallback(
@@ -120,10 +131,74 @@ export default function AvatarAgent() {
     return () => clearTimeout(t)
   }, [mounted])
 
-  // ── Stream utility (shared for tour + Q&A) ───────────────────────────────
+  // ── Pre-generate all tour texts on mount ─────────────────────────────────
+  useEffect(() => {
+    if (!mounted) return
+    const seen = sessionStorage.getItem("tour-seen")
+    if (seen) return
+    const delay = (ms: number) => new Promise(r => setTimeout(r, ms))
+    ;(async () => {
+      for (let i = 0; i < TOUR.length; i++) {
+        try {
+          if (i > 0) await delay(800)   // avoid Groq rate-limit between calls
+          const res = await fetch("/api/avatar", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              messages: [{ role: "user", content: TOUR[i].prompt }],
+              max_tokens: 150,           // enough for 2-3 full sentences
+            }),
+          })
+          if (!res.body) { tourTextsRef.current[i] = FALLBACK_TEXTS[i]; continue }
+          const reader = res.body.getReader(); const dec = new TextDecoder()
+          let buf = "", full = ""
+          while (true) {
+            const { done, value } = await reader.read(); if (done) break
+            buf += dec.decode(value, { stream: true })
+            const lines = buf.split("\n"); buf = lines.pop() ?? ""
+            for (const line of lines) {
+              const t = line.trim(); if (!t.startsWith("data: ")) continue
+              const d = t.slice(6); if (d === "[DONE]") break
+              try { full += JSON.parse(d)?.choices?.[0]?.delta?.content ?? "" } catch {}
+            }
+          }
+          tourTextsRef.current[i] = full.trim() || FALLBACK_TEXTS[i]
+        } catch {
+          tourTextsRef.current[i] = FALLBACK_TEXTS[i]
+        }
+      }
+    })()
+  }, [mounted])
+
+  // ── Typewriter (for tour display) ─────────────────────────────────────────
+  const typewrite = useCallback((text: string) => {
+    if (typeTimerRef.current) clearInterval(typeTimerRef.current)
+    setTypeText("")
+    let i = 0
+    typeTimerRef.current = setInterval(() => {
+      i++
+      setTypeText(text.slice(0, i))
+      if (i >= text.length) clearInterval(typeTimerRef.current!)
+    }, CHAR_SPEED)
+  }, [])
+
+  // ── Q&A display drain (character queue → 28ms/char) ─────────────────────
+  const startQADrain = useCallback(() => {
+    if (qaDrainRef.current) return
+    qaDrainRef.current = setInterval(() => {
+      if (qaQueueRef.current.length > 0) {
+        const ch = qaQueueRef.current[0]
+        qaQueueRef.current = qaQueueRef.current.slice(1)
+        setQaText(prev => prev + ch)
+      }
+    }, CHAR_SPEED)
+  }, [])
+
+
+  // ── Stream utility (Q&A only) ─────────────────────────────────────────────────
   const streamFromAPI = useCallback(async (
     messages: Array<{ role: string; content: string }>,
-    onToken: (t: string) => void,
+    onChunk: (tok: string) => void,
     signal?: AbortSignal
   ) => {
     const res = await fetch("/api/avatar", {
@@ -132,35 +207,25 @@ export default function AvatarAgent() {
       body: JSON.stringify({ messages }),
       signal,
     })
-    if (!res.body) return ""
-    const reader  = res.body.getReader()
-    const decoder = new TextDecoder()
-    let buf = "", full = ""
+    if (!res.body) return
+    const reader = res.body.getReader(), dec = new TextDecoder()
+    let buf = ""
     while (true) {
-      const { done, value } = await reader.read()
-      if (done) break
-      buf += decoder.decode(value, { stream: true })
+      const { done, value } = await reader.read(); if (done) break
+      buf += dec.decode(value, { stream: true })
       const lines = buf.split("\n"); buf = lines.pop() ?? ""
       for (const line of lines) {
-        const t = line.trim()
-        if (!t.startsWith("data: ")) continue
+        const t = line.trim(); if (!t.startsWith("data: ")) continue
         const d = t.slice(6); if (d === "[DONE]") break
-        try {
-          const tok = JSON.parse(d)?.choices?.[0]?.delta?.content ?? ""
-          if (tok) { full += tok; onToken(full) }
-        } catch { /* skip */ }
+        try { onChunk(JSON.parse(d)?.choices?.[0]?.delta?.content ?? "") } catch {}
       }
     }
-    return full
   }, [])
 
-  // ── Tour step (AI-narrated) ────────────────────────────────────────────────
+  // ── Tour step — uses pre-generated text + typewriter ──────────────────────
   const goToStep = useCallback((idx: number) => {
-    // Cancel any in-flight tour stream
-    abortRef.current?.abort()
-    abortRef.current = new AbortController()
+    if (typeTimerRef.current) clearInterval(typeTimerRef.current)
     if (idx >= TOUR.length) {
-      // Tour finished → go home, switch to Q&A
       isTouringRef.current = false
       sessionStorage.setItem("tour-seen", "true")
       setPos(homePos())
@@ -171,31 +236,13 @@ export default function AvatarAgent() {
     const step = TOUR[idx]
     setTourStep(idx)
     setTypeText("")
-
-    // Move robot
-    setPos({
-      x: window.innerWidth  * step.rx,
-      y: window.innerHeight * step.ry,
-    })
-    // Scroll section
+    setPos({ x: window.innerWidth * step.rx, y: window.innerHeight * step.ry })
     setTimeout(() => {
       document.getElementById(step.id)?.scrollIntoView({ behavior: "smooth", block: "center" })
     }, 200)
-
-    // Stream AI narration
-    setTimeout(async () => {
-      setIsTourStreaming(true)
-      try {
-        await streamFromAPI(
-          [{ role: "user", content: step.prompt }],
-          (full) => setTypeText(full),
-          abortRef.current?.signal
-        )
-      } catch { /* aborted or error */ } finally {
-        setIsTourStreaming(false)
-      }
-    }, 500)
-  }, [homePos, streamFromAPI])
+    // Typewrite the pre-generated (or fallback) text after robot moves
+    setTimeout(() => typewrite(tourTextsRef.current[idx] || FALLBACK_TEXTS[idx]), 500)
+  }, [homePos, typewrite])
 
   const startTour = useCallback(() => {
     isTouringRef.current = true
@@ -205,7 +252,7 @@ export default function AvatarAgent() {
   }, [goToStep])
 
   const skipTour = useCallback(() => {
-    abortRef.current?.abort()
+    if (typeTimerRef.current) clearInterval(typeTimerRef.current)
     isTouringRef.current = false
     sessionStorage.setItem("tour-seen", "true")
     setPos(homePos())
@@ -245,37 +292,28 @@ export default function AvatarAgent() {
     if (!q.trim() || isStreaming) return
     setQaInput("")
     setQaQuestion(q)
-    setQaText("")
+    setQaText(""); qaQueueRef.current = ""
+    if (qaDrainRef.current) { clearInterval(qaDrainRef.current); qaDrainRef.current = null }
     setIsStreaming(true)
     const nextHist: Message[] = [...qaHistory, { role: "user", content: q }]
     setQaHistory(nextHist)
     try {
-      const res = await fetch("/api/avatar", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: nextHist }),
-      })
-      if (!res.body) throw new Error()
-      const reader  = res.body.getReader()
-      const decoder = new TextDecoder()
-      let buf = "", full = ""
-      while (true) {
-        const { done, value } = await reader.read()
-        if (done) break
-        buf += decoder.decode(value, { stream: true })
-        const lines = buf.split("\n"); buf = lines.pop() ?? ""
-        for (const line of lines) {
-          const trimmed = line.trim()
-          if (!trimmed.startsWith("data: ")) continue
-          const data = trimmed.slice(6)
-          if (data === "[DONE]") break
-          try {
-            const tok = JSON.parse(data)?.choices?.[0]?.delta?.content ?? ""
-            if (tok) { full += tok; setQaText(full) }
-          } catch { /* skip */ }
+      let full = ""
+      await streamFromAPI(
+        nextHist,
+        (tok) => { qaQueueRef.current += tok; startQADrain() }
+      )
+      // Drain remaining queue and save history after done
+      const flush = () => {
+        if (qaQueueRef.current.length > 0) { setTimeout(flush, CHAR_SPEED * qaQueueRef.current.length + 50) }
+        else {
+          if (qaDrainRef.current) { clearInterval(qaDrainRef.current); qaDrainRef.current = null }
+          setQaHistory(h => [...h, { role: "assistant", content: full }])
         }
       }
-      setQaHistory(h => [...h, { role: "assistant", content: full }])
+      // Collect full text for history from displayed state
+      setQaText(prev => { full = prev; return prev })
+      setTimeout(flush, 100)
     } catch {
       setQaText("Connection error. Try again.")
     } finally {
@@ -333,7 +371,7 @@ export default function AvatarAgent() {
           }}
           aria-label="Chat with Austin's assistant"
         >
-          <RobotSVG isThinking={isStreaming || isTourStreaming} />
+          <RobotSVG isThinking={isStreaming} />
         </button>
       </div>
 
@@ -392,8 +430,8 @@ export default function AvatarAgent() {
               </div>
               {/* Text */}
               <p className="text-xs text-foreground leading-relaxed min-h-[52px]">
-                {typeText || (isTourStreaming && <span className="animate-pulse text-muted-foreground/40">thinking…</span>)}
-                {isTourStreaming && (
+                {typeText || <span className="animate-pulse text-muted-foreground/40">thinking…</span>}
+                {typeText.length > 0 && typeText.length < 300 && (
                   <span className="inline-block w-0.5 h-3 bg-foreground/50 ml-0.5 animate-pulse align-middle" />
                 )}
               </p>

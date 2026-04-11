@@ -4,7 +4,7 @@ import { SYSTEM_PROMPT } from "@/lib/data/avatar-context"
 export const dynamic = "force-dynamic"
 
 export async function POST(req: NextRequest) {
-  const { messages } = await req.json()
+  const { messages, max_tokens } = await req.json()
 
   if (!process.env.GROQ_API_KEY) {
     return new Response(
@@ -22,8 +22,9 @@ export async function POST(req: NextRequest) {
     body: JSON.stringify({
       model: "llama-3.1-8b-instant",
       messages: [{ role: "system", content: SYSTEM_PROMPT }, ...messages],
-      max_tokens: 80,
+      max_tokens: max_tokens ?? 80,
       temperature: 0.3,
+      stop: ["\n\n"],   // halt at paragraph break so response never runs on
       stream: true,
     }),
   })
