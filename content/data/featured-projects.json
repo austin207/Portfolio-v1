@@ -2,7 +2,7 @@
   {
     "title": "32-Bit Tiny GPU",
     "description": "A complete GPU stack built from scratch: custom 32-bit ISA, 12-module SystemVerilog RTL, C-based assembler, and neural network training running end-to-end on simulated hardware.",
-    "image": "/placeholder.svg?height=300&width=500",
+    "image": "/project-images/32-bit-tiny-gpu/hero.png",
     "tags": ["SystemVerilog", "Verilog", "C", "Python", "GPU Architecture", "ISA Design"],
     "github": "https://github.com/austin207/32-bit-Tiny-GPU",
     "projectUrl": "/projects/32-bit-tiny-gpu"
