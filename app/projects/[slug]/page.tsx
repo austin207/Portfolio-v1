@@ -39,6 +39,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
 export async function generateStaticParams() {
   return [
+    { slug: '32-bit-tiny-gpu' },
     { slug: 'ai-ml-language-models' },
     { slug: 'ambulance-traffic-system' },
     { slug: 'computer-vision' },

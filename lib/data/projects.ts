@@ -216,6 +216,16 @@ export async function getStatuses(): Promise<string[]> {
 // Legacy support for existing projects page
 export const projects = [
   {
+    id: "32-bit-tiny-gpu",
+    title: "32-Bit Tiny GPU",
+    description: "A complete GPU stack built from scratch: custom 32-bit ISA, 12-module SystemVerilog RTL, C-based assembler, and neural network training running end-to-end on simulated hardware.",
+    image: "/placeholder.svg?height=300&width=500",
+    tags: ["SystemVerilog", "Verilog", "C", "Python", "GPU Architecture", "ISA Design", "Neural Networks", "cocotb"],
+    status: "Completed",
+    duration: "2025",
+    category: "Computer Architecture",
+  },
+  {
     id: "ai-ml-language-models",
     title: "AI/ML Language Model Prototyping",
     description: "Built an RNN-based text generator, then developed MiniGPT from scratch for modest hardware. Currently building a scalable LLaMA-like transformer model.",
