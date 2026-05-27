@@ -1,103 +1,140 @@
 {
   "title": "32-Bit Tiny GPU",
-  "description": "A complete GPU stack built from scratch: custom 32-bit ISA, 12-module SystemVerilog RTL, C-based assembler, and neural network training running end-to-end on simulated hardware.",
+  "description": "A complete GPU stack built from scratch: custom 32-bit ISA, 12-module SystemVerilog RTL, C-based assembler (AXEL), and a neural network that trains end-to-end on simulated hardware.",
   "image": "/project-images/32-bit-tiny-gpu/hero.png",
-  "tags": ["SystemVerilog", "Verilog", "C", "Python", "GPU Architecture", "ISA Design", "Neural Networks", "cocotb"],
+  "tags": ["SystemVerilog", "Verilog", "C", "Python", "GPU Architecture", "ISA Design", "Neural Networks", "cocotb", "FPGA", "SIMD"],
   "status": "Completed",
   "duration": "2025",
   "category": "Computer Architecture",
   "github": "https://github.com/austin207/32-bit-Tiny-GPU",
-  "overview": "32-Bit Tiny GPU is a ground-up implementation of a programmable GPU — from the silicon-level RTL all the way to a working assembler and a neural network that trains and infers on the simulated hardware. The architecture features a custom 21-instruction 32-bit ISA, a seven-state pipeline scheduler, and a configurable multi-core SIMD execution model (default 4 cores × 4 threads = 16 concurrent threads). A C-based assembler library called AXEL compiles kernel programs to .hex files that drive the RTL simulation. The project culminates in a Q8 fixed-point neural network — a 4×4 linear layer with branchless ReLU — that trains over 20 epochs entirely on the simulated GPU, converging within 2.5% of the target output.",
+  "overview": "32-Bit Tiny GPU is a ground-up implementation of a programmable GPU — from the silicon-level RTL all the way to a working assembler and a neural network that trains and infers on the simulated hardware. The architecture features a custom 21-instruction 32-bit ISA, a seven-state pipeline scheduler, and a configurable multi-core SIMD execution model (default: 4 cores × 4 threads = 16 concurrent threads). A Host CPU feeds kernel programs and data into a Device Control Register (DCR), which a Dispatcher then breaks into thread blocks and assigns to individual cores. Each core runs a full pipeline: Scheduler → Fetcher → Decoder → ALU/LSU → PC, with the register file holding 32 × uint32 words per thread. A shared Memory Controller arbitrates all core memory requests down to a unified Program + Data Memory. On the software side, a C-library assembler called AXEL compiles kernel source into .hex files that drive the simulation. The project culminates in a Q8 fixed-point neural network — a 4×4 linear layer with branchless ReLU — that trains over 20 epochs entirely on the simulated GPU, converging within 2.5% of the target output with learned weights that persist between runs.",
   "objectives": [
-    "Design a minimal but complete 32-bit GPU ISA covering arithmetic, memory, branching, and SIMD-critical operations",
-    "Implement all 12 RTL modules in fully parameterized SystemVerilog — cores, ALUs, register files, program counters, and a top-level integrator",
-    "Build AXEL, a C library assembler that emits .hex kernel files directly consumable by the simulation",
-    "Demonstrate five progressively complex kernel programs to validate the execution pipeline",
-    "Train a neural network with gradient descent entirely on the GPU simulation, proving end-to-end ML workload viability",
-    "Achieve 100% unit-test pass rate across all 12 modules using cocotb and Icarus Verilog"
+    "Design a minimal but Turing-complete 32-bit GPU ISA covering arithmetic, logical, memory, branching, and SIMD-critical signed operations across 4 instruction encoding formats",
+    "Implement all 12 RTL modules (DCR, Dispatcher, Scheduler, Fetcher, Decoder, ALU, LSU, PC, RegFile, Memory Controller, Core, Top-Level GPU) as fully parameterized SystemVerilog — no hardcoded constants",
+    "Build AXEL, a C-library assembler that parses GPU assembly source and emits .hex kernel files directly consumable by the Icarus Verilog simulation",
+    "Demonstrate five progressively complex kernel programs — from a minimal add kernel to a complete neural network training loop — to validate each pipeline stage",
+    "Train a 4×4 linear + ReLU neural network with Q8 fixed-point gradient descent entirely on the GPU simulation, proving end-to-end ML workload viability on custom silicon",
+    "Achieve 100% unit-test pass rate across all 12 individual RTL modules and a passing top-level integration test under cocotb and Icarus Verilog",
+    "Prepare an FPGA port targeting Xilinx/Lattice devices with a combined flat Verilog and constraint file ready for synthesis"
   ],
   "technologies": [
     {
       "name": "SystemVerilog",
-      "description": "Primary RTL language for all 12 parameterized hardware modules"
+      "description": "Primary RTL language for all 12 parameterized hardware modules. Parameterization allows DATA_MEM_ADDR_BITS, NUM_CORES, and THREADS_PER_BLOCK to be changed at elaboration time without touching any logic."
     },
     {
       "name": "Verilog",
-      "description": "Legacy module compatibility and simulation harnesses"
+      "description": "Used for FPGA-targeted flat synthesis file (gpu_combined.v) and compatibility with simulators that do not support full SystemVerilog."
     },
     {
       "name": "C",
-      "description": "Implementation language for AXEL, the custom assembler library"
+      "description": "Implementation language for AXEL, the custom assembler library. Parses GPU assembly mnemonics and encodes them into the 4-format 32-bit binary instruction word."
     },
     {
       "name": "Python",
-      "description": "Simulation orchestration, verification scripts, and neural network training driver"
+      "description": "Drives cocotb testbenches, orchestrates simulation runs, and implements the neural network training loop that generates kernel .hex files and checks convergence."
     },
     {
       "name": "cocotb",
-      "description": "Python-based hardware verification framework used for all unit and integration tests"
+      "description": "Python-based hardware co-simulation framework used for all unit and integration tests. Allows writing test logic in Python while running the actual RTL under Icarus Verilog."
     },
     {
       "name": "Icarus Verilog",
-      "description": "Open-source Verilog/SystemVerilog simulator used as the cocotb backend"
+      "description": "Open-source Verilog/SystemVerilog simulator used as the cocotb backend. Compiles and elaborates the RTL, then hands control to cocotb coroutines for stimulus and checking."
     },
     {
       "name": "Q8 Fixed-Point Arithmetic",
-      "description": "8-bit fractional encoding (real = int / 256) enabling neural network math without floating-point hardware"
+      "description": "8-bit fractional encoding where real_value = stored_integer / 256. Enables neural network multiply-accumulate and gradient math on integer ALU hardware without any floating-point unit."
+    },
+    {
+      "name": "AXEL Assembler",
+      "description": "Custom C-library assembler that takes GPU assembly source (mnemonics + operands) and emits .hex kernel files. Handles all 4 instruction formats and the 21-instruction ISA encoding."
+    },
+    {
+      "name": "GitHub Actions (CI)",
+      "description": "Automated RTL test pipeline (.github/workflows/rtl-tests.yml) that runs the full cocotb suite on every push, keeping all 12 modules continuously verified."
     },
     {
       "name": "Makefile / Shell",
-      "description": "Build automation for simulation, assembler compilation, and test execution"
+      "description": "Build automation for simulation (make sim), assembler compilation (make assembler), individual module tests (make test-<module>), and FPGA file generation."
     }
   ],
   "challenges": [
     {
-      "title": "SIMD Divergence with Activation Functions",
-      "description": "ReLU's conditional branch (if x < 0, output 0) causes thread divergence in SIMD execution, stalling non-branching threads and collapsing parallelism.",
-      "solution": "Implemented a branchless ReLU using bitwise masking on the sign bit — eliminates the branch entirely so all 16 threads proceed in lockstep through activation without any divergence penalty."
+      "title": "SIMD Thread Divergence with Activation Functions",
+      "description": "ReLU's conditional branch (if x < 0, clamp to 0) causes thread divergence in SIMD execution — threads that take different branches must be serialised, collapsing parallelism and stalling the non-branching threads.",
+      "solution": "Implemented branchless ReLU using bitwise masking on the sign bit of the Q8-encoded value. The mask is derived with a single SAR (arithmetic right shift by 31) that fills all bits with the sign, then ANDed with the input. All 16 threads execute identical instructions in lockstep — zero divergence, full throughput maintained through every activation layer."
     },
     {
-      "title": "Negative Number Handling in Gradient Descent",
-      "description": "Gradient updates require signed multiplication and arithmetic right shifts, which are absent from many minimal ISAs and break fixed-point weight updates.",
-      "solution": "Added IMUL (signed 32-bit multiply) and SAR (arithmetic right shift preserving sign) as dedicated ISA instructions, making Q8 gradient math fully expressible in the 21-instruction set."
+      "title": "Signed Arithmetic for Gradient Descent in an Integer ISA",
+      "description": "Gradient updates require signed multiply (weights × gradients) and arithmetic right shifts (to rescale Q8 products). A naive unsigned ISA silently produces wrong results for negative gradients, breaking convergence.",
+      "solution": "Added two dedicated ISA instructions: IMUL (signed 32-bit multiply producing the lower 32 bits of the 64-bit product) and SAR (arithmetic right shift that preserves the sign bit). These two instructions make the full Q8 gradient-descent update expressible in native hardware without any software workaround."
     },
     {
-      "title": "Hardware-Injected Register State for SIMD",
-      "description": "Each thread needs its own thread ID and data slice injected into registers before kernel execution, without OS-level process management.",
-      "solution": "Designed the top-level RTL to hardware-inject per-thread state directly into the register file at startup, giving every thread its identity and data partition with zero software overhead."
+      "title": "Per-Thread Hardware State Injection Without an OS",
+      "description": "Each thread needs its own thread ID, block ID, and data slice pre-loaded into specific registers before the kernel executes — normally handled by a driver or OS. Without one, this state must come from the hardware itself.",
+      "solution": "The Top-Level GPU RTL injects per-thread state (thread_id, block_id, data base address) directly into each core's register file at kernel launch, before the Scheduler begins the first pipeline cycle. Every thread gets its identity and partition with zero software overhead and no OS dependency."
     },
     {
-      "title": "End-to-End Verification Across the Full Stack",
-      "description": "Bugs can hide at any layer — ISA encoding, RTL logic, assembler codegen, or the kernel program itself — making root-cause analysis across a full GPU stack extremely difficult.",
-      "solution": "Built a two-tier test strategy: cocotb unit tests for all 12 individual modules to isolate RTL bugs, then a top-level integration test running the complete neural network training pipeline to validate the entire stack together."
+      "title": "Seven-State Scheduler Correctness Across 4 Threads per Core",
+      "description": "The Scheduler must multiplex 4 threads through the pipeline (IDLE → FETCH → WAIT → EXECUTE → UPDATE → DONE → WRITE_BACK) without starving any thread or corrupting in-flight state when a thread stalls on a memory access.",
+      "solution": "Implemented a round-robin warp scheduler with per-thread state machines. Each thread tracks its own pipeline state independently; the Scheduler only advances a thread when its next stage is ready. Memory stalls park the affected thread in WAIT while others continue executing — maintaining throughput without a scoreboard."
+    },
+    {
+      "title": "End-to-End Verification Across a 5-Layer Stack",
+      "description": "Bugs can hide at any layer — ISA encoding, RTL logic, assembler codegen, kernel program, or the Python test driver — making root-cause analysis across a complete GPU stack extremely slow without layered isolation.",
+      "solution": "Two-tier test strategy: cocotb unit tests for all 12 individual modules to isolate RTL bugs in isolation, then a single top-level integration test that runs the complete neural network training pipeline end-to-end. If unit tests pass but integration fails, the bug is in module interaction or the kernel program — not the RTL itself."
+    },
+    {
+      "title": "FPGA Synthesis from Multi-File SystemVerilog",
+      "description": "FPGA toolchains often struggle with multi-file SystemVerilog projects that use packages, interfaces, and parameterized generates — common in the modular RTL but problematic for Vivado/Quartus elaboration.",
+      "solution": "Generated a flattened single-file gpu_combined.v using a shell script that concatenates all modules in dependency order, strips SystemVerilog-only constructs where Verilog-2001 equivalents exist, and adds XDC/SDC constraint stubs. The combined file synthesises cleanly on Xilinx and Lattice flows without any manual intervention."
     }
   ],
   "results": [
-    "All 12 SystemVerilog modules pass unit tests with 100% coverage under cocotb / Icarus Verilog",
-    "21-instruction 32-bit ISA fully specified across 4 encoding formats, including signed multiply and arithmetic shift for ML workloads",
-    "AXEL assembler successfully compiles five kernel programs to executable .hex files",
-    "Neural network (4×4 linear + ReLU) trains for 20 epochs on the GPU simulation, converging within 2.5% of the target output",
-    "Learned weights persist between simulation runs, demonstrating stateful inference capability",
-    "Branchless ReLU eliminates SIMD thread divergence, maintaining full 16-thread parallelism through activation layers"
+    "All 12 SystemVerilog RTL modules pass their dedicated cocotb/Icarus Verilog unit tests with 100% assertion coverage",
+    "Top-level integration test runs the complete neural network training pipeline (20 epochs, 4×4 linear + ReLU) and passes with final output within 2.5% of the target",
+    "21-instruction 32-bit ISA fully specified across 4 encoding formats (R, I, J, NOP); IMUL and SAR added for ML workload correctness",
+    "AXEL assembler compiles 5 kernel programs (add, multiply, matrix-vector multiply, ReLU test, NN training) to correct .hex files confirmed against manual encoding",
+    "Neural network learned weights persist between simulation runs — inference re-runs using saved weights reproduce the trained output",
+    "Branchless ReLU eliminates SIMD thread divergence; all 16 threads proceed in lockstep through activation with no pipeline stalls",
+    "FPGA-ready flat Verilog file (gpu_combined.v) with XDC constraints generated and verified for synthesis on Xilinx Artix-7",
+    "GitHub Actions CI pipeline runs the full cocotb test suite on every push, keeping regression coverage continuous"
   ],
   "futureWork": [
-    "Synthesize the RTL on an FPGA (Xilinx Artix-7 or Lattice iCE40) for real hardware validation",
-    "Extend the ISA with floating-point instructions to remove Q8 precision limitations",
-    "Scale core count and thread count beyond 4×4 to benchmark parallelism gains",
-    "Add a texture sampler and rasterization pipeline to support graphics workloads alongside compute",
-    "Implement a simple memory hierarchy (L1 cache per core, shared L2) to reduce register-file pressure",
-    "Develop a higher-level GPU compute language that compiles down to AXEL assembly"
+    "Synthesise and run the RTL on a physical Xilinx Artix-7 FPGA to validate timing closure and real hardware behaviour",
+    "Extend the ISA with IEEE 754 single-precision floating-point instructions to remove Q8 precision limitations on larger networks",
+    "Scale core count and thread count beyond 4×4 and benchmark throughput scaling linearity against theoretical peak FLOPS",
+    "Add a two-level memory hierarchy (L1 scratchpad per core, shared L2 SRAM) to reduce register-file pressure on memory-bound kernels",
+    "Implement a texture sampler and tile-based rasterisation pipeline to support graphics workloads alongside compute kernels",
+    "Develop a higher-level GPU compute language (similar to a minimal CUDA C subset) that compiles down to AXEL assembly",
+    "Port the neural network demo to a deeper architecture (e.g., 3-layer MLP) to stress-test the scheduler and memory arbitration under heavier workload"
   ],
   "repositories": [
     {
       "name": "32-bit-Tiny-GPU",
       "url": "https://github.com/austin207/32-bit-Tiny-GPU",
-      "description": "Complete GPU stack: ISA spec, SystemVerilog RTL, AXEL assembler, kernel demos, and neural network training"
+      "description": "Complete GPU stack: ISA spec, 12-module SystemVerilog RTL, AXEL assembler, 5 kernel demos, neural network training, cocotb tests, and FPGA port"
     }
   ],
   "gallery": [
-    "/project-images/32-bit-tiny-gpu/architecture.png"
+    "/project-images/32-bit-tiny-gpu/architecture.png",
+    "/project-images/32-bit-tiny-gpu/instruction_encoding.png",
+    "/project-images/32-bit-tiny-gpu/software_layer_architecture.png",
+    "/project-images/32-bit-tiny-gpu/component-gpu.jpg",
+    "/project-images/32-bit-tiny-gpu/component-core.jpg",
+    "/project-images/32-bit-tiny-gpu/component-scheduler.jpg",
+    "/project-images/32-bit-tiny-gpu/component-alu.jpg",
+    "/project-images/32-bit-tiny-gpu/component-decoder.jpg",
+    "/project-images/32-bit-tiny-gpu/component-fetcher.jpg",
+    "/project-images/32-bit-tiny-gpu/component-dispatcher.jpg",
+    "/project-images/32-bit-tiny-gpu/component-dcr.jpg",
+    "/project-images/32-bit-tiny-gpu/component-lsu.jpg",
+    "/project-images/32-bit-tiny-gpu/component-memory-controller.jpg",
+    "/project-images/32-bit-tiny-gpu/component-pc.jpg",
+    "/project-images/32-bit-tiny-gpu/component-register.jpg"
   ],
   "featured": true,
-  "priority": 100
+  "priority": 100,
+  "documentationStatus": "complete"
 }
