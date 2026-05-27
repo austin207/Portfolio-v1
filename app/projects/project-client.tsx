@@ -7,24 +7,17 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ArrowLeft, Github, Calendar, Code, Zap, Target, CheckCircle, AlertCircle, ExternalLink, Play, Clock } from "lucide-react"
 import Image from "next/image"
 import type { ProjectWithMetadata } from "@/lib/data/projects"
-import { useReveal } from "@/hooks/use-reveal"
 
 interface ProjectClientProps {
   project: ProjectWithMetadata;
 }
 
 export default function ProjectClient({ project }: ProjectClientProps) {
-  const overviewReveal = useReveal()
-  const technicalReveal = useReveal()
-  const challengesReveal = useReveal()
-  const resultsReveal = useReveal()
-  const futureReveal = useReveal()
-  const galleryReveal = useReveal()
-
   return (
     <main className="min-h-screen bg-background">
       <div className="py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-[1100px] mx-auto">
+
           {/* Header */}
           <div className="mb-8">
             <Link
@@ -53,9 +46,11 @@ export default function ProjectClient({ project }: ProjectClientProps) {
               {project.title}
             </h1>
 
-            <p className="text-lg text-muted-foreground max-w-4xl mb-6 fade-in" style={{ animationDelay: "0.3s" }}>{project.description}</p>
+            <p className="text-lg text-muted-foreground max-w-4xl mb-6 fade-in" style={{ animationDelay: "0.3s" }}>
+              {project.description}
+            </p>
 
-            <div className="flex flex-wrap gap-4 mb-8">
+            <div className="flex flex-wrap gap-4 mb-8 fade-in" style={{ animationDelay: "0.35s" }}>
               <div className="flex items-center gap-2 text-muted-foreground">
                 <Calendar className="h-4 w-4 text-muted-foreground" />
                 <span className="text-sm">{project.duration}</span>
@@ -89,7 +84,7 @@ export default function ProjectClient({ project }: ProjectClientProps) {
               )}
             </div>
 
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-3 fade-in" style={{ animationDelay: "0.4s" }}>
               {project.tags.map((tag, index) => (
                 <span key={index} className="font-mono text-[10px] text-muted-foreground">
                   {tag}{index < project.tags.length - 1 && " /"}
@@ -99,13 +94,14 @@ export default function ProjectClient({ project }: ProjectClientProps) {
           </div>
 
           {/* Hero Image */}
-          <div className="relative h-64 md:h-96 overflow-hidden mb-12 border border-border fade-in" style={{ animationDelay: "0.4s" }}>
+          <div className="relative h-64 md:h-96 overflow-hidden mb-12 border border-border fade-in" style={{ animationDelay: "0.45s" }}>
             <Image
               src={project.image || "/placeholder.svg"}
               alt={project.title}
               fill
               className="object-cover"
               priority
+              sizes="(max-width: 768px) 100vw, 1100px"
             />
           </div>
 
@@ -120,183 +116,192 @@ export default function ProjectClient({ project }: ProjectClientProps) {
             </div>
           )}
 
-          {/* Content Tabs */}
+          {/* Content Tabs — only when documentation is complete */}
           {project.documentationStatus !== "coming_soon" && (
-          <>
-          <Tabs defaultValue="overview" className="w-full">
-            <TabsList className="flex flex-wrap gap-0 bg-transparent border-b border-border rounded-none p-0 h-auto mb-8 w-full">
-              <TabsTrigger value="overview" className="rounded-none px-5 py-2.5 text-sm text-muted-foreground border-b-2 border-transparent data-[state=active]:border-foreground data-[state=active]:text-foreground bg-transparent data-[state=active]:bg-transparent hover:text-foreground data-[state=active]:shadow-none">Overview</TabsTrigger>
-              <TabsTrigger value="technical" className="rounded-none px-5 py-2.5 text-sm text-muted-foreground border-b-2 border-transparent data-[state=active]:border-foreground data-[state=active]:text-foreground bg-transparent data-[state=active]:bg-transparent hover:text-foreground data-[state=active]:shadow-none">Technical</TabsTrigger>
-              <TabsTrigger value="challenges" className="rounded-none px-5 py-2.5 text-sm text-muted-foreground border-b-2 border-transparent data-[state=active]:border-foreground data-[state=active]:text-foreground bg-transparent data-[state=active]:bg-transparent hover:text-foreground data-[state=active]:shadow-none">Challenges</TabsTrigger>
-              <TabsTrigger value="results" className="rounded-none px-5 py-2.5 text-sm text-muted-foreground border-b-2 border-transparent data-[state=active]:border-foreground data-[state=active]:text-foreground bg-transparent data-[state=active]:bg-transparent hover:text-foreground data-[state=active]:shadow-none">Results</TabsTrigger>
-              <TabsTrigger value="future" className="rounded-none px-5 py-2.5 text-sm text-muted-foreground border-b-2 border-transparent data-[state=active]:border-foreground data-[state=active]:text-foreground bg-transparent data-[state=active]:bg-transparent hover:text-foreground data-[state=active]:shadow-none">Future Work</TabsTrigger>
-            </TabsList>
+            <>
+              <Tabs defaultValue="overview" className="w-full">
+                <TabsList className="flex flex-wrap gap-0 bg-transparent border-b border-border rounded-none p-0 h-auto mb-8 w-full">
+                  <TabsTrigger value="overview" className="rounded-none px-5 py-2.5 text-sm text-muted-foreground border-b-2 border-transparent data-[state=active]:border-foreground data-[state=active]:text-foreground bg-transparent data-[state=active]:bg-transparent hover:text-foreground data-[state=active]:shadow-none">Overview</TabsTrigger>
+                  <TabsTrigger value="technical" className="rounded-none px-5 py-2.5 text-sm text-muted-foreground border-b-2 border-transparent data-[state=active]:border-foreground data-[state=active]:text-foreground bg-transparent data-[state=active]:bg-transparent hover:text-foreground data-[state=active]:shadow-none">Technical</TabsTrigger>
+                  <TabsTrigger value="challenges" className="rounded-none px-5 py-2.5 text-sm text-muted-foreground border-b-2 border-transparent data-[state=active]:border-foreground data-[state=active]:text-foreground bg-transparent data-[state=active]:bg-transparent hover:text-foreground data-[state=active]:shadow-none">Challenges</TabsTrigger>
+                  <TabsTrigger value="results" className="rounded-none px-5 py-2.5 text-sm text-muted-foreground border-b-2 border-transparent data-[state=active]:border-foreground data-[state=active]:text-foreground bg-transparent data-[state=active]:bg-transparent hover:text-foreground data-[state=active]:shadow-none">Results</TabsTrigger>
+                  <TabsTrigger value="future" className="rounded-none px-5 py-2.5 text-sm text-muted-foreground border-b-2 border-transparent data-[state=active]:border-foreground data-[state=active]:text-foreground bg-transparent data-[state=active]:bg-transparent hover:text-foreground data-[state=active]:shadow-none">Future Work</TabsTrigger>
+                </TabsList>
 
-            <TabsContent value="overview" className="mt-0">
-              <div ref={overviewReveal.ref} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <div className="lg:col-span-2">
-                  <Card className={`border border-border rounded-none bg-background mb-6 reveal ${overviewReveal.visible ? "visible" : ""}`} style={{ transitionDelay: "0s" }}>
-                    <CardContent className="pt-6">
-                      <h3 className="text-2xl font-semibold mb-4 text-foreground tracking-tight">Project Overview</h3>
-                      <p className="text-muted-foreground leading-relaxed">{project.overview}</p>
-                    </CardContent>
-                  </Card>
+                {/* Overview tab */}
+                <TabsContent value="overview" className="mt-0">
+                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div className="lg:col-span-2">
+                      <Card className="border border-border rounded-none bg-background mb-6 fade-in" style={{ animationDelay: "0s" }}>
+                        <CardContent className="pt-6">
+                          <h3 className="text-2xl font-semibold mb-4 text-foreground tracking-tight">Project Overview</h3>
+                          <p className="text-muted-foreground leading-relaxed">{project.overview}</p>
+                        </CardContent>
+                      </Card>
 
-                  <Card className={`border border-border rounded-none bg-background reveal ${overviewReveal.visible ? "visible" : ""}`} style={{ transitionDelay: "0.1s" }}>
+                      <Card className="border border-border rounded-none bg-background fade-in" style={{ animationDelay: "0.1s" }}>
+                        <CardContent className="pt-6">
+                          <h3 className="text-2xl font-semibold mb-4 text-foreground tracking-tight flex items-center gap-2">
+                            <Target className="h-5 w-5 text-muted-foreground" />
+                            Objectives
+                          </h3>
+                          <ul className="space-y-3">
+                            {project.objectives.map((objective, index) => (
+                              <li key={index} className="flex items-start gap-3 fade-in" style={{ animationDelay: `${0.05 * index}s` }}>
+                                <CheckCircle className="h-4 w-4 text-muted-foreground mt-0.5 flex-shrink-0" />
+                                <span className="text-muted-foreground">{objective}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </CardContent>
+                      </Card>
+                    </div>
+
+                    <div>
+                      <Card className="border border-border rounded-none bg-background fade-in" style={{ animationDelay: "0.15s" }}>
+                        <CardContent className="pt-6">
+                          <h3 className="text-xl font-semibold mb-4 text-foreground tracking-tight">Project Details</h3>
+                          <div className="space-y-4">
+                            <div>
+                              <h4 className="font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-1">Status</h4>
+                              <span className="font-mono text-[11px] text-muted-foreground">{project.status}</span>
+                            </div>
+                            <div>
+                              <h4 className="font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-1">Duration</h4>
+                              <p className="text-muted-foreground">{project.duration}</p>
+                            </div>
+                            <div>
+                              <h4 className="font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-1">Category</h4>
+                              <p className="text-muted-foreground">{project.category}</p>
+                            </div>
+                            {project.repositories && (
+                              <div>
+                                <h4 className="font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-2">Repositories</h4>
+                                <div className="space-y-2">
+                                  {project.repositories.map((repo, index) => (
+                                    <Link key={index} href={repo.url} target="_blank" rel="noopener noreferrer">
+                                      <div className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                                        <Github className="h-4 w-4" />
+                                        <span>{repo.name}</span>
+                                      </div>
+                                    </Link>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  </div>
+                </TabsContent>
+
+                {/* Technical tab */}
+                <TabsContent value="technical" className="mt-0">
+                  <Card className="border border-border rounded-none bg-background">
                     <CardContent className="pt-6">
-                      <h3 className="text-2xl font-semibold mb-4 text-foreground tracking-tight flex items-center gap-2">
-                        <Target className="h-5 w-5 text-muted-foreground" />
-                        Objectives
+                      <h3 className="text-2xl font-semibold mb-6 text-foreground tracking-tight flex items-center gap-2">
+                        <Code className="h-5 w-5 text-muted-foreground" />
+                        Technologies & Tools
                       </h3>
-                      <ul className="space-y-3">
-                        {project.objectives.map((objective, index) => (
-                          <li key={index} className="flex items-start gap-3">
-                            <CheckCircle className="h-4 w-4 text-muted-foreground mt-0.5 flex-shrink-0" />
-                            <span className="text-muted-foreground">{objective}</span>
-                          </li>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {project.technologies.map((tech, index) => (
+                          <div key={index} className="border border-border p-4 fade-in" style={{ animationDelay: `${index * 0.05}s` }}>
+                            <h4 className="font-semibold text-foreground mb-2">{tech.name}</h4>
+                            <p className="text-muted-foreground text-sm">{tech.description}</p>
+                          </div>
                         ))}
-                      </ul>
+                      </div>
                     </CardContent>
                   </Card>
-                </div>
+                </TabsContent>
 
-                <div>
-                  <Card className={`border border-border rounded-none bg-background reveal ${overviewReveal.visible ? "visible" : ""}`} style={{ transitionDelay: "0.2s" }}>
-                    <CardContent className="pt-6">
-                      <h3 className="text-xl font-semibold mb-4 text-foreground tracking-tight">Project Details</h3>
-                      <div className="space-y-4">
-                        <div>
-                          <h4 className="font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-1">Status</h4>
-                          <span className="font-mono text-[11px] text-muted-foreground">
-                            {project.status}
-                          </span>
-                        </div>
-                        <div>
-                          <h4 className="font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-1">Duration</h4>
-                          <p className="text-muted-foreground">{project.duration}</p>
-                        </div>
-                        <div>
-                          <h4 className="font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-1">Category</h4>
-                          <p className="text-muted-foreground">{project.category}</p>
-                        </div>
-                        {project.repositories && (
-                          <div>
-                            <h4 className="font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-2">Repositories</h4>
-                            <div className="space-y-2">
-                              {project.repositories.map((repo, index) => (
-                                <Link key={index} href={repo.url} target="_blank" rel="noopener noreferrer">
-                                  <div className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
-                                    <Github className="h-4 w-4" />
-                                    <span>{repo.name}</span>
-                                  </div>
-                                </Link>
-                              ))}
+                {/* Challenges tab */}
+                <TabsContent value="challenges" className="mt-0">
+                  <div className="space-y-6">
+                    {project.challenges.map((challenge, index) => (
+                      <Card key={index} className="border border-border rounded-none bg-background fade-in" style={{ animationDelay: `${index * 0.07}s` }}>
+                        <CardContent className="pt-6">
+                          <div className="flex items-start gap-4">
+                            <AlertCircle className="h-5 w-5 text-muted-foreground mt-0.5 flex-shrink-0" />
+                            <div className="flex-1">
+                              <h4 className="text-xl font-semibold text-foreground mb-2 tracking-tight">{challenge.title}</h4>
+                              <p className="text-muted-foreground mb-4">{challenge.description}</p>
+                              <div className="border border-border p-4">
+                                <h5 className="font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-2">Solution</h5>
+                                <p className="text-muted-foreground">{challenge.solution}</p>
+                              </div>
                             </div>
                           </div>
-                        )}
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
-              </div>
-            </TabsContent>
-
-            <TabsContent value="technical" className="mt-0">
-              <Card ref={technicalReveal.ref} className="border border-border rounded-none bg-background">
-                <CardContent className="pt-6">
-                  <h3 className="text-2xl font-semibold mb-6 text-foreground tracking-tight flex items-center gap-2">
-                    <Code className="h-5 w-5 text-muted-foreground" />
-                    Technologies & Tools
-                  </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {project.technologies.map((tech, index) => (
-                      <div key={index} className={`border border-border p-4 reveal ${technicalReveal.visible ? "visible" : ""}`} style={{ transitionDelay: `${index * 0.06}s` }}>
-                        <h4 className="font-semibold text-foreground mb-2">{tech.name}</h4>
-                        <p className="text-muted-foreground text-sm">{tech.description}</p>
-                      </div>
+                        </CardContent>
+                      </Card>
                     ))}
                   </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
+                </TabsContent>
 
-            <TabsContent value="challenges" className="mt-0">
-              <div ref={challengesReveal.ref} className="space-y-6">
-                {project.challenges.map((challenge, index) => (
-                  <Card key={index} className={`border border-border rounded-none bg-background reveal ${challengesReveal.visible ? "visible" : ""}`} style={{ transitionDelay: `${index * 0.1}s` }}>
+                {/* Results tab */}
+                <TabsContent value="results" className="mt-0">
+                  <Card className="border border-border rounded-none bg-background">
                     <CardContent className="pt-6">
-                      <div className="flex items-start gap-4">
-                        <AlertCircle className="h-5 w-5 text-muted-foreground mt-0.5 flex-shrink-0" />
-                        <div className="flex-1">
-                          <h4 className="text-xl font-semibold text-foreground mb-2 tracking-tight">{challenge.title}</h4>
-                          <p className="text-muted-foreground mb-4">{challenge.description}</p>
-                          <div className="border border-border p-4">
-                            <h5 className="font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-2">Solution</h5>
-                            <p className="text-muted-foreground">{challenge.solution}</p>
+                      <h3 className="text-2xl font-semibold mb-6 text-foreground tracking-tight flex items-center gap-2">
+                        <Zap className="h-5 w-5 text-muted-foreground" />
+                        Key Results & Achievements
+                      </h3>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {project.results.map((result, index) => (
+                          <div key={index} className="flex items-start gap-3 fade-in" style={{ animationDelay: `${index * 0.05}s` }}>
+                            <CheckCircle className="h-4 w-4 text-muted-foreground mt-0.5 flex-shrink-0" />
+                            <p className="text-muted-foreground">{result}</p>
                           </div>
-                        </div>
+                        ))}
                       </div>
                     </CardContent>
                   </Card>
-                ))}
-              </div>
-            </TabsContent>
+                </TabsContent>
 
-            <TabsContent value="results" className="mt-0">
-              <Card ref={resultsReveal.ref} className="border border-border rounded-none bg-background">
-                <CardContent className="pt-6">
-                  <h3 className="text-2xl font-semibold mb-6 text-foreground tracking-tight flex items-center gap-2">
-                    <Zap className="h-5 w-5 text-muted-foreground" />
-                    Key Results & Achievements
-                  </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {project.results.map((result, index) => (
-                      <div key={index} className={`flex items-start gap-3 reveal ${resultsReveal.visible ? "visible" : ""}`} style={{ transitionDelay: `${index * 0.06}s` }}>
-                        <CheckCircle className="h-4 w-4 text-muted-foreground mt-0.5 flex-shrink-0" />
-                        <p className="text-muted-foreground">{result}</p>
+                {/* Future Work tab */}
+                <TabsContent value="future" className="mt-0">
+                  <Card className="border border-border rounded-none bg-background">
+                    <CardContent className="pt-6">
+                      <h3 className="text-2xl font-semibold mb-6 text-foreground tracking-tight">Future Enhancements</h3>
+                      <div className="space-y-4">
+                        {project.futureWork.map((item, index) => (
+                          <div key={index} className="flex items-start gap-3 fade-in" style={{ animationDelay: `${index * 0.05}s` }}>
+                            <div className="w-1.5 h-1.5 bg-muted-foreground rounded-full mt-2 flex-shrink-0" />
+                            <p className="text-muted-foreground">{item}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+              </Tabs>
+
+              {/* Gallery */}
+              {project.gallery && project.gallery.length > 0 && (
+                <div className="mt-12">
+                  <h3 className="text-2xl font-semibold mb-6 text-foreground tracking-tight fade-in">Project Gallery</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {project.gallery.map((image, index) => (
+                      <div
+                        key={index}
+                        className="relative h-48 overflow-hidden border border-border fade-in"
+                        style={{ animationDelay: `${index * 0.04}s` }}
+                      >
+                        <Image
+                          src={image}
+                          alt={`${project.title} — ${index + 1}`}
+                          fill
+                          loading="lazy"
+                          className="object-cover"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1100px) 50vw, 340px"
+                        />
                       </div>
                     ))}
                   </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-
-            <TabsContent value="future" className="mt-0">
-              <Card ref={futureReveal.ref} className="border border-border rounded-none bg-background">
-                <CardContent className="pt-6">
-                  <h3 className="text-2xl font-semibold mb-6 text-foreground tracking-tight">Future Enhancements</h3>
-                  <div className="space-y-4">
-                    {project.futureWork.map((item, index) => (
-                      <div key={index} className={`flex items-start gap-3 reveal ${futureReveal.visible ? "visible" : ""}`} style={{ transitionDelay: `${index * 0.06}s` }}>
-                        <div className="w-1.5 h-1.5 bg-muted-foreground rounded-full mt-2 flex-shrink-0"></div>
-                        <p className="text-muted-foreground">{item}</p>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-          </Tabs>
-
-          {/* Gallery Section */}
-          {project.gallery && project.gallery.length > 0 && (
-            <div ref={galleryReveal.ref} className="mt-12">
-              <h3 className="text-2xl font-semibold mb-6 text-foreground tracking-tight">Project Gallery</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {project.gallery.map((image, index) => (
-                  <div key={index} className={`relative h-48 overflow-hidden border border-border reveal ${galleryReveal.visible ? "visible" : ""}`} style={{ transitionDelay: `${index * 0.06}s` }}>
-                    <Image
-                      src={image}
-                      alt={`${project.title} gallery image ${index + 1}`}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-          </>
+                </div>
+              )}
+            </>
           )}
 
           {/* Navigation */}
@@ -313,6 +318,7 @@ export default function ProjectClient({ project }: ProjectClientProps) {
               </Button>
             </Link>
           </div>
+
         </div>
       </div>
     </main>
