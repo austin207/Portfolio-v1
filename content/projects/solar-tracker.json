@@ -1,0 +1,18 @@
+{
+  "title": "Dual Axis Solar Tracker",
+  "description": "Solar energy optimization prototype using microcontrollers, servo motors, and an LDR array for real-time sun tracking with closed-loop control.",
+  "image": "/placeholder.svg?height=300&width=500",
+  "tags": ["Solar Energy", "Microcontrollers", "Servo Motors", "Control Systems", "LDR", "Arduino"],
+  "status": "Completed",
+  "duration": "5 months",
+  "category": "Automation",
+  "overview": "Solar energy optimization prototype using microcontrollers, servo motors, and an LDR array for real-time sun tracking with closed-loop control.",
+  "objectives": [],
+  "technologies": [],
+  "challenges": [],
+  "results": [],
+  "futureWork": [],
+  "documentationStatus": "coming_soon",
+  "featured": false,
+  "priority": 5
+}

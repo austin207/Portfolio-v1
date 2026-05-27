@@ -31,6 +31,7 @@ export interface ProjectDetail {
     description: string;
   }>;
   gallery?: string[];
+  documentationStatus?: "coming_soon" | "complete";
 }
 
 export interface ProjectMetadata {

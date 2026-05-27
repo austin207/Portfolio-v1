@@ -1,0 +1,18 @@
+{
+  "title": "Ambulance Traffic Reduction System",
+  "description": "Arduino Mega-based prototype with RF modules for real-time traffic monitoring, integrating RF signal validation and Dijkstra's algorithm to clear the shortest route for emergency vehicles.",
+  "image": "/placeholder.svg?height=300&width=500",
+  "tags": ["Arduino", "RF Modules", "Dijkstra's Algorithm", "Embedded Systems", "C++"],
+  "status": "Completed",
+  "duration": "6 months",
+  "category": "Embedded Systems",
+  "overview": "Arduino Mega-based prototype with RF modules for real-time traffic monitoring, integrating RF signal validation and Dijkstra's algorithm to clear the shortest route for emergency vehicles.",
+  "objectives": [],
+  "technologies": [],
+  "challenges": [],
+  "results": [],
+  "futureWork": [],
+  "documentationStatus": "coming_soon",
+  "featured": false,
+  "priority": 5
+}

@@ -4,7 +4,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { ArrowLeft, Github, Calendar, Code, Zap, Target, CheckCircle, AlertCircle, ExternalLink, Play } from "lucide-react"
+import { ArrowLeft, Github, Calendar, Code, Zap, Target, CheckCircle, AlertCircle, ExternalLink, Play, Clock } from "lucide-react"
 import Image from "next/image"
 import type { ProjectWithMetadata } from "@/lib/data/projects"
 import { useReveal } from "@/hooks/use-reveal"
@@ -109,7 +109,20 @@ export default function ProjectClient({ project }: ProjectClientProps) {
             />
           </div>
 
+          {/* Documentation coming soon */}
+          {project.documentationStatus === "coming_soon" && (
+            <div className="border border-border p-12 text-center fade-in" style={{ animationDelay: "0.5s" }}>
+              <Clock className="h-8 w-8 text-muted-foreground mx-auto mb-4" />
+              <h3 className="text-lg font-medium text-foreground mb-2">Documentation in Progress</h3>
+              <p className="text-sm text-muted-foreground max-w-md mx-auto">
+                Detailed write-up — overview, architecture, challenges, and results — will appear here once the documentation is complete.
+              </p>
+            </div>
+          )}
+
           {/* Content Tabs */}
+          {project.documentationStatus !== "coming_soon" && (
+          <>
           <Tabs defaultValue="overview" className="w-full">
             <TabsList className="flex flex-wrap gap-0 bg-transparent border-b border-border rounded-none p-0 h-auto mb-8 w-full">
               <TabsTrigger value="overview" className="rounded-none px-5 py-2.5 text-sm text-muted-foreground border-b-2 border-transparent data-[state=active]:border-foreground data-[state=active]:text-foreground bg-transparent data-[state=active]:bg-transparent hover:text-foreground data-[state=active]:shadow-none">Overview</TabsTrigger>
@@ -282,6 +295,8 @@ export default function ProjectClient({ project }: ProjectClientProps) {
                 ))}
               </div>
             </div>
+          )}
+          </>
           )}
 
           {/* Navigation */}

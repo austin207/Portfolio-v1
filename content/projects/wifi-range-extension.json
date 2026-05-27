@@ -1,0 +1,18 @@
+{
+  "title": "Wi-Fi Range Extension System",
+  "description": "Custom Wi-Fi repeater built on Raspberry Pi 4B with adaptive channel management, extending range and mimicking mesh network functionality.",
+  "image": "/placeholder.svg?height=300&width=500",
+  "tags": ["Raspberry Pi", "Networking", "Wi-Fi", "Linux", "Mesh Network"],
+  "status": "Completed",
+  "duration": "2 months",
+  "category": "Networking",
+  "overview": "Custom Wi-Fi repeater built on Raspberry Pi 4B with adaptive channel management, extending range and mimicking mesh network functionality.",
+  "objectives": [],
+  "technologies": [],
+  "challenges": [],
+  "results": [],
+  "futureWork": [],
+  "documentationStatus": "coming_soon",
+  "featured": false,
+  "priority": 5
+}

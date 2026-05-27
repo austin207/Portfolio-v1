@@ -1,0 +1,18 @@
+{
+  "title": "IoT Home Automation System",
+  "description": "Home automation system with NodeMCU ESP8266, relay modules, Blynk, and IFTTT enabling mobile control and Google Assistant voice commands.",
+  "image": "/placeholder.svg?height=300&width=500",
+  "tags": ["IoT", "ESP8266", "Blynk", "IFTTT", "Home Automation", "Arduino"],
+  "status": "Completed",
+  "duration": "3 months",
+  "category": "IoT",
+  "overview": "Home automation system with NodeMCU ESP8266, relay modules, Blynk, and IFTTT enabling mobile control and Google Assistant voice commands.",
+  "objectives": [],
+  "technologies": [],
+  "challenges": [],
+  "results": [],
+  "futureWork": [],
+  "documentationStatus": "coming_soon",
+  "featured": false,
+  "priority": 5
+}

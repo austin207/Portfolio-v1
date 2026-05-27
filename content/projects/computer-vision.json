@@ -1,0 +1,18 @@
+{
+  "title": "Computer Vision Implementation",
+  "description": "Face recognition system built with OpenCV in Python and an object classification system using GoogLeNet transfer learning in MATLAB.",
+  "image": "/placeholder.svg?height=300&width=500",
+  "tags": ["OpenCV", "Python", "MATLAB", "GoogLeNet", "Transfer Learning", "Computer Vision"],
+  "status": "Completed",
+  "duration": "4 months",
+  "category": "AI/ML",
+  "overview": "Face recognition system built with OpenCV in Python and an object classification system using GoogLeNet transfer learning in MATLAB.",
+  "objectives": [],
+  "technologies": [],
+  "challenges": [],
+  "results": [],
+  "futureWork": [],
+  "documentationStatus": "coming_soon",
+  "featured": false,
+  "priority": 5
+}

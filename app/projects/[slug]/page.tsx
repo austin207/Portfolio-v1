@@ -48,3 +48,4 @@ export async function generateStaticParams() {
     { slug: 'wifi-range-extension' },
   ];
 }
+
