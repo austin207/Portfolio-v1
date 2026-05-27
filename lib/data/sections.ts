@@ -85,11 +85,12 @@ export const sections: Section[] = [
   { id: "hero", title: "Hero", component: "HeroSection", enabled: true, order: 1 },
   { id: "about", title: "About", component: "AboutSection", enabled: true, order: 2 },
   { id: "skills", title: "Skills", component: "SkillsSection", enabled: true, order: 3 },
-  { id: "projects", title: "Projects", component: "ProjectsSection", enabled: true, order: 4 },
-  { id: "testimonials", title: "Testimonials", component: "TestimonialsSection", enabled: true, order: 5 },
-  { id: "experience", title: "Experience", component: "ExperienceSection", enabled: true, order: 6 },
-  { id: "education", title: "Education", component: "EducationSection", enabled: true, order: 7 },
-  { id: "contact", title: "Contact", component: "ContactSection", enabled: true, order: 8 },
+  { id: "featured-project", title: "Featured Project", component: "FeaturedProjectSection", enabled: true, order: 4 },
+  { id: "projects", title: "Projects", component: "ProjectsSection", enabled: true, order: 5 },
+  { id: "testimonials", title: "Testimonials", component: "TestimonialsSection", enabled: true, order: 6 },
+  { id: "experience", title: "Experience", component: "ExperienceSection", enabled: true, order: 7 },
+  { id: "education", title: "Education", component: "EducationSection", enabled: true, order: 8 },
+  { id: "contact", title: "Contact", component: "ContactSection", enabled: true, order: 9 },
 ]
 
 export const getEnabledSections = () => {
