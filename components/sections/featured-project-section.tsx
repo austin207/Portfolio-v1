@@ -10,7 +10,7 @@ const project = {
   subtitle: "ISA · RTL · Assembler · Neural Network — built from zero",
   description:
     "A programmable GPU built from the ground up: a custom 21-instruction 32-bit ISA, 12 fully parameterized SystemVerilog modules (4 cores × 4 threads), a C-based assembler called AXEL, and a neural network that trains end-to-end on the simulated hardware using Q8 fixed-point arithmetic — converging within 2.5% of target across 20 epochs.",
-  image: "/project-images/32-bit-tiny-gpu/architecture.jpg",
+  image: "/project-images/32-bit-tiny-gpu/GPU.png",
   tags: ["SystemVerilog", "Verilog", "C", "Python", "GPU Architecture", "ISA Design", "Neural Networks", "cocotb"],
   github: "https://github.com/austin207/32-bit-Tiny-GPU",
   projectUrl: "/projects/32-bit-tiny-gpu",

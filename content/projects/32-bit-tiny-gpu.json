@@ -118,6 +118,7 @@
     }
   ],
   "gallery": [
+    "/project-images/32-bit-tiny-gpu/GPU.png",
     "/project-images/32-bit-tiny-gpu/architecture.jpg",
     "/project-images/32-bit-tiny-gpu/instruction_encoding.jpg",
     "/project-images/32-bit-tiny-gpu/software_layer_architecture.jpg",
