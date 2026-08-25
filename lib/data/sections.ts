@@ -85,12 +85,13 @@ export const sections: Section[] = [
   { id: "hero", title: "Hero", component: "HeroSection", enabled: true, order: 1 },
   { id: "about", title: "About", component: "AboutSection", enabled: true, order: 2 },
   { id: "skills", title: "Skills", component: "SkillsSection", enabled: true, order: 3 },
-  { id: "featured-project", title: "Featured Project", component: "FeaturedProjectSection", enabled: true, order: 4 },
-  { id: "projects", title: "Projects", component: "ProjectsSection", enabled: true, order: 5 },
-  { id: "testimonials", title: "Testimonials", component: "TestimonialsSection", enabled: true, order: 6 },
-  { id: "experience", title: "Experience", component: "ExperienceSection", enabled: true, order: 7 },
-  { id: "education", title: "Education", component: "EducationSection", enabled: true, order: 8 },
-  { id: "contact", title: "Contact", component: "ContactSection", enabled: true, order: 9 },
+  { id: "ventures", title: "Ventures", component: "VenturesSection", enabled: true, order: 4 },
+  { id: "featured-project", title: "Featured Project", component: "FeaturedProjectSection", enabled: true, order: 5 },
+  { id: "projects", title: "Projects", component: "ProjectsSection", enabled: true, order: 6 },
+  { id: "testimonials", title: "Testimonials", component: "TestimonialsSection", enabled: true, order: 7 },
+  { id: "experience", title: "Experience", component: "ExperienceSection", enabled: true, order: 8 },
+  { id: "education", title: "Education", component: "EducationSection", enabled: true, order: 9 },
+  { id: "contact", title: "Contact", component: "ContactSection", enabled: true, order: 10 },
 ]
 
 export const getEnabledSections = () => {

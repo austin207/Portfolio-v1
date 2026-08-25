@@ -1,0 +1,30 @@
+[
+  {
+    "name": "VirtusCo",
+    "url": "https://www.virtusco.in/",
+    "role": "Co-founder & CTO",
+    "period": "Jan 2025 — present",
+    "stage": "Pre-seed · IEDC incubated",
+    "tagline": "Autonomous B2B airport luggage porter robot",
+    "description": "Co-founded with a team of five to build Virtus, an autonomous luggage porter robot for airports. Sole software architect — the full ROS 2 Jazzy navigation stack runs on a Raspberry Pi 5 and was written from scratch.",
+    "highlights": [
+      "Complete YDLidar X4 Pro ROS 2 driver written from scratch — no vendor SDK existed",
+      "ESP32 Kalman filter fusing ToF, ultrasonic and microwave sensors for obstacle proximity",
+      "Shortlisted for IEDC incubation; targeting BIAL Startup Valley"
+    ]
+  },
+  {
+    "name": "Noviq",
+    "url": "https://www.noviq.website/",
+    "role": "Founder",
+    "period": "Mar 2026 — present",
+    "stage": "Independent studio",
+    "tagline": "Web and AI studio for small businesses",
+    "description": "Founded a web and AI studio run with classmates, delivering Next.js and WordPress sites, Flutter mobile apps, and AI-powered WhatsApp and Telegram chatbots for local businesses.",
+    "highlights": [
+      "One paid client project delivered end-to-end",
+      "Owns scope, pricing, hosting and handoff",
+      "Next.js, WordPress, Flutter and conversational AI stack"
+    ]
+  }
+]

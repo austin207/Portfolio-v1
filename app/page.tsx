@@ -2,6 +2,7 @@ import { getEnabledSections } from "@/lib/data/sections"
 import HeroSection from "@/components/sections/hero-section"
 import AboutSection from "@/components/sections/about-section"
 import SkillsSection from "@/components/sections/skills-section"
+import VenturesSection from "@/components/sections/ventures-section"
 import FeaturedProjectSection from "@/components/sections/featured-project-section"
 import ProjectsSection from "@/components/sections/projects-section"
 import TestimonialsSection from "@/components/sections/testimonials-section"
@@ -18,6 +19,7 @@ const sectionComponents = {
   HeroSection,
   AboutSection,
   SkillsSection,
+  VenturesSection,
   FeaturedProjectSection,
   ProjectsSection,
   TestimonialsSection,

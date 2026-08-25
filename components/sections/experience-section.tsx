@@ -48,14 +48,18 @@ export default function ExperienceSection() {
 
           <div>
             <div className={`reveal ${visible ? "visible" : ""}`} style={{ transitionDelay: "0.05s" }}>
+              {/* The founder question is answered by the dedicated Ventures
+                  section; this column covers the wider set of roles, so the
+                  heading must not duplicate that passage. */}
               <p className="text-sm font-mono text-muted-foreground uppercase tracking-widest mb-3">Organizations</p>
               <h2 className="text-2xl sm:text-3xl font-medium tracking-tight text-foreground mb-4">
-                What companies has Antony Austin founded?
+                What organizations is Antony Austin part of?
               </h2>
               <p className="text-muted-foreground leading-[1.8] mb-8">
-                Antony Austin co-founded VirtusCo in January 2025 and serves as its CTO, building an
-                autonomous B2B airport luggage porter robot with a team of five. He founded Noviq in
-                March 2026, a web and AI studio delivering Next.js sites, Flutter apps, and chatbots.
+                Alongside founding VirtusCo and Noviq, Antony Austin coordinates science and
+                technology events for RSET&apos;s Apptronics technical fest, and led three batches
+                of 15 students as Head of the Electronics Club at Model Technical HSS from 2019
+                to 2023, starting at age 14.
               </p>
             </div>
             <div className="space-y-0 divide-y divide-border mb-12">

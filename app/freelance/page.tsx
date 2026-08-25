@@ -18,7 +18,6 @@ import {
   Star,
   ExternalLink,
   MessageSquare,
-  Loader2,
   Check,
   ChevronDown,
   Plus,
@@ -47,36 +46,23 @@ const highlights = [
 ]
 
 function TierCard({
-  serviceId,
+  serviceTitle,
   tier,
   fiverrUrl,
 }: {
-  serviceId: string
+  serviceTitle: string
   tier: ServiceTier
   fiverrUrl: string
 }) {
-  const [loading, setLoading] = useState(false)
-
-  const handleCheckout = async () => {
-    setLoading(true)
-    try {
-      const res = await fetch("/api/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ serviceId, tierName: tier.name }),
-      })
-      const data = await res.json()
-      if (data.url) {
-        window.location.href = data.url
-      } else {
-        alert(data.error || "Something went wrong")
-      }
-    } catch {
-      alert("Failed to start checkout. Please try again.")
-    } finally {
-      setLoading(false)
-    }
-  }
+  // No Stripe account, so tiers route to a direct enquiry instead of checkout.
+  // The subject line carries the service and tier so the enquiry arrives with
+  // the context the old checkout session used to provide.
+  const enquiryHref =
+    `mailto:${socialLinks.email}` +
+    `?subject=${encodeURIComponent(`Enquiry: ${serviceTitle} — ${tier.label} ($${tier.price})`)}` +
+    `&body=${encodeURIComponent(
+      `Hi Antony,\n\nI'd like to discuss the "${tier.label}" package for ${serviceTitle} ($${tier.price}, ${tier.delivery}).\n\nAbout my project:\n\n`
+    )}`
 
   return (
     <div
@@ -114,18 +100,15 @@ function TierCard({
       </ul>
 
       <div className="space-y-2 mt-auto">
-        <Button
-          onClick={handleCheckout}
-          disabled={loading}
-          size="sm"
-          className="w-full bg-foreground text-background hover:opacity-80 text-xs font-semibold transition-opacity"
-        >
-          {loading ? (
-            <><Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" />Processing</>
-          ) : (
-            <>Pay with Stripe</>
-          )}
-        </Button>
+        <Link href={enquiryHref} className="block">
+          <Button
+            size="sm"
+            className="w-full bg-foreground text-background hover:opacity-80 text-xs font-semibold transition-opacity"
+          >
+            <Mail className="mr-1.5 h-3.5 w-3.5" />
+            Contact me
+          </Button>
+        </Link>
         <Link href={fiverrUrl} target="_blank" rel="noopener noreferrer" className="block">
           <Button
             variant="outline"
@@ -227,7 +210,7 @@ function ServiceCard({ service }: { service: Service }) {
             {service.tiers.map((tier) => (
               <TierCard
                 key={tier.name}
-                serviceId={service.id}
+                serviceTitle={service.title}
                 tier={tier}
                 fiverrUrl={service.fiverr}
               />
@@ -313,8 +296,9 @@ export default function FreelancePage() {
               Freelance Services
             </h1>
             <p className="text-muted-foreground max-w-2xl leading-relaxed mb-8 fade-in" style={{ animationDelay: "0.15s" }}>
-              Select a service to see packages, pricing, and extras.
-              Order directly via Stripe or through Fiverr — same quality, your choice.
+              Select a service to see packages, pricing, and extras. Prices are in USD
+              and indicative — get in touch to discuss your project, or order through
+              Fiverr if you prefer their escrow and review system.
             </p>
             <div className="flex flex-wrap gap-x-6 gap-y-2 mb-8 text-sm text-muted-foreground fade-in" style={{ animationDelay: "0.2s" }}>
               {highlights.map((h, i) => (

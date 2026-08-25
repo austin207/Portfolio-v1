@@ -8,6 +8,7 @@ import MobileNav from "@/components/mobile-nav"
 const navLinks = [
   { name: "About", href: "#about" },
   { name: "Skills", href: "#skills" },
+  { name: "Ventures", href: "#ventures" },
   { name: "Projects", href: "#projects" },
   { name: "Experience", href: "#experience" },
   { name: "Contact", href: "#contact" },

@@ -79,6 +79,7 @@ All regularly-updated content lives in JSON files — edit and push to git for u
 | Skills map tree | `data/robotics-skills-data.json` |
 | Blog posts | `content/blog/*.md` (frontmatter parsed with gray-matter) |
 | Project detail pages | `content/projects/*.json` (loaded by ProjectManager with caching) |
+| Founder ventures (VirtusCo, Noviq) | `content/data/ventures.json` |
 | FAQ / AEO answers | `content/data/faq.json` |
 | Sitemap lastmod dates | `content/data/route-dates.json` (hand-maintained) |
 
@@ -97,15 +98,31 @@ Deliberately **not** `fs.statSync` mtime — on Vercel every file's mtime is the
 timestamp, which would report "updated today" on every deploy and destroy the freshness
 signal. Same reasoning behind `content/data/route-dates.json`.
 
+### Ventures section
+
+`components/sections/ventures-section.tsx` reads `content/data/ventures.json` and
+presents VirtusCo and Noviq as **founded companies, not portfolio projects** — role,
+period, stage, and a link to each live site. They resolve to their own Organization
+nodes in the schema graph (`ID.virtusco`, `ID.noviq`), each with `founder` pointing back
+at the Person node.
+
+The Experience section's "Organizations" column covers the *wider* set of roles
+(Apptronics, Electronics Club). Keep its heading distinct from the Ventures heading —
+two identical `<h2>` passages on one page dilutes extraction.
+
 ### Freelance & payments
 
 - `/freelance` — Card-based service catalog with expandable pricing tiers
 - Service data (tiers, extras, FAQ): `lib/data/services.ts`
-- Stripe checkout: `POST /api/checkout` creates sessions from service/tier selection
-- Stripe init: `lib/stripe.ts` (lazy — only errors when checkout is actually called)
-- Success/cancel pages: `/checkout/success`, `/checkout/cancel`
-- Each service links to both Stripe and Fiverr gig URLs
-- Web dev is quote-based (no Stripe), shown as a separate card
+- **There is no Stripe account.** Tier CTAs are "Contact me" — a `mailto:` with the
+  service and tier prefilled in the subject and body, so an enquiry arrives with the
+  context the old checkout session carried. Fiverr remains the secondary CTA.
+- Prices are still displayed and still in the `Offer` schema; they are indicative.
+- **Dormant Stripe code**, kept in case an account is added later:
+  `POST /api/checkout`, `lib/stripe.ts` (lazy init), and `/checkout/success` +
+  `/checkout/cancel`. Nothing links to them. If Stripe is definitively not happening,
+  delete those four plus the `stripe` and `@stripe/stripe-js` dependencies.
+- Web dev is quote-based, shown as a separate card
 
 ### Contact form — Formspree, not Gmail
 
