@@ -25,9 +25,10 @@ export default function ProjectsSection() {
           </Link>
         </div>
         <p className={`text-muted-foreground leading-[1.8] max-w-2xl mb-10 reveal ${visible ? "visible" : ""}`}>
-          Antony Austin has built 15+ engineering projects, including a 32-bit GPU with a custom ISA
-          and 12 SystemVerilog RTL modules, a 253M-parameter transformer language model written from
-          scratch in PyTorch, and an autonomous robot navigation stack on ROS 2 Jazzy.
+          Antony Austin has built 15+ engineering projects, including a 32-bit SIMT GPU taken from
+          instruction set to signoff-clean silicon on SkyWater 130 nm, a 253M-parameter transformer
+          language model written from scratch in PyTorch, and an autonomous robot navigation stack
+          on ROS 2 Jazzy.
         </p>
 
         <div className="divide-y divide-border border-y border-border">

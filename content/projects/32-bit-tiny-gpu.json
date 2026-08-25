@@ -1,6 +1,6 @@
 {
   "title": "32-Bit Tiny GPU",
-  "description": "A 32-bit SIMT GPU designed solo from ISA to silicon signoff: a 28-instruction ISA, SystemVerilog RTL verified by 391 cocotb tests, the axelcc C-subset compiler, and a signoff-clean GDSII on SkyWater 130 nm through OpenLane.",
+  "description": "A 32-bit SIMT GPU built from scratch in SystemVerilog: custom ISA, AXEL assembler, axelcc C-subset compiler, 323 passing cocotb tests, and a full RTL-to-GDSII run on SkyWater 130 nm with zero DRC violations.",
   "image": "/project-images/32-bit-tiny-gpu/GPU.png",
   "tags": [
     "SystemVerilog",
@@ -12,21 +12,22 @@
     "Physical Design",
     "cocotb",
     "Compilers",
-    "C",
+    "Verilog",
     "Python"
   ],
-  "status": "RTL, verification and GDSII signoff complete — compiler and kernels ongoing",
+  "status": "RTL, verification and Sky130A GDSII signoff complete — compiler and kernels ongoing",
   "duration": "March 2026 - Present",
   "category": "VLSI & Computer Architecture",
   "github": "https://github.com/austin207/32-bit-Tiny-GPU",
-  "overview": "32-Bit Tiny GPU is a ground-up implementation of a programmable SIMT GPU — from the instruction set and SystemVerilog RTL, through functional verification, all the way to a signoff-clean GDSII layout and a working compiler. Every layer was designed solo.\n\nThe architecture is built on a custom 28-instruction 32-bit ISA with a multi-stage pipeline scheduler, warp dispatch across parallel cores, and a memory controller arbitrating between instruction and data memory. Verification is a cocotb harness of 391 tests spanning 15 RTL test suites. On top of the hardware sits axelcc, a C-subset compiler with a kernel-parameter ABI, which compiles kernels that run and are verified on the simulated RTL — including transformer multi-head attention and a depthwise-separable CNN pipeline.",
+  "overview": "32-Bit Tiny GPU is a custom 32-bit SIMT GPU built from scratch in SystemVerilog — designed solo across every layer, from the instruction set to a manufacturable silicon layout.\n\nThe design implements true SIMT execution: branch divergence is handled by a hardware warp stack with reconvergence, and a round-robin arbiter mediates memory access between warps. Around the core sit an MMIO matmul accelerator, a cycle-accurate execution trace logger, and a hardware kernel cycle counter.\n\nSoftware is a full stack of its own: AXEL, a C-library assembler, and axelcc, a C-subset compiler that emits kernels for the GPU's own ISA. Workloads are Q8 fixed-point neural networks, up to a chained 64-to-16-to-10 classifier running end to end on the RTL.\n\nThe design has been taken all the way through OpenLane 2 to a signoff-clean GDSII on SkyWater Sky130A, and also targets the Sipeed Tang Nano 20K FPGA.",
   "objectives": [
-    "Design a 28-instruction 32-bit SIMT ISA covering arithmetic, logic, memory, control flow and the signed operations ML workloads need",
-    "Implement the full RTL datapath in SystemVerilog — dispatcher, scheduler, fetcher, decoder, ALU, LSU, register file, program counter, memory controller and core",
-    "Verify every module with a cocotb harness rather than eyeballing waveforms",
-    "Build axelcc, a C-subset compiler with a kernel-parameter ABI, so kernels are written in C rather than hand-assembled",
-    "Take the design through a full open-source physical-design flow to a manufacturable, signoff-clean GDSII",
-    "Prove the ISA on real workloads — transformer attention and a CNN keyword-spotting pipeline — running on the simulated RTL"
+    "Design a compact fixed-width 32-bit SIMT ISA with a 6-bit opcode field, spanning arithmetic, logic, shifts, memory, control flow, and an ML-oriented DOT4 extension",
+    "Implement the full RTL datapath in SystemVerilog — dispatcher, scheduler, fetcher, decoder, ALU, LSU, register file, program counter, memory controller, warp stack, DCR and core",
+    "Handle SIMT branch divergence properly, with a hardware warp stack and reconvergence rather than lockstep-only execution",
+    "Build a software stack on top: the AXEL assembler and axelcc, a C-subset compiler targeting the GPU's ISA",
+    "Verify every module under cocotb rather than inspecting waveforms by hand",
+    "Run Q8 fixed-point neural network workloads on the simulated hardware, up to a chained multi-layer classifier",
+    "Take the design through an open-source RTL-to-GDSII flow to a DRC- and LVS-clean layout"
   ],
   "technologies": [
     {
@@ -59,7 +60,7 @@
     },
     {
       "name": "AXEL Assembler",
-      "description": "Custom C-library assembler that takes GPU assembly source (mnemonics + operands) and emits .hex kernel files. Handles all 4 instruction formats and the 21-instruction ISA encoding."
+      "description": "Custom C-library assembler that takes GPU assembly source (mnemonics + operands) and emits .hex kernel files. Handles all four instruction formats and the full ISA encoding."
     },
     {
       "name": "GitHub Actions (CI)",
@@ -72,8 +73,8 @@
   ],
   "challenges": [
     {
-      "title": "SIMD Thread Divergence with Activation Functions",
-      "description": "ReLU's conditional branch (if x < 0, clamp to 0) causes thread divergence in SIMD execution — threads that take different branches must be serialised, collapsing parallelism and stalling the non-branching threads.",
+      "title": "SIMT Thread Divergence with Activation Functions",
+      "description": "ReLU's conditional branch (if x < 0, clamp to 0) causes thread divergence in SIMT execution — threads that take different branches must be serialised, collapsing parallelism and stalling the non-branching threads.",
       "solution": "Implemented branchless ReLU using bitwise masking on the sign bit of the Q8-encoded value. The mask is derived with a single SAR (arithmetic right shift by 31) that fills all bits with the sign, then ANDed with the input. All 16 threads execute identical instructions in lockstep — zero divergence, full throughput maintained through every activation layer."
     },
     {
@@ -103,30 +104,30 @@
     }
   ],
   "results": [
-    "Signoff-clean GDSII on SkyWater 130 nm (Sky130A) through OpenLane 2.3.10 — 300,884 standard cells placed and routed",
-    "Zero Magic DRC violations, and LVS clean at 188,812 devices",
-    "Post-route static timing analysis closes at approximately 32.9 MHz in the typical corner, against a 40 MHz target",
-    "391 cocotb tests across 15 RTL test suites, reported passing as of 2026-08-24",
-    "28-instruction 32-bit ISA fully specified, with IMUL and SAR added for ML workload correctness",
-    "axelcc compiles C-subset kernels to the GPU's ISA, with a kernel-parameter ABI so one binary serves many launch configurations",
-    "Transformer multi-head attention runs on the GPU: the attention score, softmax and weighted-value kernels are address-parameterised, and a genuine two-head test with independent Q/K/V matches a Python reference",
-    "Depthwise-separable CNN pipeline — stem convolution, depthwise, pointwise, maxpool, fully-connected and softmax kernels — with int8 fixed-point host tooling, verified end to end on the simulated RTL",
-    "CALL/SRET subroutine support added to both the compiler and the RTL (call_stack.sv) to make the CNN kernels expressible",
-    "A 4x4 linear + ReLU neural network trains end to end on the simulated hardware over 20 epochs, converging within 2.5% of the reference",
-    "GitHub Actions CI runs the cocotb suite on every push, so regressions surface immediately"
+    "323 of 323 cocotb tests passing across 13 RTL module suites, from a fully fresh build — the Makefile rebuilds axelcc and recompiles every kernel before any test runs",
+    "Signoff-clean GDSII on SkyWater Sky130A (130 nm, sky130_fd_sc_hd) through OpenLane 2.3.10",
+    "300,884 standard cells on a 7.97 mm2 die, roughly 2.82 x 2.82 mm, at 27.9% core utilisation",
+    "Zero Magic DRC violations, and LVS reports circuits match uniquely across 188,812 devices and 189,107 nets",
+    "Post-route SDF static timing analysis: approximately 32.9 MHz typical (25C, 1.80V) and 18.6 MHz slow (100C, 1.60V), critical path about 31 ns through the core datapath mux tree",
+    "True SIMT branch divergence with hardware warp-stack reconvergence, verified by a dedicated 17-test warp stack suite",
+    "axelcc compiles C-subset kernels to the GPU's ISA and passes 9 of 9 RTL-level tests, including if/else on both branches, comparison, FMA, matmul and DOT4",
+    "Q8 fixed-point neural networks run end to end on the RTL, up to a chained 64-to-16-to-10 classifier",
+    "MMIO matmul accelerator integrated and passing, alongside tiled Q8 matmul workloads up to 4x16",
+    "GitHub Actions CI runs the regression suite on every push",
+    "FPGA target: Sipeed Tang Nano 20K, with a flat Verilog build for synthesis"
   ],
   "futureWork": [
-    "Tighten the floorplan to push utilisation below 27.9% and shrink the die — the run itself is estimated at around three days",
-    "Resume the Tang Nano 20K FPGA port, currently paused in favour of compiler and kernel work",
-    "Lift the current two-head ceiling on attention by moving off the flat memory layout, which today collides with the parameter base region at three heads",
+    "Tighten the floorplan to push core utilisation past 27.9% and shrink the 7.97 mm2 die",
+    "Close the gap to the 40 MHz target by attacking the roughly 31 ns critical path through the core datapath mux tree",
+    "Complete the Sipeed Tang Nano 20K FPGA bring-up",
     "Generalise axelcc from hand-written kernel sets toward a TFLite-to-axelcc backend",
-    "Extend the ISA and register file toward wider warps and more concurrent cores"
+    "Extend the design toward wider warps and more concurrent cores"
   ],
   "repositories": [
     {
       "name": "32-bit-Tiny-GPU",
       "url": "https://github.com/austin207/32-bit-Tiny-GPU",
-      "description": "Complete GPU stack: ISA spec, 12-module SystemVerilog RTL, AXEL assembler, 5 kernel demos, neural network training, cocotb tests, and FPGA port"
+      "description": "Complete GPU stack: ISA spec, SystemVerilog RTL, AXEL assembler, axelcc compiler, Q8 neural-network kernels, 323 cocotb tests, Sky130A GDSII and an FPGA target"
     }
   ],
   "gallery": [

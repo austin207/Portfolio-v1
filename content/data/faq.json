@@ -57,12 +57,12 @@
   {
     "category": "Projects",
     "question": "What is the 32-Bit Tiny GPU project?",
-    "answer": "The 32-Bit Tiny GPU is a SIMT graphics processor Antony Austin designed solo, from the instruction set all the way to manufacturable silicon layout. It has a 28-instruction 32-bit ISA, SystemVerilog RTL verified by 391 cocotb tests, a C-subset compiler called axelcc, and a signoff-clean GDSII on SkyWater 130 nm with 300,884 cells."
+    "answer": "The 32-Bit Tiny GPU is a SIMT graphics processor Antony Austin built from scratch in SystemVerilog, designed solo from the instruction set to a manufacturable silicon layout. It has true SIMT branch divergence with warp-stack reconvergence, the axelcc C-subset compiler, 323 passing cocotb tests, and a signoff-clean GDSII on SkyWater 130 nm."
   },
   {
     "category": "Projects",
     "question": "Has Antony Austin taken a chip design all the way to silicon layout?",
-    "answer": "Yes. He took his 32-bit SIMT GPU through the open-source OpenLane 2.3.10 flow to a signoff-clean GDSII on the SkyWater 130 nm process, placing and routing 300,884 standard cells with zero Magic DRC violations and an LVS-clean result at 188,812 devices. Post-route timing closes at roughly 32.9 MHz."
+    "answer": "Yes. He took his 32-bit SIMT GPU through OpenLane 2.3.10 to a signoff-clean GDSII on SkyWater Sky130A, placing 300,884 standard cells on a 7.97 square millimetre die with zero Magic DRC violations and an LVS result matching uniquely across 188,812 devices. Post-route timing closes at about 32.9 MHz typical."
   },
   {
     "category": "Projects",

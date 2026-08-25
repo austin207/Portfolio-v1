@@ -5,20 +5,22 @@ import Image from "next/image"
 import { ArrowUpRight, Github } from "lucide-react"
 import { useReveal } from "@/hooks/use-reveal"
 
+// Figures below are taken from the repository's own verified regression and
+// OpenLane signoff tables, not from older resume copy — the repo wins.
 const project = {
   title: "32-Bit Tiny GPU",
-  subtitle: "ISA · RTL · Assembler · Neural Network — built from zero",
+  subtitle: "ISA · RTL · Compiler · Sky130 GDSII — built solo",
   description:
-    "A programmable GPU built from the ground up: a custom 21-instruction 32-bit ISA, 12 fully parameterized SystemVerilog modules (4 cores × 4 threads), a C-based assembler called AXEL, and a neural network that trains end-to-end on the simulated hardware using Q8 fixed-point arithmetic — converging within 2.5% of target across 20 epochs.",
+    "A custom 32-bit SIMT GPU written from scratch in SystemVerilog. True SIMT branch divergence with hardware warp-stack reconvergence, a round-robin memory arbiter, an MMIO matmul accelerator, the AXEL assembler and the axelcc C-subset compiler. Q8 fixed-point neural networks run end to end on the RTL, up to a chained 64→16→10 classifier — and the whole design has been taken through OpenLane 2 to a signoff-clean GDSII on SkyWater Sky130A.",
   image: "/project-images/32-bit-tiny-gpu/GPU.png",
-  tags: ["SystemVerilog", "Verilog", "C", "Python", "GPU Architecture", "ISA Design", "Neural Networks", "cocotb"],
+  tags: ["SystemVerilog", "SIMT", "GPU Architecture", "OpenLane", "Sky130", "Physical Design", "cocotb", "Compilers"],
   github: "https://github.com/austin207/32-bit-Tiny-GPU",
   projectUrl: "/projects/32-bit-tiny-gpu",
   stats: [
-    { label: "ISA Instructions", value: "21" },
-    { label: "RTL Modules", value: "12" },
-    { label: "Parallel Threads", value: "16" },
-    { label: "Training Epochs", value: "20" },
+    { label: "cocotb tests passing", value: "323" },
+    { label: "Standard cells", value: "300,884" },
+    { label: "Magic DRC violations", value: "0" },
+    { label: "Post-route, typical", value: "32.9 MHz" },
   ],
 }
 
@@ -38,10 +40,10 @@ export default function FeaturedProjectSection() {
             What is the 32-Bit Tiny GPU?
           </h2>
           <p className="text-muted-foreground leading-[1.8] max-w-2xl">
-            The 32-Bit Tiny GPU is a SIMT graphics processor Antony Austin designed solo, from the
-            instruction set all the way to manufacturable silicon. It has a 28-instruction 32-bit
-            ISA, SystemVerilog RTL verified by 391 cocotb tests, a C-subset compiler called axelcc,
-            and a signoff-clean GDSII on SkyWater 130 nm with 300,884 standard cells.
+            The 32-Bit Tiny GPU is a SIMT graphics processor Antony Austin built from scratch
+            in SystemVerilog, designed solo from the instruction set all the way to a
+            manufacturable silicon layout — 323 passing cocotb tests, the axelcc C-subset
+            compiler, and a signoff-clean GDSII on SkyWater 130 nm with 300,884 standard cells.
           </p>
         </div>
 
