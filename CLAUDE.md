@@ -103,3 +103,13 @@ See `.env.example` for all required vars. `.env.local` has placeholders. Key gro
 | `/freelance` | Static | Service catalog with Stripe + Fiverr checkout |
 | `/checkout/success` | Static | Payment confirmation |
 | `/checkout/cancel` | Static | Payment cancelled |
+
+<!-- gen-project-docs:start -->
+## Regenerable artifacts
+
+As of 2026-07-29, the build output in this project (`node_modules`, `.next`, totalling 1.23 GB) was deleted to reclaim disk space. Source, manifests and lockfiles are untouched.
+
+Restore with `pnpm install --frozen-lockfile` - see `SETUP.md` in this folder for full detail.
+
+<!-- gen-project-docs:end -->
+
