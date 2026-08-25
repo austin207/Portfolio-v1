@@ -38,7 +38,7 @@ export async function GET() {
   lines.push("> AI studio. Remote firmware developer for ASAT (US). Freelance ROS 2 developer.")
   lines.push("")
   lines.push(
-    "Key facts: born 16 March 2005 in Kochi, India. BTech AEI 2023-2027, CGPA 7.7/10."
+    "Key facts: born 16 March 2005 in Kochi, India. BTech AEI 2023-2027, CGPA 7.9/10."
   )
   lines.push(
     "3+ years of experience, 15+ projects. Built a 253M-parameter LLaMA-style transformer from"

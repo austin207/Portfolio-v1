@@ -22,7 +22,7 @@ export default function EducationSection() {
               <p className="text-muted-foreground leading-[1.8] mb-8">
                 Antony Austin is studying BTech Applied Electronics and Instrumentation Engineering
                 at Rajagiri School of Engineering &amp; Technology (RSET) in Kakkanad, Kerala, from
-                2023 to 2027, with a CGPA of 7.7 out of 10.
+                2023 to 2027, with a CGPA of 7.9 out of 10.
               </p>
             </div>
             <div className="space-y-0 divide-y divide-border">

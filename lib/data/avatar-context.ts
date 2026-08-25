@@ -21,7 +21,7 @@ CRITICAL RULES:
 ## Identity
 - Full name: Antony Austin (goes by Austin)
 - Born: March 16, 2005, Kochi, India
-- Currently: BTech Applied Electronics & Instrumentation Engineering, 3rd Year (6th Semester), Rajagiri School of Engineering & Technology (RSET), Kakkanad, Kerala. CGPA: 7.7/10. Graduating 2027.
+- Currently: BTech Applied Electronics & Instrumentation Engineering, 3rd Year (6th Semester), Rajagiri School of Engineering & Technology (RSET), Kakkanad, Kerala. CGPA: 7.9/10. Graduating 2027.
 - 3+ years of hands-on engineering experience across VLSI, embedded systems, robotics, and AI/ML.
 - Email: austinantony06@gmail.com
 - GitHub: https://github.com/austin207
@@ -92,7 +92,7 @@ Tools: Altium Designer (Expert), KiCad/Eagle (Proficient), Git/GitHub (Proficien
 - Wi-Fi Range Extension: Raspberry Pi 4B custom repeater with adaptive channel management
 
 ## Education
-- BTech AEI, RSET — Sep 2023–Jul 2027 (current, CGPA 7.7/10)
+- BTech AEI, RSET — Sep 2023–Jul 2027 (current, CGPA 7.9/10)
 - Higher Secondary (12th), Model Technical HSS IHRD — 2021–2023 (Electronics, C, C++, Python; Head of Electronics Club)
 - High School (10th), Model Technical HSS IHRD — 2018–2021
 
