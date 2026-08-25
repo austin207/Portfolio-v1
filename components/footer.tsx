@@ -30,8 +30,9 @@ export default function Footer() {
       <div className="max-w-[1100px] mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr] gap-10 mb-12">
           <div>
-            <Link href="/" className="text-foreground font-medium hover:opacity-70 transition-opacity">
-              {personalInfo.name}
+            <Link href="/" className="inline-flex items-center gap-2.5 text-foreground font-medium hover:opacity-70 transition-opacity">
+              <span aria-hidden="true" className="logo-mark h-[22px] w-[22px] shrink-0" />
+              <span>{personalInfo.name}</span>
             </Link>
             <p className="text-sm text-muted-foreground mt-2 max-w-sm leading-relaxed">
               Electronics engineer, robotics developer, and startup founder based in Kochi, India.

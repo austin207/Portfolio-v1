@@ -34,8 +34,15 @@ export default function Navbar() {
         }`}
       >
         <div className="max-w-[1100px] mx-auto px-6 h-14 flex items-center justify-between">
-          <Link href="/" className="text-sm font-medium tracking-tight text-foreground hover:opacity-70 transition-opacity">
-            {personalInfo.name}
+          <Link
+            href="/"
+            aria-label={`${personalInfo.name} — home`}
+            className="flex items-center gap-2.5 text-sm font-medium tracking-tight text-foreground hover:opacity-70 transition-opacity"
+          >
+            {/* Brand mark, vectorised from the business-card artwork.
+                currentColor so it follows the theme. */}
+            <span aria-hidden="true" className="logo-mark h-5 w-5 shrink-0" />
+            <span>{personalInfo.name}</span>
           </Link>
 
           <nav className="hidden md:flex items-center gap-8">

@@ -10,7 +10,8 @@
     "create-project": "node scripts/create-project.js",
     "validate-projects": "node scripts/validate-projects.js",
     "typecheck": "tsc --noEmit",
-    "verify-seo": "node scripts/verify-seo.mjs"
+    "verify-seo": "node scripts/verify-seo.mjs",
+    "build-logo": "node scripts/build-logo-assets.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
