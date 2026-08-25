@@ -1,11 +1,20 @@
 import { notFound } from "next/navigation";
-import { getPostBySlug } from "@/lib/data/blog-posts";
+import { getPostBySlug, getAllPosts } from "@/lib/data/blog-posts";
 import { MarkdownRenderer } from "@/components/blog/markdown-renderer";
 import { format } from "date-fns";
 import { Calendar, Clock, User, ArrowLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Metadata } from "next";
+import { generateSEO, blogPostingGraph, SITE_URL } from "@/lib/seo";
+import JsonLd from "@/components/json-ld";
+
+// Prerender posts at build time instead of rendering each on demand — faster
+// first byte for crawlers, and AI crawlers do not retry a slow response.
+export async function generateStaticParams() {
+  const posts = await getAllPosts();
+  return posts.map((post) => ({ slug: post.slug }));
+}
 
 export async function generateMetadata({
   params,
@@ -15,37 +24,27 @@ export async function generateMetadata({
   const post = await getPostBySlug(params.slug);
 
   if (!post) {
-    return {
+    return generateSEO({
       title: "Post Not Found",
       description: "The requested blog post could not be found.",
-    };
+      noIndex: true,
+    });
   }
 
-  return {
+  // Routed through generateSEO so this page gets its OWN canonical. Previously
+  // this hand-rolled object omitted `alternates`, so every post inherited the
+  // root canonical and declared itself a duplicate of the homepage.
+  return generateSEO({
     title: post.title,
     description: post.excerpt,
-    openGraph: {
-      title: post.title,
-      description: post.excerpt,
-      images: post.image ? [
-        {
-          url: post.image,
-          width: 1200,
-          height: 630,
-          alt: post.title,
-        }
-      ] : [],
-      type: "article",
-      publishedTime: post.publishedAt,
-      tags: post.tags,
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: post.title,
-      description: post.excerpt,
-      images: post.image ? [post.image] : [],
-    },
-  };
+    url: `${SITE_URL}/blog/${post.slug}`,
+    type: "article",
+    publishedTime: post.publishedAt,
+    modifiedTime: post.updatedAt ?? post.publishedAt,
+    author: post.author,
+    ...(post.image && { image: `${SITE_URL}${post.image}` }),
+    ...(post.tags && post.tags.length > 0 && { keywords: post.tags }),
+  });
 }
 
 export default async function BlogPostPage({ params }: { params: { slug: string } }) {
@@ -57,6 +56,12 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
 
   return (
     <div className="min-h-screen bg-background">
+      <JsonLd
+        data={blogPostingGraph(post, [
+          { name: "Blog", path: "/blog" },
+          { name: post.title, path: `/blog/${post.slug}` },
+        ])}
+      />
       <div className="py-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-[1100px] mx-auto">
           {/* Back Navigation */}

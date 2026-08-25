@@ -14,7 +14,17 @@ export default function EducationSection() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           <div>
-            <h2 className={`text-sm font-mono text-muted-foreground uppercase tracking-widest mb-8 reveal ${visible ? "visible" : ""}`}>Education</h2>
+            <div className={`reveal ${visible ? "visible" : ""}`}>
+              <p className="text-sm font-mono text-muted-foreground uppercase tracking-widest mb-3">Education</p>
+              <h2 className="text-2xl sm:text-3xl font-medium tracking-tight text-foreground mb-4">
+                Where did Antony Austin study?
+              </h2>
+              <p className="text-muted-foreground leading-[1.8] mb-8">
+                Antony Austin is studying BTech Applied Electronics and Instrumentation Engineering
+                at Rajagiri School of Engineering &amp; Technology (RSET) in Kakkanad, Kerala, from
+                2023 to 2027, with a CGPA of 7.7 out of 10.
+              </p>
+            </div>
             <div className="space-y-0 divide-y divide-border">
               {education.map((edu, i) => (
                 <div key={i} className={`py-5 first:pt-0 reveal ${visible ? "visible" : ""}`} style={{ transitionDelay: `${i * 0.1 + 0.1}s` }}>
@@ -34,7 +44,17 @@ export default function EducationSection() {
           </div>
 
           <div>
-            <h2 className={`text-sm font-mono text-muted-foreground uppercase tracking-widest mb-8 reveal ${visible ? "visible" : ""}`} style={{ transitionDelay: "0.05s" }}>Certifications</h2>
+            <div className={`reveal ${visible ? "visible" : ""}`} style={{ transitionDelay: "0.05s" }}>
+              <p className="text-sm font-mono text-muted-foreground uppercase tracking-widest mb-3">Certifications</p>
+              <h2 className="text-2xl sm:text-3xl font-medium tracking-tight text-foreground mb-4">
+                What certifications does Antony Austin hold?
+              </h2>
+              <p className="text-muted-foreground leading-[1.8] mb-8">
+                Antony Austin holds nRF Connect SDK Fundamentals from Nordic Semiconductor (February
+                2026), Flutter &amp; Dart from IBM via Coursera (August 2025), and a Robotics
+                Intermediate Certification from Srishti Robotics, where he was named Best Performer.
+              </p>
+            </div>
             <div className="space-y-0 divide-y divide-border">
               {certifications.map((cert, i) => (
                 <div key={i} className={`py-4 first:pt-0 flex items-start justify-between gap-4 reveal ${visible ? "visible" : ""}`} style={{ transitionDelay: `${i * 0.08 + 0.15}s` }}>

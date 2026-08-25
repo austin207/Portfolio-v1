@@ -2,10 +2,12 @@ import type React from "react"
 import "./globals.css"
 import { Space_Grotesk, IBM_Plex_Mono } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
-import { generateSEO, structuredData, websiteStructuredData } from "@/lib/seo"
+import { generateSEO, rootGraph } from "@/lib/seo"
+import JsonLd from "@/components/json-ld"
 import CustomCursor from "@/components/custom-cursor"
 import LoadingScreen from "@/components/loading-screen"
 import AvatarWrapper from "@/components/avatar-wrapper"
+import Analytics from "@/components/analytics"
 
 const sans = Space_Grotesk({
   subsets: ["latin"],
@@ -30,12 +32,17 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className={`${sans.variable} ${mono.variable}`}>
       <head>
+        {/* Marks JS as available before first paint, which is what gates the
+            scroll-reveal animations in globals.css. Without JS (or if this
+            never runs) content stays visible instead of stuck at opacity:0. */}
         <script
-          type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify([structuredData, websiteStructuredData]),
+            __html: `document.documentElement.classList.add('js')`,
           }}
         />
+        {/* Sitewide entity backbone: Person, RSET, VirtusCo, Noviq, WebSite —
+            all @id-linked so answer engines resolve one entity, not several. */}
+        <JsonLd data={rootGraph} />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes" />
         <meta name="theme-color" content="#000000" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -49,6 +56,7 @@ export default function RootLayout({
           <CustomCursor />
           <AvatarWrapper />
           {children}
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>

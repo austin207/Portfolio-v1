@@ -11,6 +11,8 @@ import ContactSection from "@/components/sections/contact-section"
 import Footer from "@/components/footer"
 import Navbar from "@/components/navbar"
 import OnboardingTour from "@/components/onboarding-tour"
+import JsonLd from "@/components/json-ld"
+import { profilePageGraph } from "@/lib/seo"
 
 const sectionComponents = {
   HeroSection,
@@ -29,6 +31,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-background text-foreground">
+      <JsonLd data={profilePageGraph()} />
       <Navbar />
       <OnboardingTour />
       {enabledSections.map((section) => {

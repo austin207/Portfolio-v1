@@ -18,7 +18,14 @@ export default function AboutSection() {
 
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-16">
           <div className={`reveal ${visible ? "visible" : ""}`}>
-            <h2 className="text-sm font-mono text-muted-foreground uppercase tracking-widest mb-8">About</h2>
+            {/* Mono label demoted to an eyebrow so the real heading can be a
+                question. Answer engines match question-shaped headings; the
+                answer itself is the adjacent profileParagraphs column, so it
+                is deliberately not duplicated here. */}
+            <p className="text-sm font-mono text-muted-foreground uppercase tracking-widest mb-3">About</p>
+            <h2 className="text-2xl sm:text-3xl font-medium tracking-tight text-foreground mb-8">
+              Who is Antony Austin?
+            </h2>
 
             <div className="flex gap-8 mb-10">
               {stats.map((stat, i) => (

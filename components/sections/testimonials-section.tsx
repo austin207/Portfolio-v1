@@ -30,11 +30,14 @@ export default function TestimonialsSection() {
       {/* Section header — consistent with the rest of the page */}
       <div className="max-w-[1100px] mx-auto px-6 mb-12">
         <div className={`divider mb-16 line-reveal ${visible ? "visible" : ""}`} />
-        <h2
-          className={`text-sm font-mono text-muted-foreground uppercase tracking-widest reveal ${visible ? "visible" : ""}`}
-        >
-          Testimonials
-        </h2>
+        <div className={`reveal ${visible ? "visible" : ""}`}>
+          <p className="text-sm font-mono text-muted-foreground uppercase tracking-widest mb-3">
+            Testimonials
+          </p>
+          <h2 className="text-2xl sm:text-3xl font-medium tracking-tight text-foreground">
+            What do people say about working with Antony Austin?
+          </h2>
+        </div>
       </div>
 
       {/* Stagger carousel */}

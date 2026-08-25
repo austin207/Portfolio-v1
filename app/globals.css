@@ -157,24 +157,59 @@ html::-webkit-scrollbar {
   @apply w-full;
 }
 
-/* Scroll reveal */
+/* Scroll reveal.
+   Content is VISIBLE by default and the animation is progressive enhancement,
+   gated behind `html.js`. Previously `.reveal` was opacity:0 until an
+   IntersectionObserver fired, so a JS error, a blocked observer, or a crawler
+   that renders CSS without scrolling saw a blank page. Raw-HTML AI crawlers
+   were never affected (they ignore CSS), but Googlebot and real users were. */
 .reveal {
+  opacity: 1;
+  transform: none;
+}
+html.js .reveal {
   opacity: 0;
   transform: translateY(24px);
   transition: opacity 0.7s ease-out, transform 0.7s ease-out;
 }
-.reveal.visible {
+html.js .reveal.visible {
   opacity: 1;
   transform: translateY(0);
 }
 
 /* Horizontal line animation */
 .line-reveal {
+  width: 100%;
+}
+html.js .line-reveal {
   width: 0;
   transition: width 1s ease-out;
 }
-.line-reveal.visible {
+html.js .line-reveal.visible {
   width: 100%;
+}
+
+/* Respect reduced-motion: show everything, animate nothing. */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  html.js .reveal,
+  .line-reveal,
+  html.js .line-reveal,
+  .fade-in,
+  .count-up,
+  .stagger > * {
+    opacity: 1 !important;
+    transform: none !important;
+    width: auto !important;
+    animation: none !important;
+    transition: none !important;
+  }
+  html.js .line-reveal {
+    width: 100% !important;
+  }
+  .animate-marquee {
+    animation: none !important;
+  }
 }
 
 /* Counter animation */

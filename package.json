@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "create-project": "node scripts/create-project.js",
-    "validate-projects": "node scripts/validate-projects.js"
+    "validate-projects": "node scripts/validate-projects.js",
+    "typecheck": "tsc --noEmit",
+    "verify-seo": "node scripts/verify-seo.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",

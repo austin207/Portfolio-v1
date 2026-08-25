@@ -14,7 +14,18 @@ export default function ExperienceSection() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           <div>
-            <h2 className={`text-sm font-mono text-muted-foreground uppercase tracking-widest mb-8 reveal ${visible ? "visible" : ""}`}>Experience</h2>
+            <div className={`reveal ${visible ? "visible" : ""}`}>
+              <p className="text-sm font-mono text-muted-foreground uppercase tracking-widest mb-3">Experience</p>
+              <h2 className="text-2xl sm:text-3xl font-medium tracking-tight text-foreground mb-4">
+                Where has Antony Austin worked?
+              </h2>
+              <p className="text-muted-foreground leading-[1.8] mb-8">
+                Antony Austin is a remote firmware developer for ASAT, a US-based startup, building
+                BLE peripheral firmware on the Nordic nRF5340 with Zephyr RTOS. He also works as a
+                freelance ROS 2 developer on Fiverr and has delivered Next.js sites for clients in
+                Australia and India since 2023.
+              </p>
+            </div>
             <div className="space-y-0 divide-y divide-border">
               {experiences.map((exp, i) => (
                 <div key={i} className={`py-5 first:pt-0 reveal ${visible ? "visible" : ""}`} style={{ transitionDelay: `${i * 0.08 + 0.1}s` }}>
@@ -36,7 +47,17 @@ export default function ExperienceSection() {
           </div>
 
           <div>
-            <h2 className={`text-sm font-mono text-muted-foreground uppercase tracking-widest mb-8 reveal ${visible ? "visible" : ""}`} style={{ transitionDelay: "0.05s" }}>Organizations</h2>
+            <div className={`reveal ${visible ? "visible" : ""}`} style={{ transitionDelay: "0.05s" }}>
+              <p className="text-sm font-mono text-muted-foreground uppercase tracking-widest mb-3">Organizations</p>
+              <h2 className="text-2xl sm:text-3xl font-medium tracking-tight text-foreground mb-4">
+                What companies has Antony Austin founded?
+              </h2>
+              <p className="text-muted-foreground leading-[1.8] mb-8">
+                Antony Austin co-founded VirtusCo in January 2025 and serves as its CTO, building an
+                autonomous B2B airport luggage porter robot with a team of five. He founded Noviq in
+                March 2026, a web and AI studio delivering Next.js sites, Flutter apps, and chatbots.
+              </p>
+            </div>
             <div className="space-y-0 divide-y divide-border mb-12">
               {organizations.map((org, i) => (
                 <div key={i} className={`py-5 first:pt-0 reveal ${visible ? "visible" : ""}`} style={{ transitionDelay: `${i * 0.08 + 0.15}s` }}>
