@@ -335,9 +335,16 @@ const CustomBlockquote: React.FC<any> = memo(({ children, ...props }) => (
 
 CustomBlockquote.displayName = 'CustomBlockquote';
 
-const CustomHeading = (level: 1 | 2 | 3 | 4 | 5 | 6) =>
+/**
+ * @param level     the heading element actually rendered (semantics)
+ * @param sizeLevel the visual scale to keep (defaults to `level`)
+ * Separating the two lets markdown headings drop a semantic level without
+ * shrinking on screen.
+ */
+const CustomHeading = (level: 1 | 2 | 3 | 4 | 5 | 6, sizeLevel?: 1 | 2 | 3 | 4 | 5 | 6) =>
   memo<any>(({ children, id, ...props }) => {
     const HeadingTag = `h${level}` as keyof JSX.IntrinsicElements;
+    const scale = sizeLevel ?? level;
     const sizes = {
       1: 'text-4xl font-bold',
       2: 'text-3xl font-semibold',
@@ -359,7 +366,7 @@ const CustomHeading = (level: 1 | 2 | 3 | 4 | 5 | 6) =>
     return (
       <HeadingTag
         id={id}
-        className={`${sizes[level]} ${margins[level]} text-white group relative scroll-mt-20 tracking-tight`}
+        className={`${sizes[scale]} ${margins[scale]} text-white group relative scroll-mt-20 tracking-tight`}
         {...props}
       >
         {id && (
@@ -426,13 +433,16 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = memo(({
   customComponents = {}
 }) => {
   const components = useMemo(() => ({
-    // Headings with clean styling and anchor links
-    h1: CustomHeading(1),
-    h2: CustomHeading(2),
-    h3: CustomHeading(3),
-    h4: CustomHeading(4),
-    h5: CustomHeading(5),
-    h6: CustomHeading(6),
+    // Headings, demoted one level. The page already renders the post title as
+    // the <h1>, so mapping markdown "#" to <h1> produced 14 <h1> elements on
+    // one post and destroyed the document outline. Markdown "#" becomes <h2>,
+    // keeping a single <h1> per page. Visual sizes are preserved below.
+    h1: CustomHeading(2, 1),
+    h2: CustomHeading(3, 2),
+    h3: CustomHeading(4, 3),
+    h4: CustomHeading(5, 4),
+    h5: CustomHeading(6, 5),
+    h6: CustomHeading(6, 6),
 
     // Enhanced code blocks with proper inline/block detection
     code: ({ node, inline, className, children, ...props }: any) => {

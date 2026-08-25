@@ -28,7 +28,7 @@ import {
 import { personalInfo } from "@/lib/data/sections"
 import { socialLinks } from "@/lib/data/social-links"
 import { services as allServices, type Service, type ServiceTier } from "@/lib/data/services"
-import { freelanceStructuredData } from "@/lib/seo"
+import { freelanceGraph } from "@/lib/seo"
 import { useReveal } from "@/hooks/use-reveal"
 
 const iconMap: Record<string, any> = {
@@ -291,7 +291,7 @@ export default function FreelancePage() {
     <div className="min-h-screen bg-background">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(freelanceStructuredData) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(freelanceGraph) }}
       />
       <div className="py-24 px-4 sm:px-6 lg:px-8">
         <div className="max-w-[1100px] mx-auto">

@@ -10,6 +10,9 @@ export interface BlogPost {
   content: string;
   author: string;
   publishedAt: string;
+  /** File mtime, or frontmatter `updated`. Freshness is an explicit citation
+   *  signal for answer engines, so it is surfaced on-page and in schema. */
+  updatedAt: string;
   category: string;
   tags: string[];
   readingTime: number;
@@ -45,6 +48,11 @@ export async function getBlogPostsFromMarkdown(): Promise<BlogPost[]> {
           content,
           author: data.author || 'Austin',
           publishedAt: data.date || new Date().toISOString(),
+          // Deliberately NOT fs mtime: on Vercel every file's mtime is the
+          // git-clone time, so mtime would report "updated today" on every
+          // deploy and destroy the freshness signal. Set `updated:` in
+          // frontmatter when a post is genuinely revised.
+          updatedAt: data.updated || data.date || new Date().toISOString(),
           category: data.category || 'General',
           tags: data.tags || [],
           readingTime: Math.ceil(readingStats.minutes),
@@ -105,6 +113,7 @@ The foundation of any n8n workflow consists of trigger nodes and action nodes co
 This guide provides the foundation for creating sophisticated automation systems that scale with your needs.`,
     author: "Austin",
     publishedAt: "2025-06-18",
+    updatedAt: "2025-06-18",
     category: "AI Automation", 
     tags: ["n8n", "AI Automation", "Agentic AI", "Workflow"],
     readingTime: 15,
@@ -131,6 +140,7 @@ Learn to extract component logic into custom hooks, improving code reusability a
 Implement proper TypeScript patterns for React components, ensuring type safety and excellent developer experience.`,
     author: "Austin",
     publishedAt: "2025-06-15",
+    updatedAt: "2025-06-15",
     category: "Web Development",
     tags: ["React", "TypeScript", "Frontend", "Patterns"],
     readingTime: 8,
@@ -157,6 +167,7 @@ Learn to design and tune PID controllers for various robotic systems, from simpl
 Explore state-space methods, optimal control, and adaptive control techniques for sophisticated robotic systems.`,
     author: "Austin",
     publishedAt: "2025-06-10",
+    updatedAt: "2025-06-10",
     category: "Robotics",
     tags: ["Robotics", "Control Systems", "PID", "Engineering"],
     readingTime: 12,

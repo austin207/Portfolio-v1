@@ -1,0 +1,11 @@
+{
+  "_comment": "Hand-maintained last-modified dates for static routes, in YYYY-MM-DD. Update the entry when you meaningfully change a page. Deliberately NOT derived from file mtime: on Vercel every file's mtime is the git-clone timestamp, so mtime reports 'changed today' on every deploy and destroys lastmod as a freshness signal.",
+  "/": "2026-08-25",
+  "/faq": "2026-08-25",
+  "/projects": "2026-08-25",
+  "/blog": "2026-08-25",
+  "/freelance": "2026-08-25",
+  "/certificates": "2026-08-25",
+  "/timeline": "2026-08-25",
+  "/skills-path": "2026-08-25"
+}

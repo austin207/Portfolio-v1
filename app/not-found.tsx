@@ -1,4 +1,13 @@
 import Link from "next/link"
+import { generateSEO } from "@/lib/seo"
+
+// Without this the 404 inherited root metadata — indexable, and canonicalised
+// to the homepage, so every bad URL emitted an indexable homepage duplicate.
+export const metadata = generateSEO({
+  title: "Page Not Found",
+  description: "The requested page could not be found.",
+  noIndex: true,
+})
 
 export default function NotFound() {
   return (

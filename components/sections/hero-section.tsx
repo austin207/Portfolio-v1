@@ -19,8 +19,16 @@ export default function HeroSection() {
               {personalInfo.name}
             </h1>
 
-            <p className="text-lg text-muted-foreground leading-relaxed max-w-xl mb-8 fade-in" style={{ animationDelay: "0.15s" }}>
+            <p className="text-lg text-muted-foreground leading-relaxed max-w-xl mb-5 fade-in" style={{ animationDelay: "0.15s" }}>
               {personalInfo.description}
+            </p>
+
+            {/* Named-entity density in the first ~100 words is the strongest
+                single AEO lever on the page — this line puts five resolvable
+                entities in front of any crawler reading raw HTML. */}
+            <p className="font-mono text-[12px] text-muted-foreground leading-relaxed max-w-xl mb-8 fade-in" style={{ animationDelay: "0.18s" }}>
+              Co-founder &amp; CTO at VirtusCo · Founder at Noviq · Firmware Developer at ASAT ·
+              BTech AEI at RSET, Kochi · Working remotely with clients worldwide
             </p>
 
             <div className="flex flex-wrap gap-2 mb-10 fade-in" style={{ animationDelay: "0.2s" }}>
@@ -112,7 +120,9 @@ export default function HeroSection() {
             <div className="relative w-40 h-40 md:w-56 md:h-56 lg:w-64 lg:h-64 mx-auto md:mx-0">
               <img
                 src={personalInfo.avatar || "/Profile.png"}
-                alt={personalInfo.name}
+                alt="Antony Austin — Applied Electronics Engineer based in Kochi, India"
+                width={256}
+                height={256}
                 className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700 border border-border"
               />
             </div>

@@ -30,10 +30,18 @@ export default function FeaturedProjectSection() {
       <div className="max-w-[1100px] mx-auto">
         <div className={`divider mb-16 line-reveal ${visible ? "visible" : ""}`} />
 
-        <div className={`flex items-end justify-between mb-10 reveal ${visible ? "visible" : ""}`}>
-          <h2 className="text-sm font-mono text-muted-foreground uppercase tracking-widest">
+        <div className={`mb-10 reveal ${visible ? "visible" : ""}`}>
+          <p className="text-sm font-mono text-muted-foreground uppercase tracking-widest mb-3">
             Featured Project
+          </p>
+          <h2 className="text-2xl sm:text-3xl font-medium tracking-tight text-foreground mb-4">
+            What is the 32-Bit Tiny GPU?
           </h2>
+          <p className="text-muted-foreground leading-[1.8] max-w-2xl">
+            The 32-Bit Tiny GPU is a complete GPU stack Antony Austin built from scratch: a custom
+            32-bit instruction set architecture, 12 SystemVerilog RTL modules, a C-based assembler,
+            and a neural network trained end-to-end on the simulated hardware.
+          </p>
         </div>
 
         {/* Main card */}

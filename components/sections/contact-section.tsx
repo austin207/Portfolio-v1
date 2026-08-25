@@ -24,9 +24,14 @@ export default function ContactSection() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           <div className={`reveal ${visible ? "visible" : ""}`}>
-            <h2 className="text-sm font-mono text-muted-foreground uppercase tracking-widest mb-8">Contact</h2>
-            <p className="text-muted-foreground leading-relaxed mb-10">
-              Interested in working together? Drop me a message or reach out via any of the links below.
+            <p className="text-sm font-mono text-muted-foreground uppercase tracking-widest mb-3">Contact</p>
+            <h2 className="text-2xl sm:text-3xl font-medium tracking-tight text-foreground mb-4">
+              How do you contact Antony Austin?
+            </h2>
+            <p className="text-muted-foreground leading-[1.8] mb-10">
+              Email Antony Austin at austinantony06@gmail.com or use the form on this page. He is
+              based in Kochi, Kerala, India and works remotely with clients worldwide, taking
+              freelance embedded, robotics, and AI work priced in USD.
             </p>
             <div className="space-y-4">
               {links.map((link, i) => (
@@ -45,7 +50,7 @@ export default function ContactSection() {
           </div>
 
           <div className={`reveal ${visible ? "visible" : ""}`} style={{ transitionDelay: "0.1s" }}>
-            <h2 className="text-sm font-mono text-muted-foreground uppercase tracking-widest mb-8">Send a Message</h2>
+            <h2 className="text-sm font-mono text-muted-foreground uppercase tracking-widest mb-8">Send a message</h2>
             <ContactForm />
           </div>
         </div>

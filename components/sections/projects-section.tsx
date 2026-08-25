@@ -13,12 +13,22 @@ export default function ProjectsSection() {
       <div className="max-w-[1100px] mx-auto">
         <div className={`divider mb-16 line-reveal ${visible ? "visible" : ""}`} />
 
-        <div className={`flex items-end justify-between mb-10 reveal ${visible ? "visible" : ""}`}>
-          <h2 className="text-sm font-mono text-muted-foreground uppercase tracking-widest">Projects</h2>
+        <div className={`flex items-end justify-between mb-4 reveal ${visible ? "visible" : ""}`}>
+          <div>
+            <p className="text-sm font-mono text-muted-foreground uppercase tracking-widest mb-3">Projects</p>
+            <h2 className="text-2xl sm:text-3xl font-medium tracking-tight text-foreground">
+              What has Antony Austin built?
+            </h2>
+          </div>
           <Link href="/projects" className="text-[13px] text-muted-foreground hover:text-foreground transition-colors link-underline">
             View all
           </Link>
         </div>
+        <p className={`text-muted-foreground leading-[1.8] max-w-2xl mb-10 reveal ${visible ? "visible" : ""}`}>
+          Antony Austin has built 15+ engineering projects, including a 32-bit GPU with a custom ISA
+          and 12 SystemVerilog RTL modules, a 253M-parameter transformer language model written from
+          scratch in PyTorch, and an autonomous robot navigation stack on ROS 2 Jazzy.
+        </p>
 
         <div className="divide-y divide-border border-y border-border">
           {featuredProjects.map((project, i) => (

@@ -12,7 +12,17 @@ export default function SkillsSection() {
       <div className="max-w-[1100px] mx-auto">
         <div className={`divider mb-16 line-reveal ${visible ? "visible" : ""}`} />
 
-        <h2 className={`text-sm font-mono text-muted-foreground uppercase tracking-widest mb-10 reveal ${visible ? "visible" : ""}`}>Technical Skills</h2>
+        <div className={`reveal ${visible ? "visible" : ""}`}>
+          <p className="text-sm font-mono text-muted-foreground uppercase tracking-widest mb-3">Technical Skills</p>
+          <h2 className="text-2xl sm:text-3xl font-medium tracking-tight text-foreground mb-4">
+            What technologies does Antony Austin work with?
+          </h2>
+          <p className="text-muted-foreground leading-[1.8] max-w-2xl mb-10">
+            Antony Austin works at expert level in Embedded C, C, Python, PCB design with Altium
+            Designer, and the ESP32 and Raspberry Pi platforms. He is proficient in C++,
+            SystemVerilog, ROS 2 Jazzy, PyTorch, the Nordic nRF5340 with Zephyr RTOS, and Next.js.
+          </p>
+        </div>
 
         <div className={`reveal ${visible ? "visible" : ""}`} style={{ transitionDelay: "0.15s" }}>
           <Tabs defaultValue="programming" className="w-full">

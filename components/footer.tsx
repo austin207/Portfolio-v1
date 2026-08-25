@@ -17,6 +17,7 @@ const footerLinks = [
 const siteLinks = [
   { label: "Projects", href: "/projects" },
   { label: "Blog", href: "/blog" },
+  { label: "FAQ", href: "/faq" },
   { label: "Freelance", href: "/freelance" },
   { label: "Timeline", href: "/timeline" },
   { label: "Certificates", href: "/certificates" },

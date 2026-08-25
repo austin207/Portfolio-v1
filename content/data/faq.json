@@ -1,0 +1,92 @@
+[
+  {
+    "category": "Overview",
+    "question": "Who is Antony Austin?",
+    "answer": "Antony Austin is an Applied Electronics and Instrumentation Engineering undergraduate at Rajagiri School of Engineering & Technology (RSET) in Kochi, India, graduating in 2027. He has 3+ years of hands-on experience across VLSI design, embedded systems, robotics, and AI/ML, and is Co-founder and CTO of the robotics startup VirtusCo."
+  },
+  {
+    "category": "Overview",
+    "question": "What does Antony Austin specialise in?",
+    "answer": "He specialises in four areas: VLSI and semiconductor design, embedded systems and RTOS firmware, robotics with ROS 2, and applied AI/ML. His deepest work spans SystemVerilog RTL design, Zephyr RTOS on Nordic nRF5340 hardware, ROS 2 Jazzy navigation stacks, and transformer language models built from scratch in PyTorch."
+  },
+  {
+    "category": "Overview",
+    "question": "Where is Antony Austin based, and does he work with international clients?",
+    "answer": "He is based in Kochi, Kerala, India, and works remotely with clients worldwide. He is currently a remote firmware developer for a US-based startup, has delivered web projects for clients in Australia and India, and takes freelance ROS 2 work internationally through Fiverr. All freelance pricing is quoted in USD."
+  },
+  {
+    "category": "Ventures",
+    "question": "What is VirtusCo?",
+    "answer": "VirtusCo is a pre-seed robotics startup Antony co-founded in January 2025, where he serves as CTO and sole software architect. The team of five is building Virtus, an autonomous B2B airport luggage porter robot. It is IEDC incubated and targeting deployment at Bangalore International Airport's BIAL Startup Valley."
+  },
+  {
+    "category": "Ventures",
+    "question": "What is Noviq?",
+    "answer": "Noviq is a web and AI studio Antony founded in March 2026 in Kochi. It delivers Next.js and WordPress websites, Flutter mobile apps, and AI-powered WhatsApp and Telegram chatbots for local businesses. It has delivered one paid client project end-to-end so far."
+  },
+  {
+    "category": "Experience",
+    "question": "What does Antony Austin do at ASAT?",
+    "answer": "He works as a remote firmware developer intern for ASAT, a US-based startup, while studying full-time in Kerala. He develops BLE peripheral firmware on the Nordic nRF5340 DK using the nRF Connect SDK and Zephyr RTOS, implementing custom GATT services, connectable advertising, and dual-core sysbuild configuration."
+  },
+  {
+    "category": "Experience",
+    "question": "What is Antony Austin's leadership and mentoring experience?",
+    "answer": "He led and mentored three batches of 15 students as Head of the Electronics Club at Model Technical HSS IHRD from 2019 to 2023, starting at age 14. He currently serves as an Apptronics event coordinator at RSET, organising science and technology events for the college's technical fest."
+  },
+  {
+    "category": "AI and machine learning",
+    "question": "Has Antony Austin built a language model from scratch?",
+    "answer": "Yes. He built a 253-million-parameter LLaMA-style transformer entirely from scratch in PyTorch, running on modest consumer hardware. He progressed from an RNN-based text generator to MiniGPT, a 4.6M-parameter model trained on CPU, and then to the 253M model. The code is on GitHub as Transformer-Virtue-v2."
+  },
+  {
+    "category": "Research",
+    "question": "What is Antony Austin's research on Phase Change Memory?",
+    "answer": "He is completing an M.Tech-level research thesis on electrothermal simulation of Phase Change Memory (PCM) devices, modelled in COMSOL Multiphysics at RSET. PCM is a non-volatile memory technology that stores data by switching a chalcogenide material between amorphous and crystalline states. He began the thesis in 2026."
+  },
+  {
+    "category": "Robotics",
+    "question": "What robotics experience does Antony Austin have?",
+    "answer": "He built a complete ROS 2 Jazzy stack from scratch on a Raspberry Pi 5 for VirtusCo's autonomous porter robot, including a YDLidar X4 Pro driver written entirely from scratch because no vendor SDK existed. He also designed an ESP32 Kalman filter fusing ToF, ultrasonic, and microwave sensors."
+  },
+  {
+    "category": "Projects",
+    "question": "What is the 32-Bit Tiny GPU project?",
+    "answer": "It is a complete GPU stack built from scratch: a custom 32-bit instruction set architecture, 12 SystemVerilog RTL modules, a C-based assembler, and a neural network trained end-to-end on the simulated hardware. It is his most thoroughly documented project, and the source is available on GitHub."
+  },
+  {
+    "category": "Projects",
+    "question": "What is KULIRMA?",
+    "answer": "KULIRMA is a robot-based mobile sensing system for indoor air-flow measurement, developed as a consultancy project with VM Associates at RSET. The system uses a mobile robotic platform to take distributed air-flow readings across an indoor space. It earned Antony an Award of Appreciation from RSET in August 2025."
+  },
+  {
+    "category": "Skills",
+    "question": "What hardware and embedded platforms does Antony Austin work with?",
+    "answer": "He works at expert level with ESP32, Raspberry Pi, I2C/SPI/UART, PCB design in Altium Designer, and oscilloscope and JTAG debugging. At proficient level he works with STM32, the Nordic nRF5340 with Zephyr RTOS, RTOS and BLE development, and KiCad and Eagle for PCB layout."
+  },
+  {
+    "category": "Skills",
+    "question": "What programming languages does Antony Austin use?",
+    "answer": "He works at expert level in Embedded C, C, and Python; at proficient level in C++ and SystemVerilog; and at competent level in VHDL and Verilog. For AI and machine learning he uses PyTorch, and for web development he uses TypeScript with Next.js and React."
+  },
+  {
+    "category": "Hiring",
+    "question": "Is Antony Austin available for freelance work, and what does he charge?",
+    "answer": "Yes. He offers Arduino and ESP32 firmware from $20, ROS 2 application development from $25, n8n automation and AI agents from $45, PCB design from $100, and AI chatbot development from $500. Web development is quote-based. All services are delivered remotely worldwide and priced in USD."
+  },
+  {
+    "category": "Hiring",
+    "question": "What are Antony Austin's qualifications?",
+    "answer": "He is pursuing a BTech in Applied Electronics and Instrumentation Engineering at RSET, Kakkanad, from 2023 to 2027, with a CGPA of 7.7 out of 10. His certifications include nRF Connect SDK Fundamentals from Nordic Semiconductor and Flutter & Dart from IBM via Coursera."
+  },
+  {
+    "category": "Hiring",
+    "question": "What awards has Antony Austin won?",
+    "answer": "He received an Award of Appreciation from RSET in August 2025 for the KULIRMA robotic air-flow sensing project. He took a podium finish in an RC Electric ATV competition against 12 colleges at Saintgits College in December 2024, and was named Best Performer at Srishti Robotics in 2019."
+  },
+  {
+    "category": "Contact",
+    "question": "How can you contact Antony Austin?",
+    "answer": "Email him at austinantony06@gmail.com, or use the contact form on his website. He is on GitHub as austin207, on LinkedIn as antony-austin-b7287226a, on X as @AntonyAustin19, on Hugging Face as Austin207, and publishes technical writing on Medium at @austinantony06."
+  }
+]
