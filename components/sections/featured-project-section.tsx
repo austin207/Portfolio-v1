@@ -38,9 +38,10 @@ export default function FeaturedProjectSection() {
             What is the 32-Bit Tiny GPU?
           </h2>
           <p className="text-muted-foreground leading-[1.8] max-w-2xl">
-            The 32-Bit Tiny GPU is a complete GPU stack Antony Austin built from scratch: a custom
-            32-bit instruction set architecture, 12 SystemVerilog RTL modules, a C-based assembler,
-            and a neural network trained end-to-end on the simulated hardware.
+            The 32-Bit Tiny GPU is a SIMT graphics processor Antony Austin designed solo, from the
+            instruction set all the way to manufacturable silicon. It has a 28-instruction 32-bit
+            ISA, SystemVerilog RTL verified by 391 cocotb tests, a C-subset compiler called axelcc,
+            and a signoff-clean GDSII on SkyWater 130 nm with 300,884 standard cells.
           </p>
         </div>
 

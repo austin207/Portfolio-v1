@@ -1,6 +1,20 @@
 [
   {
     "year": "2026",
+    "title": "32-Bit Tiny GPU reaches GDSII signoff",
+    "type": "project",
+    "description": "Took the 32-bit SIMT GPU through OpenLane to a signoff-clean GDSII on SkyWater 130 nm — 300,884 cells, zero DRC violations, LVS clean at 188,812 devices.",
+    "icon": "Cpu"
+  },
+  {
+    "year": "2026",
+    "title": "Embedded Systems Internship — NeuroTech Labs",
+    "type": "work",
+    "description": "Began an embedded systems internship covering firmware development and hardware bring-up, running to March 2027.",
+    "icon": "Briefcase"
+  },
+  {
+    "year": "2026",
     "title": "PCM Research Thesis",
     "type": "project",
     "description": "Began M.Tech-level research thesis on electrothermal simulation of Phase Change Memory (PCM) devices in COMSOL Multiphysics at RSET.",
@@ -17,7 +31,7 @@
     "year": "2025",
     "title": "Firmware Developer — ASAT (US Startup)",
     "type": "experience",
-    "description": "Remote firmware internship developing BLE Peripheral firmware on nRF5340 DK using Zephyr RTOS and nRF Connect SDK.",
+    "description": "Remote firmware internship building Bluetooth Low Energy firmware on Nordic SoCs with Zephyr RTOS and the nRF Connect SDK for a US-based startup.",
     "icon": "Briefcase"
   },
   {

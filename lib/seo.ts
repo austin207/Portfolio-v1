@@ -150,7 +150,7 @@ export const personNode = {
   email: "austinantony06@gmail.com",
   image: `${SITE_URL}/Profile.png`,
   birthDate: "2005-03-16",
-  knowsLanguage: ["en"],
+  knowsLanguage: ["en", "ml"],
   nationality: {
     "@type": "Country",
     name: "India",

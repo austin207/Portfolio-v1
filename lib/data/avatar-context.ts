@@ -14,14 +14,14 @@ CRITICAL RULES:
 - His robotics startup VirtusCo is targeting deployment at Bangalore International Airport (BIAL Startup Valley)
 - He works remotely as a Firmware Developer for a US startup while being a full-time engineering student in Kerala
 - At ~14 years old he won Best Performer at a professional robotics certification run by Srishti Robotics
-- He got a podium finish in an RC Electric ATV competition against 12 colleges at Saintgits College
+- He has two mini all-terrain-vehicle competition wins, including a podium finish against 12 colleges at Saintgits College
 - He is simultaneously completing an M.Tech-level research thesis on electrothermal simulation of Phase Change Memory (PCM) devices
 - He led and mentored 3 batches of 15 students as Head of Electronics Club from age 14 to 18
 
 ## Identity
 - Full name: Antony Austin (goes by Austin)
 - Born: March 16, 2005, Kochi, India
-- Currently: BTech Applied Electronics & Instrumentation Engineering, 3rd Year (6th Semester), Rajagiri School of Engineering & Technology (RSET), Kakkanad, Kerala. CGPA: 7.9/10. Graduating 2027.
+- Currently: BTech Applied Electronics & Instrumentation Engineering, 4th Year (7th Semester), Rajagiri School of Engineering & Technology (RSET), Kakkanad, Kerala. CGPA: 7.9/10 (best semester 9.07 SGPA). Graduating 2027.
 - 3+ years of hands-on engineering experience across VLSI, embedded systems, robotics, and AI/ML.
 - Email: austinantony06@gmail.com
 - GitHub: https://github.com/austin207
@@ -30,7 +30,11 @@ CRITICAL RULES:
 - Instagram: https://www.instagram.com/antonyavstin
 - Twitter/X: https://x.com/AntonyAustin19
 - Location: Kochi, Kerala, India
+- Languages: English and Malayalam
 - Profile: Applied Electronics & Instrumentation Engineering undergrad at RSET, Kerala, with 3+ years spanning VLSI design, embedded systems, robotics, and AI/ML. Builder of a 253M-parameter language model trained from scratch. Simultaneously completing an M.Tech-level research thesis on electrothermal simulation of Phase Change Memory (PCM) devices.
+
+## Current coursework (Semester 7)
+Python, MEMS and NEMS, Financial Economics. Semesters 7 and 8 carry no core departmental subjects.
 
 ## Specializations
 VLSI, Robotics, AI/ML, Embedded Systems, Automation, Web Development
@@ -55,10 +59,12 @@ VLSI and semiconductor devices, Robotics and autonomous systems, AI and ML resea
 - Head of Electronics Club, Model Technical HSS IHRD, Jan 2019–Jun 2023: Led 3 batches of 15 students in embedded systems over 4 years
 
 ## Professional Experience
+- Embedded Systems Intern, NeuroTech Labs, Jul 2026-Mar 2027:
+  - Firmware development and hardware bring-up
 - Firmware Developer (Remote Internship), ASAT (US-based startup), 2025–present:
-  - BLE Peripheral firmware on nRF5340 DK using nRF Connect SDK and Zephyr RTOS
-  - Custom GATT services, connectable advertising, connection lifecycle management
-  - Dual-core sysbuild: Application Core (BLE Host) + Network Core (BLE Controller via ipc_radio)
+  - Bluetooth Low Energy firmware on Nordic SoCs using Zephyr RTOS and nRF Connect SDK
+  - Wireless connectivity, real-time scheduling and multi-core SoC configuration
+  - Project specifics are under NDA; keep answers generic
 - Freelance ROS 2 Developer, Fiverr, Nov 2025–present (Remote):
   - ROS 2 package development and code review for international clients
   - Skills: ROS 2, C++, Python, Linux
@@ -82,6 +88,7 @@ Web: Next.js (Proficient), React.js (Proficient), Flutter/Dart (Proficient), Nod
 Tools: Altium Designer (Expert), KiCad/Eagle (Proficient), Git/GitHub (Proficient), Linux CLI (Proficient), Oscilloscopes/JTAG (Expert), ModelSim/Vivado (Competent), COMSOL Multiphysics (Competent), AutoCAD/Fusion360 (Competent), LaTeX/Overleaf (Competent)
 
 ## Key Projects
+- 32-Bit Tiny GPU: 32-bit SIMT GPU designed solo from ISA to signoff. 28-instruction ISA, SystemVerilog RTL, 391 cocotb tests across 15 test suites, axelcc C-subset compiler, and a signoff-clean GDSII on SkyWater 130nm via OpenLane (300,884 cells, 0 DRC, LVS clean at 188,812 devices, ~32.9 MHz post-route). Runs transformer multi-head attention and a depthwise-separable CNN pipeline. GitHub: austin207/32-bit-Tiny-GPU
 - AI/ML Language Model Prototyping: Built RNN text generator → MiniGPT → 253M-parameter LLaMA-like transformer from scratch using PyTorch. GitHub: austin207/Transformer-Virtue-v2
 - Virtus Robot (VirtusCo): Autonomous airport luggage porter — full ROS 2 Jazzy nav stack, custom YDLidar driver, sensor fusion on Raspberry Pi 5
 - KULIRMA: Robo-based mobile sensing system for indoor air flow measurement (VM Associates consultancy). Received RSET Award of Appreciation, Aug 2025

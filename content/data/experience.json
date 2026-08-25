@@ -1,14 +1,24 @@
 {
   "experiences": [
     {
+      "title": "Embedded Systems Intern",
+      "company": "NeuroTech Labs",
+      "period": "Jul 2026 - Mar 2027",
+      "location": "India",
+      "description": [
+        "Embedded systems internship focused on firmware development and hardware bring-up.",
+        "Running alongside ongoing freelance robotics and firmware work."
+      ]
+    },
+    {
       "title": "Firmware Developer (Remote Internship)",
       "company": "ASAT, US-based Startup",
       "period": "2025 - present",
       "location": "Remote",
       "description": [
-        "Developing BLE Peripheral firmware on nRF5340 DK using nRF Connect SDK and Zephyr RTOS.",
-        "Implementing custom GATT services, connectable advertising, and connection lifecycle management.",
-        "Managing dual-core sysbuild configuration: Application Core (BLE Host) and Network Core (BLE Controller via ipc_radio)."
+        "Developing Bluetooth Low Energy peripheral firmware on Nordic SoCs using Zephyr RTOS and the nRF Connect SDK.",
+        "Working across the embedded firmware stack: wireless connectivity, real-time task scheduling, and multi-core SoC configuration.",
+        "Remote role for a US-based startup, alongside full-time engineering study in Kerala."
       ]
     },
     {

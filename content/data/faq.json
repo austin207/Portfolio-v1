@@ -27,12 +27,17 @@
   {
     "category": "Experience",
     "question": "What does Antony Austin do at ASAT?",
-    "answer": "He works as a remote firmware developer intern for ASAT, a US-based startup, while studying full-time in Kerala. He develops BLE peripheral firmware on the Nordic nRF5340 DK using the nRF Connect SDK and Zephyr RTOS, implementing custom GATT services, connectable advertising, and dual-core sysbuild configuration."
+    "answer": "Antony Austin works as a remote firmware developer for ASAT, a US-based startup, while studying full time in Kerala. He builds Bluetooth Low Energy firmware on Nordic SoCs using Zephyr RTOS and the nRF Connect SDK, working across wireless connectivity, real-time scheduling and multi-core SoC configuration. Project specifics are covered by an NDA."
   },
   {
     "category": "Experience",
     "question": "What is Antony Austin's leadership and mentoring experience?",
     "answer": "He led and mentored three batches of 15 students as Head of the Electronics Club at Model Technical HSS IHRD from 2019 to 2023, starting at age 14. He currently serves as an Apptronics event coordinator at RSET, organising science and technology events for the college's technical fest."
+  },
+  {
+    "category": "Experience",
+    "question": "What is Antony Austin doing at NeuroTech Labs?",
+    "answer": "Antony Austin joined NeuroTech Labs in July 2026 as an Embedded Systems Intern, a role running to March 2027. The work covers firmware development and hardware bring-up, alongside his ongoing freelance robotics engagements and his role as CTO of VirtusCo."
   },
   {
     "category": "AI and machine learning",
@@ -52,7 +57,12 @@
   {
     "category": "Projects",
     "question": "What is the 32-Bit Tiny GPU project?",
-    "answer": "It is a complete GPU stack built from scratch: a custom 32-bit instruction set architecture, 12 SystemVerilog RTL modules, a C-based assembler, and a neural network trained end-to-end on the simulated hardware. It is his most thoroughly documented project, and the source is available on GitHub."
+    "answer": "The 32-Bit Tiny GPU is a SIMT graphics processor Antony Austin designed solo, from the instruction set all the way to manufacturable silicon layout. It has a 28-instruction 32-bit ISA, SystemVerilog RTL verified by 391 cocotb tests, a C-subset compiler called axelcc, and a signoff-clean GDSII on SkyWater 130 nm with 300,884 cells."
+  },
+  {
+    "category": "Projects",
+    "question": "Has Antony Austin taken a chip design all the way to silicon layout?",
+    "answer": "Yes. He took his 32-bit SIMT GPU through the open-source OpenLane 2.3.10 flow to a signoff-clean GDSII on the SkyWater 130 nm process, placing and routing 300,884 standard cells with zero Magic DRC violations and an LVS-clean result at 188,812 devices. Post-route timing closes at roughly 32.9 MHz."
   },
   {
     "category": "Projects",
@@ -77,7 +87,7 @@
   {
     "category": "Hiring",
     "question": "What are Antony Austin's qualifications?",
-    "answer": "He is pursuing a BTech in Applied Electronics and Instrumentation Engineering at RSET, Kakkanad, from 2023 to 2027, with a CGPA of 7.9 out of 10. His certifications include nRF Connect SDK Fundamentals from Nordic Semiconductor and Flutter & Dart from IBM via Coursera."
+    "answer": "Antony Austin is in his seventh semester of a BTech in Applied Electronics and Instrumentation Engineering at RSET, Kakkanad, running 2023 to 2027, with a CGPA of 7.9 out of 10 and a best semester of 9.07 SGPA. He holds nRF Connect SDK Fundamentals from Nordic Semiconductor."
   },
   {
     "category": "Hiring",
