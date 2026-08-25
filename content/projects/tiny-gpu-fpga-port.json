@@ -1,0 +1,99 @@
+{
+  "title": "Tiny GPU FPGA Port — Sipeed Tang Nano 20K",
+  "description": "Porting a custom 32-bit SIMT GPU from simulation onto a Gowin GW2AR-18C FPGA: a resource-driven redesign from 4 cores × 4 threads down to 1 × 1 with sequential block execution, plus a hardware top level with clock, memory init, launch FSM and UART readback.",
+  "image": "/project-images/32-bit-tiny-gpu/component-gpu.jpg",
+  "tags": [
+    "FPGA",
+    "Gowin",
+    "Tang Nano 20K",
+    "SystemVerilog",
+    "Verilog",
+    "Synthesis",
+    "UART",
+    "Hardware Bring-up"
+  ],
+  "status": "Build flow complete — bring-up paused while compiler work continues",
+  "duration": "2026",
+  "category": "FPGA & Hardware",
+  "github": "https://github.com/austin207/32-bit-Tiny-GPU",
+  "overview": "This is the FPGA arm of the 32-Bit Tiny GPU project: taking a design that was written for simulation and an ASIC flow, and making it fit and run on a real, small, cheap FPGA.\n\nThe target is a Sipeed Tang Nano 20K — a Gowin GW2AR-18C QN88 with a 27 MHz onboard oscillator. That board has far fewer LUTs, registers and routing resources than the simulation configuration assumes, so the port is not a recompile. The design drops from 4 cores × 4 threads executing in parallel to a single core with a single thread executing four blocks sequentially, which trades throughput for fit while keeping the programming model and the ISA identical.\n\nAround the GPU core sits a hardware top level that does the things a testbench used to do for free: bring up the clock, initialise program and data memory from hex images, drive a launch FSM to start execution, light status LEDs, and stream results back over UART so the board can be observed without a debugger.\n\nThe port is a separate concern from the ASIC flow — the same RTL also goes through OpenLane to a signoff-clean GDSII on SkyWater 130 nm.",
+  "objectives": [
+    "Fit a design written for 4 cores × 4 threads onto a resource-constrained Gowin GW2AR-18C",
+    "Preserve the ISA and programming model while changing the execution configuration",
+    "Build a synthesis-ready flattened Verilog view of a SystemVerilog design for toolchain compatibility",
+    "Write an FPGA top level handling clock, memory initialisation, launch sequencing, LEDs and UART",
+    "Produce pin constraints and a repeatable build flow through Gowin EDA to a flashed board",
+    "Get observable output off the hardware over UART rather than inferring behaviour"
+  ],
+  "technologies": [
+    {
+      "name": "Sipeed Tang Nano 20K",
+      "description": "Target board — Gowin GW2AR-18C QN88 FPGA with a 27 MHz onboard clock."
+    },
+    {
+      "name": "Gowin EDA",
+      "description": "Vendor toolchain for synthesis, place and route, bitstream generation and flashing."
+    },
+    {
+      "name": "SystemVerilog and Verilog",
+      "description": "gpu_fpga_top.sv wraps the core; gpu_combined.v is a flattened synthesis-ready view for tools with partial SystemVerilog support."
+    },
+    {
+      "name": "UART",
+      "description": "Result readback path so kernel output is observable on real hardware."
+    },
+    {
+      "name": "Pin constraints",
+      "description": "gpu_top.cst maps clock, LEDs and UART to Tang Nano 20K pins."
+    }
+  ],
+  "challenges": [
+    {
+      "title": "The simulation configuration does not fit",
+      "description": "The full design runs 4 cores with 4 threads each. The Tang Nano 20K's LUT, register and routing budget cannot hold that, and simply reducing parameters risks changing what the kernels mean.",
+      "solution": "Reconfigured to a single core with a single thread and moved to sequential execution of four blocks. Throughput drops, but the ISA, kernel binaries and programming model stay identical, so a kernel verified in simulation is the same kernel on the board."
+    },
+    {
+      "title": "Toolchain SystemVerilog support",
+      "description": "The RTL is written in SystemVerilog with parameterised modules, but vendor FPGA flows vary in how much of the language they accept — and a synthesis failure deep in a vendor tool is far less legible than a simulator error.",
+      "solution": "Generated gpu_combined.v, a flattened synthesis-ready Verilog view of the design, so the FPGA flow consumes a form the toolchain handles reliably while simulation keeps using the full SystemVerilog source."
+    },
+    {
+      "title": "A testbench provides everything real hardware does not",
+      "description": "In simulation, memory is preloaded, execution is kicked off by the testbench, and results are read straight out of signals. On a board none of that exists — the design has to initialise itself and expose its own results.",
+      "solution": "Wrote an FPGA top level that loads program and data memory from hex images, sequences kernel launch through an FSM, drives status LEDs, and streams results over UART so behaviour is observable without a debugger attached."
+    }
+  ],
+  "results": [
+    "Complete documented build flow from AXEL kernel hex through Gowin EDA synthesis, place and route, bitstream and flashing",
+    "Single-core, single-thread configuration executing four blocks sequentially, fitting the Gowin GW2AR-18C resource budget",
+    "Flattened synthesis-ready gpu_combined.v generated from the SystemVerilog source for toolchain compatibility",
+    "FPGA top level handling clock, program and data memory initialisation, launch FSM, status LEDs and UART output",
+    "Tang Nano 20K pin constraints file mapping clock, LEDs and UART",
+    "Post-synthesis timing reported as acceptable for the board's 27 MHz clock",
+    "Same RTL also taken through OpenLane to a signoff-clean GDSII on SkyWater 130 nm — two independent implementation paths from one source"
+  ],
+  "futureWork": [
+    "Finish on-board bring-up — the port is paused while compiler and kernel work takes priority",
+    "Push the configuration back up toward multiple threads per core as resource use is trimmed",
+    "Add on-board performance counters so measured cycle counts can be compared against simulation",
+    "Explore a larger FPGA to run the full 4 × 4 parallel configuration"
+  ],
+  "repositories": [
+    {
+      "name": "32-bit-Tiny-GPU",
+      "url": "https://github.com/austin207/32-bit-Tiny-GPU",
+      "description": "FPGA build files live in fpga/ — top level, flattened Verilog, memory images and Tang Nano 20K constraints."
+    }
+  ],
+  "featured": false,
+  "priority": 6,
+  "documentationStatus": "complete",
+  "relatedProjects": [
+    {
+      "slug": "32-bit-tiny-gpu",
+      "title": "32-Bit Tiny GPU",
+      "description": "The source RTL, which also goes through OpenLane to a Sky130 GDSII."
+    }
+  ]
+}

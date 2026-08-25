@@ -17,7 +17,7 @@ const project = {
   github: "https://github.com/austin207/32-bit-Tiny-GPU",
   projectUrl: "/projects/32-bit-tiny-gpu",
   stats: [
-    { label: "cocotb tests passing", value: "323" },
+    { label: "cocotb tests", value: "391" },
     { label: "Standard cells", value: "300,884" },
     { label: "Magic DRC violations", value: "0" },
     { label: "Post-route, typical", value: "32.9 MHz" },
@@ -42,7 +42,7 @@ export default function FeaturedProjectSection() {
           <p className="text-muted-foreground leading-[1.8] max-w-2xl">
             The 32-Bit Tiny GPU is a SIMT graphics processor Antony Austin built from scratch
             in SystemVerilog, designed solo from the instruction set all the way to a
-            manufacturable silicon layout — 323 passing cocotb tests, the axelcc C-subset
+            manufacturable silicon layout — 391 cocotb tests, the axelcc C-subset
             compiler, and a signoff-clean GDSII on SkyWater 130 nm with 300,884 standard cells.
           </p>
         </div>

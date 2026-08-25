@@ -1,0 +1,90 @@
+{
+  "title": "AXEL — Assembler for a Custom 32-Bit GPU ISA",
+  "description": "A two-layer C assembler that encodes kernels for a custom 32-bit SIMT GPU: a readable AXEL API on top, a bit-level instruction emitter underneath, producing .hex images the GPU fetches directly in simulation.",
+  "image": "/project-images/32-bit-tiny-gpu/instruction_encoding.jpg",
+  "tags": [
+    "Assembler",
+    "C",
+    "Instruction Encoding",
+    "ISA Design",
+    "GPU Architecture",
+    "Toolchain"
+  ],
+  "status": "Working — drives every kernel in the GPU regression suite",
+  "duration": "2025 - Present",
+  "category": "Compilers & Toolchain",
+  "github": "https://github.com/austin207/32-bit-Tiny-GPU",
+  "overview": "AXEL is the assembler layer for the 32-Bit Tiny GPU. It turns kernel descriptions into 32-bit encoded instruction words and writes them into .hex files, which the cocotb program-memory model loads and the GPU fetches during simulation.\n\nIt is deliberately split into two layers. The AXEL API layer exposes readable functions — axel_add, axel_ldr, axel_brnzp, axel_sync, axel_ret — so a kernel reads as intent rather than as bit fields. Beneath it, the gpu_asm layer does the actual encoding, packing opcode, register and immediate fields into the four instruction formats the ISA defines: R-type for register ALU operations, I-type for loads, stores and immediates, B-type for the SIMT branch, and N-type for NOP, RET and SYNC.\n\nThat separation is the point. The API layer can stay stable and readable while the encoder absorbs ISA changes, and every encoding rule lives in exactly one place — so an opcode renumbering is a single-file change rather than a hunt through kernel source.\n\nAXEL is the lowest layer of a three-part toolchain: it sits beneath the axelcc C compiler and targets the 32-Bit Tiny GPU.",
+  "objectives": [
+    "Encode a custom 32-bit fixed-width ISA with a 6-bit opcode field across four instruction formats",
+    "Separate a readable authoring API from the bit-level encoder so ISA changes stay contained",
+    "Emit .hex images the cocotb program-memory model can load without a conversion step",
+    "Provide the kernel programs that exercise the GPU's regression suite, from a minimal add to full neural-network layers",
+    "Stay usable by hand while also serving as the backend the axelcc compiler emits through"
+  ],
+  "technologies": [
+    {
+      "name": "C",
+      "description": "Both layers are plain C — axel.h/axel.c for the API, gpu_asm.h/gpu_asm.c for the encoder."
+    },
+    {
+      "name": "Instruction encoding",
+      "description": "Packs 32-bit words across R, I, B and N formats with a 6-bit opcode field."
+    },
+    {
+      "name": "Intel HEX output",
+      "description": "Emits .hex program images loaded directly by the cocotb program-memory model."
+    },
+    {
+      "name": "Custom AXEL ISA",
+      "description": "Targets the same instruction set the GPU's decoder implements — 30 opcodes as currently decoded in RTL."
+    }
+  ],
+  "challenges": [
+    {
+      "title": "Keeping the encoder and the hardware decoder in agreement",
+      "description": "An assembler and a decoder are two independent implementations of the same encoding. Any disagreement — a field width, a bit position, an opcode value — produces a kernel that assembles cleanly and then executes as something else entirely on the RTL, which is far harder to debug than a build error.",
+      "solution": "Encoding lives in a single layer (gpu_asm) rather than being spread through kernel source, and every assembled kernel is executed against the RTL in the regression suite. A mismatch fails a hardware test rather than silently producing wrong numbers."
+    },
+    {
+      "title": "Writing kernels by hand does not scale",
+      "description": "Hand-assembling was fine for a minimal add kernel, but neural-network layers meant long sequences of loads, multiply-accumulates and stores where a single transposed register number is invisible on inspection.",
+      "solution": "The readable AXEL API layer made kernels reviewable, and the assembler eventually became the emission target for the axelcc C compiler — so the same encoder now serves both hand-written and compiled kernels."
+    }
+  ],
+  "results": [
+    "Two-layer design in C: a readable AXEL API over a dedicated bit-level instruction encoder",
+    "Encodes all four instruction formats — R-type ALU, I-type load/store/immediate, B-type SIMT branch, N-type NOP/RET/SYNC",
+    "Produces .hex program images consumed directly by the GPU's cocotb program-memory model",
+    "Supplies the kernel programs behind the GPU regression suite, from a minimal add up to Q8 fixed-point neural-network layers",
+    "Serves as the emission backend for the axelcc compiler, so hand-written and compiled kernels share one encoder",
+    "Encoding rules are centralised, so an ISA change is a single-file edit rather than a sweep through kernel source"
+  ],
+  "futureWork": [
+    "Add symbolic labels and a full two-pass resolve so branches stop needing manual offsets",
+    "Emit a disassembler from the same encoding tables to close the loop on round-trip verification",
+    "Extend coverage as the ISA grows beyond the currently decoded opcode range"
+  ],
+  "repositories": [
+    {
+      "name": "32-bit-Tiny-GPU",
+      "url": "https://github.com/austin207/32-bit-Tiny-GPU",
+      "description": "The assembler lives in assembler/, with the API layer in include/axel.h and the encoder in src/gpu_asm.c."
+    }
+  ],
+  "featured": false,
+  "priority": 7,
+  "documentationStatus": "complete",
+  "relatedProjects": [
+    {
+      "slug": "32-bit-tiny-gpu",
+      "title": "32-Bit Tiny GPU",
+      "description": "The SIMT GPU whose ISA this assembler encodes."
+    },
+    {
+      "slug": "axelcc-compiler",
+      "title": "axelcc — C Subset Compiler",
+      "description": "The C compiler that emits through this assembler's encoder."
+    }
+  ]
+}

@@ -31,6 +31,13 @@ export interface ProjectDetail {
     description: string;
   }>;
   gallery?: string[];
+  /** Sibling projects on this site. Used to link the GPU to its toolchain and
+   *  FPGA port, which are documented as projects in their own right. */
+  relatedProjects?: Array<{
+    slug: string;
+    title: string;
+    description: string;
+  }>;
   documentationStatus?: "coming_soon" | "complete";
 }
 

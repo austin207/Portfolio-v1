@@ -1,0 +1,103 @@
+{
+  "title": "axelcc — C Subset Compiler for a Custom GPU ISA",
+  "description": "A C-like compiler written in C that lowers kernel-oriented source to machine code for a custom 32-bit SIMT GPU ISA — full lexer, parser, AST, semantic analysis, register allocation and codegen, verified by running its output on the GPU's own RTL.",
+  "image": "/project-images/32-bit-tiny-gpu/software_layer_architecture.jpg",
+  "tags": [
+    "Compilers",
+    "C",
+    "Code Generation",
+    "Register Allocation",
+    "SIMT",
+    "GPU Architecture",
+    "cocotb"
+  ],
+  "status": "Working — 9 of 9 compiler kernels verified on RTL",
+  "duration": "2026 - Present",
+  "category": "Compilers & Toolchain",
+  "github": "https://github.com/austin207/32-bit-Tiny-GPU",
+  "overview": "axelcc is a compiler for a restricted, kernel-oriented subset of C that targets the custom instruction set of the 32-Bit Tiny GPU. It is written in C and implements the full front-to-back pipeline: lexer, parser, AST construction, semantic checking, register allocation, and code generation.\n\nIt emits two formats — .hex instruction files consumed directly by the cocotb RTL testbench, and .axelbin binary kernels in a custom AXLB container. The point of the project is that compiled output is not validated against a software emulator: every kernel is executed on the actual GPU RTL, so a codegen bug shows up as a hardware-level test failure.\n\nThe compiler supports if/else across both branches under uniform and divergent data, for loops, and three builtins that lower to dedicated hardware: dot4() to the packed INT8x4 DOT4 opcode, fma() to the scalar fused multiply-add, and mmio_matmul() to a full launch-and-poll sequence against the GPU's memory-mapped matrix multiply accelerator.\n\nThis is the compiler half of a three-part toolchain, sitting above the AXEL assembler and targeting the 32-Bit Tiny GPU.",
+  "objectives": [
+    "Write a complete compiler front end in C — lexer, parser, AST, semantic analysis — with no parser generator",
+    "Allocate registers and generate code for a custom SIMT ISA with a 6-bit opcode field",
+    "Lower high-level builtins onto dedicated hardware instructions rather than emulating them in software",
+    "Emit both simulator-consumable .hex and a binary .axelbin kernel container",
+    "Verify every compiler feature by executing its output on the GPU RTL, not on an emulator",
+    "Make the build reproducible so a stale compiler binary can never silently produce a passing test"
+  ],
+  "technologies": [
+    {
+      "name": "C",
+      "description": "The compiler itself is written in C — hand-written lexer and recursive-descent parser, no lex/yacc."
+    },
+    {
+      "name": "Custom AXEL ISA",
+      "description": "Target architecture: 32-bit fixed-width instructions with a 6-bit opcode field across R, I, B and N formats."
+    },
+    {
+      "name": "Register allocation",
+      "description": "Allocates the GPU's register file across kernel temporaries, with constant folding and register reuse in the quality pass."
+    },
+    {
+      "name": "AXLB binary format",
+      "description": "Custom container for compiled kernels, alongside plain .hex output for the RTL testbench."
+    },
+    {
+      "name": "cocotb",
+      "description": "Compiler output is executed against the Top_level_GPU testbench, so correctness is measured on hardware behaviour."
+    }
+  ],
+  "challenges": [
+    {
+      "title": "The else branch silently never executed",
+      "description": "Code generation for STMT_IF emitted no instruction to skip the then body when the branch was not taken. Control flow simply walked through both bodies, so the then body's write always landed last and won — regardless of what the condition actually evaluated to. Both branches appeared to 'work' in any test that only checked the then case.",
+      "solution": "Emitted an unconditional BRnzp after the else body to jump past the then body, giving the two arms a correct mutually-exclusive layout. The bug only surfaced once a regression test exercised the false branch specifically, which is why both branches now have dedicated tests."
+    },
+    {
+      "title": "dot4() was compiling to the wrong instruction",
+      "description": "Calls to the dot4() builtin were being lowered through emit_fma() to opcode 0x0C — a single 32-bit scalar multiply-add — instead of the packed INT8x4 DOT4 instruction at 0x16. The kernels still produced plausible-looking numbers, so the substitution was invisible until the results were checked against a reference.",
+      "solution": "Added a dedicated emit_dot() and wired EXPR_DOT4 to it, so the builtin reaches the hardware instruction it was written for."
+    },
+    {
+      "title": "A test hung for 100,000 cycles and the compiler was innocent",
+      "description": "The matmul test spun until timeout. The obvious conclusion was a codegen bug in the loop or the accelerator handshake, but the compiler logic was correct: the axelcc binary on disk had gone stale relative to a fix in codegen.c and was never rebuilt before being used to recompile the kernel. The test was exercising an old compiler.",
+      "solution": "Closed it structurally rather than by hand: the build target now always rebuilds axelcc from source and recompiles every example kernel before any RTL test runs, so a stale binary cannot produce a misleading result again."
+    }
+  ],
+  "results": [
+    "Nine compiler-generated kernels pass on the GPU RTL: relu, loopsum, fmatest, if/else on both branches, less-than comparison on both branches, matmul and dot4",
+    "Full compilation pipeline working end to end — lexer, parser, AST, semantic checks, register allocation, code generation",
+    "Emits both .hex for RTL simulation and .axelbin kernels in the AXLB container format",
+    "Builtins lower to real hardware: dot4() to the packed INT8x4 DOT4 opcode, fma() to scalar FMA, mmio_matmul() to the accelerator launch and poll sequence",
+    "Handles if/else under both uniform and divergent data — the case that matters on a SIMT machine",
+    "A kernel-parameter ABI lets one compiled binary serve multiple launch configurations, with the host writing different parameter base addresses per launch",
+    "Golden-output tests run ahead of the RTL suite, and the build always rebuilds the compiler from source first"
+  ],
+  "futureWork": [
+    "Grow the supported C subset — richer expressions, more loop forms than the current less-than condition",
+    "Move from hand-written kernel sets toward a general TFLite-to-axelcc backend",
+    "Add an optimisation pass beyond the current constant folding and register reuse",
+    "Improve diagnostics so semantic errors point at source locations"
+  ],
+  "repositories": [
+    {
+      "name": "32-bit-Tiny-GPU",
+      "url": "https://github.com/austin207/32-bit-Tiny-GPU",
+      "description": "The compiler lives in axelcc/. Its output runs on the GPU RTL in the same repository."
+    }
+  ],
+  "featured": false,
+  "priority": 8,
+  "documentationStatus": "complete",
+  "relatedProjects": [
+    {
+      "slug": "32-bit-tiny-gpu",
+      "title": "32-Bit Tiny GPU",
+      "description": "The SIMT GPU this compiler targets — the RTL its output is verified against."
+    },
+    {
+      "slug": "axel-assembler",
+      "title": "AXEL — Assembler",
+      "description": "The encoding layer beneath this compiler."
+    }
+  ]
+}

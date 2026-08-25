@@ -1,6 +1,6 @@
 {
   "title": "32-Bit Tiny GPU",
-  "description": "A 32-bit SIMT GPU built from scratch in SystemVerilog: custom ISA, AXEL assembler, axelcc C-subset compiler, 323 passing cocotb tests, and a full RTL-to-GDSII run on SkyWater 130 nm with zero DRC violations.",
+  "description": "A 32-bit SIMT GPU built from scratch in SystemVerilog: custom ISA, AXEL assembler, axelcc C-subset compiler, 391 cocotb tests, and a full RTL-to-GDSII run on SkyWater 130 nm with zero DRC violations.",
   "image": "/project-images/32-bit-tiny-gpu/GPU.png",
   "tags": [
     "SystemVerilog",
@@ -21,7 +21,7 @@
   "github": "https://github.com/austin207/32-bit-Tiny-GPU",
   "overview": "32-Bit Tiny GPU is a custom 32-bit SIMT GPU built from scratch in SystemVerilog — designed solo across every layer, from the instruction set to a manufacturable silicon layout.\n\nThe design implements true SIMT execution: branch divergence is handled by a hardware warp stack with reconvergence, and a round-robin arbiter mediates memory access between warps. Around the core sit an MMIO matmul accelerator, a cycle-accurate execution trace logger, and a hardware kernel cycle counter.\n\nSoftware is a full stack of its own: AXEL, a C-library assembler, and axelcc, a C-subset compiler that emits kernels for the GPU's own ISA. Workloads are Q8 fixed-point neural networks, up to a chained 64-to-16-to-10 classifier running end to end on the RTL.\n\nThe design has been taken all the way through OpenLane 2 to a signoff-clean GDSII on SkyWater Sky130A, and also targets the Sipeed Tang Nano 20K FPGA.",
   "objectives": [
-    "Design a compact fixed-width 32-bit SIMT ISA with a 6-bit opcode field, spanning arithmetic, logic, shifts, memory, control flow, and an ML-oriented DOT4 extension",
+    "Design a 30-instruction fixed-width 32-bit SIMT ISA with a 6-bit opcode field, spanning arithmetic, logic, shifts, memory, control flow, subroutine call and return, and an ML-oriented DOT4 extension",
     "Implement the full RTL datapath in SystemVerilog — dispatcher, scheduler, fetcher, decoder, ALU, LSU, register file, program counter, memory controller, warp stack, DCR and core",
     "Handle SIMT branch divergence properly, with a hardware warp stack and reconvergence rather than lockstep-only execution",
     "Build a software stack on top: the AXEL assembler and axelcc, a C-subset compiler targeting the GPU's ISA",
@@ -104,7 +104,8 @@
     }
   ],
   "results": [
-    "323 of 323 cocotb tests passing across 13 RTL module suites, from a fully fresh build — the Makefile rebuilds axelcc and recompiles every kernel before any test runs",
+    "391 cocotb tests across 15 RTL module suites, counted from the test sources themselves; the root Makefile rebuilds axelcc and recompiles every kernel before any test runs",
+    "30 distinct opcodes implemented in the decoder RTL (0x00 through 0x1D, no gaps) across four instruction formats",
     "Signoff-clean GDSII on SkyWater Sky130A (130 nm, sky130_fd_sc_hd) through OpenLane 2.3.10",
     "300,884 standard cells on a 7.97 mm2 die, roughly 2.82 x 2.82 mm, at 27.9% core utilisation",
     "Zero Magic DRC violations, and LVS reports circuits match uniquely across 188,812 devices and 189,107 nets",
@@ -127,7 +128,7 @@
     {
       "name": "32-bit-Tiny-GPU",
       "url": "https://github.com/austin207/32-bit-Tiny-GPU",
-      "description": "Complete GPU stack: ISA spec, SystemVerilog RTL, AXEL assembler, axelcc compiler, Q8 neural-network kernels, 323 cocotb tests, Sky130A GDSII and an FPGA target"
+      "description": "Complete GPU stack: ISA spec, SystemVerilog RTL, AXEL assembler, axelcc compiler, Q8 neural-network kernels, 391 cocotb tests, Sky130A GDSII and an FPGA target"
     }
   ],
   "gallery": [
@@ -150,5 +151,22 @@
   ],
   "featured": true,
   "priority": 100,
-  "documentationStatus": "complete"
+  "documentationStatus": "complete",
+  "relatedProjects": [
+    {
+      "slug": "axelcc-compiler",
+      "title": "axelcc — C Subset Compiler",
+      "description": "The compiler that lowers kernel C to this GPU's ISA, verified by running its output on this RTL."
+    },
+    {
+      "slug": "axel-assembler",
+      "title": "AXEL — Assembler",
+      "description": "The two-layer C assembler that encodes instructions for this ISA and emits the .hex images the GPU fetches."
+    },
+    {
+      "slug": "tiny-gpu-fpga-port",
+      "title": "FPGA Port — Tang Nano 20K",
+      "description": "Porting this RTL onto a Gowin GW2AR-18C, reconfigured to fit a resource-constrained board."
+    }
+  ]
 }

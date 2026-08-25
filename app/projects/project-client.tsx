@@ -4,7 +4,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { ArrowLeft, Github, Calendar, Code, Zap, Target, CheckCircle, AlertCircle, ExternalLink, Play, Clock } from "lucide-react"
+import { ArrowLeft, Github, Calendar, Code, Zap, Target, CheckCircle, AlertCircle, ExternalLink, Play, Clock, ArrowUpRight } from "lucide-react"
 import Image from "next/image"
 import type { ProjectWithMetadata } from "@/lib/data/projects"
 
@@ -183,6 +183,24 @@ export default function ProjectClient({ project }: ProjectClientProps) {
                                       <div className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
                                         <Github className="h-4 w-4" />
                                         <span>{repo.name}</span>
+                                      </div>
+                                    </Link>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                            {project.relatedProjects && project.relatedProjects.length > 0 && (
+                              <div>
+                                <h4 className="font-mono text-[11px] text-muted-foreground uppercase tracking-widest mb-2">Part of this project</h4>
+                                <div className="space-y-3">
+                                  {project.relatedProjects.map((rel) => (
+                                    <Link key={rel.slug} href={`/projects/${rel.slug}`} className="block group">
+                                      <div className="flex items-start gap-2">
+                                        <ArrowUpRight className="h-3.5 w-3.5 mt-1 shrink-0 text-muted-foreground group-hover:text-foreground transition-colors" />
+                                        <div>
+                                          <p className="text-sm text-foreground group-hover:opacity-70 transition-opacity">{rel.title}</p>
+                                          <p className="text-[13px] text-muted-foreground leading-relaxed">{rel.description}</p>
+                                        </div>
                                       </div>
                                     </Link>
                                   ))}

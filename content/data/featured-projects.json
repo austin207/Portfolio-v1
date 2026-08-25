@@ -1,7 +1,7 @@
 [
   {
     "title": "32-Bit Tiny GPU",
-    "description": "A 32-bit SIMT GPU built from scratch in SystemVerilog: custom ISA, AXEL assembler, axelcc C-subset compiler, 323 passing cocotb tests, and a full RTL-to-GDSII run on SkyWater 130 nm with zero DRC violations.",
+    "description": "A 32-bit SIMT GPU built from scratch in SystemVerilog: custom ISA, AXEL assembler, axelcc C-subset compiler, 391 cocotb tests, and a full RTL-to-GDSII run on SkyWater 130 nm with zero DRC violations.",
     "image": "/project-images/32-bit-tiny-gpu/hero.jpg",
     "tags": [
       "SystemVerilog",

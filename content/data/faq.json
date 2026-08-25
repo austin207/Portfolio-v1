@@ -57,7 +57,7 @@
   {
     "category": "Projects",
     "question": "What is the 32-Bit Tiny GPU project?",
-    "answer": "The 32-Bit Tiny GPU is a SIMT graphics processor Antony Austin built from scratch in SystemVerilog, designed solo from the instruction set to a manufacturable silicon layout. It has true SIMT branch divergence with warp-stack reconvergence, the axelcc C-subset compiler, 323 passing cocotb tests, and a signoff-clean GDSII on SkyWater 130 nm."
+    "answer": "The 32-Bit Tiny GPU is a SIMT graphics processor Antony Austin built from scratch in SystemVerilog, designed solo from the instruction set to a manufacturable silicon layout. It has true SIMT branch divergence with warp-stack reconvergence, the axelcc C-subset compiler, 391 cocotb tests, and a signoff-clean GDSII on SkyWater 130 nm."
   },
   {
     "category": "Projects",
